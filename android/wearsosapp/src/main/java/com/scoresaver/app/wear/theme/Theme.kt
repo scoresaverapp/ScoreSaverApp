@@ -1,4 +1,4 @@
-package com.scoresaver.app.presentation.theme
+package com.scoresaver.app.wear.theme
 
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.MaterialTheme

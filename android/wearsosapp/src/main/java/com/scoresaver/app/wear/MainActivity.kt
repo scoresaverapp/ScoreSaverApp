@@ -4,7 +4,7 @@
  * changes to the libraries and their usages.
  */
 
-package com.scoresaver.app.presentation
+package com.scoresaver.app.wear
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -25,7 +25,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import com.scoresaver.app.R
-import com.scoresaver.app.presentation.theme.AndroidTheme
+import com.scoresaver.app.wear.theme.AndroidTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "android"
 include(":app")
 include(":wearsosapp")
+include(":shared")
