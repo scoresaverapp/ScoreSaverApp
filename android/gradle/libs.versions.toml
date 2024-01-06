@@ -1,5 +1,6 @@
 [versions]
 agp = "8.4.0-alpha02"
+composeNavigation = "1.2.1"
 kotlin = "1.9.0"
 coreKtx = "1.12.0"
 junit = "4.13.2"
@@ -8,13 +9,26 @@ espressoCore = "3.5.1"
 lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 composeBom = "2023.08.00"
+lifecycleViewmodelCompose = "2.6.2"
 playServicesWearable = "18.0.0"
 composeMaterial = "1.2.1"
 composeFoundation = "1.2.1"
 coreSplashscreen = "1.0.1"
+room_version = "2.6.1"
+daggerHilt = "2.48.1"
+parcelize = "1.8.0"
+ksp-version = "1.8.10-1.0.9"
 
 [libraries]
+androidx-compose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "composeNavigation" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "daggerHilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "daggerHilt" }
+room = {group = "androidx.room", name = "room-runtime", version.ref = "room_version"}
+room-compiler = {group = "androidx.room", name = "room-compiler", version.ref = "room_version"}
+room-kapt = {group = "androidx.room", name = "room-compiler", version.ref = "room_version"}
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room_version" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -35,5 +49,8 @@ androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscree
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
-jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+parcelize = {id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize"}
+hiltDagger = { id  = "com.google.dagger.hilt.android", version.ref = "daggerHilt"}
 
