@@ -7,11 +7,11 @@ coreKtx = "1.12.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.6.1"
-activityCompose = "1.8.0"
-composeBom = "2023.08.00"
+lifecycleRuntimeKtx = "2.6.2"
+activityCompose = "1.8.2"
+composeBom = "2023.10.01"
 lifecycleViewmodelCompose = "2.6.2"
-playServicesWearable = "18.0.0"
+playServicesWearable = "18.1.0"
 composeMaterial = "1.2.1"
 composeFoundation = "1.2.1"
 coreSplashscreen = "1.0.1"
@@ -21,6 +21,7 @@ parcelize = "1.8.0"
 ksp-version = "1.8.10-1.0.9"
 appcompat = "1.6.1"
 material = "1.11.0"
+uiGraphicsAndroid = "1.5.4"
 
 [libraries]
 androidx-compose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "composeNavigation" }
@@ -52,6 +53,7 @@ androidx-compose-foundation = { group = "androidx.wear.compose", name = "compose
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-ui-graphics-android = { group = "androidx.compose.ui", name = "ui-graphics-android", version.ref = "uiGraphicsAndroid" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

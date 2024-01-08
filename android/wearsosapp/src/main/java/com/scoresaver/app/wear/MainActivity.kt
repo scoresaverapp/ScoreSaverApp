@@ -6,68 +6,77 @@
 
 package com.scoresaver.app.wear
 
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.TimeText
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import com.scoresaver.app.R
-import com.scoresaver.app.wear.theme.AndroidTheme
+import com.scoresaver.app.util.LightBlack
+import com.scoresaver.app.util.Orange
+import com.scoresaver.app.wear.navigation.NavGraph
+import com.scoresaver.core_ui.components.icons.CustomImageVectorIcon
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
 
+    private val PREFS_NAME = "ScoreSaverApp"
+    private val FIRST_LAUNCH_KEY = "isFirstLaunch"
+
+    @SuppressLint("NewApi")
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setTheme(android.R.style.Theme_DeviceDefault)
-
         setContent {
-            WearApp("Android")
+            SplashScreen()
+            NavGraph(isFirstLaunch())
+            if (isFirstLaunch()) {
+                markFirstLaunchDone()
+            }
         }
+    }
+
+    private fun isFirstLaunch(): Boolean {
+        val prefs: SharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return prefs.getBoolean(FIRST_LAUNCH_KEY, true)
+    }
+
+    private fun markFirstLaunchDone() {
+        val prefs: SharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = prefs.edit()
+        editor.putBoolean(FIRST_LAUNCH_KEY, false)
+        editor.apply()
     }
 }
 
 @Composable
-fun WearApp(greetingName: String) {
-    AndroidTheme {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.background),
-            contentAlignment = Alignment.Center
-        ) {
-            TimeText()
-            Greeting(greetingName = greetingName)
-        }
+fun SplashScreen() {
+    LaunchedEffect(key1 = true) {
+        delay(3000)
     }
-}
-
-@Composable
-fun Greeting(greetingName: String) {
-    Text(
-        modifier = Modifier.fillMaxWidth(),
-        textAlign = TextAlign.Center,
-        color = MaterialTheme.colors.primary,
-        text = stringResource(R.string.hello_world, greetingName)
-    )
-}
-
-@Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)
-@Composable
-fun DefaultPreview() {
-    WearApp("Preview Android")
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(LightBlack),
+        contentAlignment = Alignment.Center
+    ) {
+        CustomImageVectorIcon(
+            imageVector = ImageVector.vectorResource(id =R.drawable.ic_logo),
+            contentDescription = "",
+            color = Orange
+        )
+    }
 }
