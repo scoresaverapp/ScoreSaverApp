@@ -1,4 +1,4 @@
-package com.scoresaver.app.wear.features.user_settings
+package com.scoresaver.app.wear.features.user_settings.ui
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize

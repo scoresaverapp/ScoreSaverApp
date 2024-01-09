@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.scoresaver.app.R
 import com.scoresaver.app.util.LightBlack
 import com.scoresaver.app.util.Orange
@@ -40,8 +41,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        installSplashScreen()
+
         setContent {
-            SplashScreen()
+            //SplashScreen()
             NavGraph(isFirstLaunch())
             if (isFirstLaunch()) {
                 markFirstLaunchDone()

@@ -1,4 +1,4 @@
-package com.scoresaver.app.wear.features.user_settings
+package com.scoresaver.app.wear.features.user_settings.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -130,7 +130,7 @@ internal fun WeightScreen(
                         text = stringResource(id = R.string.next_step),
                         onPress = {
                             viewModel.insertDataUsers()
-                            navController.navigate(Screen.GenderScreen.route) {
+                            navController.navigate(Screen.HomeScreen.route) {
                                 popUpTo(Screen.GenderScreen.route) {
                                     inclusive = true
                                 }

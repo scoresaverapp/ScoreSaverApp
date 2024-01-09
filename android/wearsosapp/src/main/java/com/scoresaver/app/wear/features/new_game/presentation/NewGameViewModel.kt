@@ -1,5 +1,6 @@
 package com.scoresaver.app.wear.features.new_game.presentation
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -89,6 +90,7 @@ internal class NewGameViewModel @Inject constructor(
     }
 
     override fun setDoubleSwitchValue(value: Boolean) {
+        Log.d("LOLOLO", "$value")
         setSwitchValue(GameSetting.Double, value)
     }
 
