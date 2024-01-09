@@ -2,7 +2,7 @@ package com.scoresaver.app.wear.di
 
 import android.content.Context
 import android.hardware.SensorManager
-import com.scoresaver.app.wear.db.dao.GameSettingsDao
+import com.scoresaver.app.util.db.dao.GameSettingsDao
 import com.scoresaver.app.wear.features.game.repository.GameRepository
 import com.scoresaver.app.wear.features.game.repository.GameRepositoryImpl
 import com.scoresaver.app.wear.features.game.use_cases.GameInteractor
@@ -14,7 +14,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 
 @Module

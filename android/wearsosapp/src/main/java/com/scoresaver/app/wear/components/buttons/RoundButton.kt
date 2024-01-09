@@ -38,7 +38,8 @@ fun RoundButton(
     showOnlyText: Boolean = false,
     titleButton: String = "",
     onClick: () -> Unit,
-    textSize: TextUnit = 10.5.sp
+    textSize: TextUnit = 10.5.sp,
+    serviceOrder: String? = null
 ) {
     Box(
         modifier = Modifier
@@ -70,10 +71,9 @@ fun RoundButton(
                     contentDescription = ""
                 )
                 if (isDoubleMatch) {
-
                     CustomSpacer(size = 3.dp, horizontal = true)
                     CustomText(
-                        text = "2",
+                        text = serviceOrder ?: "",
                         textStyle = TextStyle(
                             fontSize = textSize,
                             fontWeight = FontWeight(400),

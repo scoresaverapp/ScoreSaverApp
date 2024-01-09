@@ -28,13 +28,13 @@ import com.scoresaver.core_ui.components.layout.Separator
 
 @Composable
 internal fun ScoreGameScreen(viewModel: GameViewModel) {
-
     val scalingLazyState = remember {
         ScalingLazyListState(
             initialCenterItemIndex = 0,
             initialCenterItemScrollOffset = 140
         )
     }
+    viewModel.getServiceOrder()
 
     MyScaffold(scalingLazyState = scalingLazyState) {
         ScalingLazyColumn(

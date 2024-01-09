@@ -1,4 +1,4 @@
-package com.scoresaver.app.wear.db.dao
+package com.scoresaver.app.util.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

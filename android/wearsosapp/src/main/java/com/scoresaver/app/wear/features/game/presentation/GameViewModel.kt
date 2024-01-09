@@ -1,5 +1,6 @@
 package com.scoresaver.app.wear.features.game.presentation
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -58,8 +59,8 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     private val _setTeam2 = mutableIntStateOf(0)
     val setTeam2 by _setTeam2
 
-    private val _isSingleMatch = mutableStateOf(false)
-    val isSingleMatch by _isSingleMatch
+    private val _isDoubleMatch = mutableStateOf(false)
+    val isDoubleMatch by _isDoubleMatch
 
     private val _userData = mutableStateOf<UserEntity?>(null)
     val userData = _userData
@@ -70,22 +71,16 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     private val _actionCloseGame = mutableStateOf(false)
     val actionCloseGame by _actionCloseGame
 
+    private val _serviceOrder = mutableIntStateOf(1)
+    val serviceOrder by _serviceOrder
+
     init {
         startTimer()
         startHeartRateListener()
+        getDataUsers()
+    }
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val gameSettings = gameInteractor.getGameSettings()
-
-            gameSettings?.let {
-                withContext(Dispatchers.Main) {
-                    _isSingleMatch.value = gameSettings.gameType == GAME_TYPE.SINGLE
-                    _isKillerPointActive.value = gameSettings.gamePoint == GAME_POINT.KILLER
-                }
-
-            }
-        }
-
+    fun getDataUsers() {
         viewModelScope.launch(Dispatchers.IO)
         {
             val userData = gameInteractor.getUserData()
@@ -94,6 +89,23 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
                 withContext(Dispatchers.Main) {
                     _userData.value = userData
 
+                }
+            }
+        }
+    }
+
+    fun getServiceOrder() {
+        _serviceOrder.intValue = gameInteractor.getServiceOrder()
+    }
+
+    fun getSettingsData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val gameSettings = gameInteractor.getGameSettings()
+
+            gameSettings?.let {
+                withContext(Dispatchers.Main) {
+                    _isDoubleMatch.value = gameSettings.gameType == GAME_TYPE.DOUBLE
+                    _isKillerPointActive.value = gameSettings.gamePoint == GAME_POINT.KILLER
                 }
             }
         }
@@ -150,6 +162,7 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     }
 
     fun addPointsTeam1() {
+        //_serviceOrder.intValue = gameInteractor.getServiceOrder()
         gameInteractor.addPoint(team = Team.TEAM_1, isKillerPointActive = isKillerPointActive)
         _scoreTeam1.value = gameInteractor.getPointScoreTeam1()
         _scoreTeam2.value = gameInteractor.getPointScoreTeam2()
@@ -160,6 +173,7 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     }
 
     fun addPointsTeam2() {
+        //_serviceOrder.intValue = gameInteractor.getServiceOrder()
         gameInteractor.addPoint(team = Team.TEAM_2, isKillerPointActive = isKillerPointActive)
         _scoreTeam1.value = gameInteractor.getPointScoreTeam1()
         _scoreTeam2.value = gameInteractor.getPointScoreTeam2()
