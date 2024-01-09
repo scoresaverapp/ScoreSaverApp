@@ -12,7 +12,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.scoresaver.app.wear.features.game.presentation.GameViewModel
-import com.scoresaver.game_ui.screens.ScoreGameScreen
 
 @Composable
 internal fun GameScreen(
@@ -21,7 +20,7 @@ internal fun GameScreen(
 ) {
 
     val pagerState = rememberPagerState(pageCount = {
-        3
+        2
     })
 
     LaunchedEffect(Unit) {
@@ -33,8 +32,7 @@ internal fun GameScreen(
             HorizontalPager(state = pagerState) { page ->
                 when (page) {
                     0 -> ScoreGameScreen(viewModel = viewModel)
-                    1 -> TimeAndCaloriesScreen(viewModel = viewModel)
-                    2 -> CompleteGameScreen(navController = navController)
+                    1 -> TimeAndCaloriesScreen(navController = navController, viewModel = viewModel)
                 }
             }
         }

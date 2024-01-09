@@ -1,4 +1,4 @@
-package com.scoresaver.core_ui.components.typography
+package com.scoresaver.app.wear.components.typography
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

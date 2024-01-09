@@ -17,7 +17,7 @@ import com.scoresaver.app.util.Orange
 import com.scoresaver.app.wear.features.new_game.presentation.ViewModelFragment
 import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.core_ui.components.buttons.FullWidthRoundSwitchButton
-import com.scoresaver.core_ui.components.typography.CustomText
+import com.scoresaver.app.wear.components.typography.CustomText
 
 @Composable
 internal fun GameTypeScreen(
