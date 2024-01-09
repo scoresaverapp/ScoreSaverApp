@@ -91,7 +91,6 @@ internal class NewGameViewModel @Inject constructor(
     }
 
     override fun setDoubleSwitchValue(value: Boolean) {
-        Log.d("LOLOLO", "$value")
         setSwitchValue(GameSetting.Double, value)
     }
 

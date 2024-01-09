@@ -1,6 +1,6 @@
 package com.scoresaver.app.wear.features.game.repository
 
-import com.scoresaver.app.wear.db.dao.GameSettingsDao
+import com.scoresaver.app.util.db.dao.GameSettingsDao
 import com.scoresaver.core.data.db.schema.GameSettingsEntity
 import com.scoresaver.app.util.db.entity.UserEntity
 import kotlinx.coroutines.Dispatchers

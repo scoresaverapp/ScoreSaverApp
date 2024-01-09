@@ -2,7 +2,7 @@ package com.scoresaver.app.wear.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.scoresaver.app.wear.db.dao.GameSettingsDao
+import com.scoresaver.app.util.db.dao.GameSettingsDao
 import com.scoresaver.core.data.db.schema.GameSettingsEntity
 import com.scoresaver.app.util.db.entity.UserEntity
 

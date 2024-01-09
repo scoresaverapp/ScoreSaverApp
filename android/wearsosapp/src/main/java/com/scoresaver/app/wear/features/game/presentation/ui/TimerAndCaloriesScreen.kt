@@ -1,5 +1,6 @@
 package com.scoresaver.app.wear.features.game.presentation.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +19,6 @@ import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
-import androidx.wear.compose.material.dialog.Alert
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.Green
@@ -44,13 +44,14 @@ internal fun TimeAndCaloriesScreen(
     viewModel: GameViewModel
 ) {
 
-    val isSingleMatch = viewModel.isSingleMatch
+    val isDoubleMatch = viewModel.isDoubleMatch
     val scalingLazyState = remember {
         ScalingLazyListState(
             initialCenterItemIndex = 0,
             initialCenterItemScrollOffset = 140
         )
     }
+    val serviceOrder = viewModel.serviceOrder
 
     if (viewModel.showSnackbar) {
         ShowAlertKillerPoint(
@@ -97,7 +98,6 @@ internal fun TimeAndCaloriesScreen(
     val isTieBreak = viewModel.gameTeam1 == "6" && viewModel.gameTeam2 == "6"
 
 
-
     MyScaffold(scalingLazyState = scalingLazyState) {
         ScalingLazyColumn(
             modifier = Modifier.fillMaxSize(),
@@ -107,7 +107,7 @@ internal fun TimeAndCaloriesScreen(
         ) {
             item {
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                    if (!isSingleMatch) {
+                    if (isDoubleMatch && !isTieBreak) {
                         RoundButton(
                             size = 40.5.dp,
                             icon = R.drawable.ic_tennis_ball,
@@ -116,7 +116,9 @@ internal fun TimeAndCaloriesScreen(
                             backgroundColor = Black,
                             borderBackground = White,
                             isDoubleMatch = true,
-                            onClick = { })
+                            onClick = { },
+                            serviceOrder = serviceOrder.toString()
+                        )
                         CustomSpacer(size = 4.dp, horizontal = true)
                     }
                     if (!isTieBreak) {

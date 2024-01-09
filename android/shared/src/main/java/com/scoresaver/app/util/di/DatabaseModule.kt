@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.scoresaver.app.wear.db.CoreDatabase
 import com.scoresaver.app.wear.db.DATABASE_NAME
-import com.scoresaver.app.wear.db.dao.GameSettingsDao
+import com.scoresaver.app.util.db.dao.GameSettingsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
