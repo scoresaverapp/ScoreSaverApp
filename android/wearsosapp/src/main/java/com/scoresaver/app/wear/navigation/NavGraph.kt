@@ -27,7 +27,7 @@ fun NavGraph() {
 
     SwipeDismissableNavHost(
         navController = navController,
-        startDestination = if (gameViewModel.userData.value == null) Screen.GenderScreen.route else Screen.GameScreen.route
+        startDestination = if (gameViewModel.userData.value == null) Screen.GenderScreen.route else Screen.HomeScreen.route
     ) {
         composable(Screen.GenderScreen.route) {
             GenderScreen(navController = navController, viewModel = newGameViewModel)
