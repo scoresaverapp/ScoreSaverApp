@@ -34,5 +34,6 @@
     <string name="kcal">Kcal</string>
     <string name="killer_point_deactive">Killer point disattivato</string>
     <string name="killer_point_active">Killer point attivato</string>
-    <string name="complete_game">Sei sicuro di voler concludere la partita?</string>
+    <string name="complete_game_title">Concludere partita</string>
+    <string name="complete_game_description">Sei sicuro di voler concludere la partita?</string>
 </resources>

@@ -67,7 +67,13 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     private val _showSnackbar = mutableStateOf(false)
     val showSnackbar by _showSnackbar
 
+    private val _actionCloseGame = mutableStateOf(false)
+    val actionCloseGame by _actionCloseGame
+
     init {
+        startTimer()
+        startHeartRateListener()
+
         viewModelScope.launch(Dispatchers.IO) {
             val gameSettings = gameInteractor.getGameSettings()
 
@@ -106,6 +112,7 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     }
 
     fun startTimer() {
+        _isTimerRunning.value = true
         gameInteractor.startTimer(
             scope = viewModelScope,
             onTimerChangeCallback = { value, isRunning ->
@@ -116,6 +123,7 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     }
 
     fun stopTimer() {
+        _isTimerRunning.value = false
         gameInteractor.stopTimer()
     }
 
@@ -174,6 +182,14 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
 
     fun hideSnackBar() {
         _showSnackbar.value = false
+    }
+
+    fun onClickCloseGame() {
+        _actionCloseGame.value = true
+    }
+
+    fun setOnClickCloseGame(value: Boolean) {
+        _actionCloseGame.value = value
     }
 
     override fun onCleared() {

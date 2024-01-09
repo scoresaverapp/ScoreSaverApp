@@ -3,43 +3,46 @@ package com.scoresaver.app.wear.features.game.presentation.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.*
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
-import androidx.wear.compose.material.dialog.Confirmation
+import androidx.wear.compose.material.dialog.Alert
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.Green
 import com.scoresaver.app.util.Grey
+import com.scoresaver.app.util.LightGrey
 import com.scoresaver.app.util.LightRed
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
+import com.scoresaver.app.wear.components.MyScaffold
+import com.scoresaver.app.wear.components.dialogs.AlertDialog
+import com.scoresaver.app.wear.components.dialogs.ConfirmationAlert
 import com.scoresaver.app.wear.features.game.presentation.GameViewModel
 import com.scoresaver.app.wear.features.game.presentation.ui.components.StatsValue
-import com.scoresaver.app.wear.components.MyScaffold
-import com.scoresaver.app.wear.components.dialogs.ConfirmationAlert
 import com.scoresaver.core_ui.components.buttons.RoundButton
-import com.scoresaver.core_ui.components.icons.CustomImageVectorIcon
 import com.scoresaver.core_ui.components.layout.CustomSpacer
-import com.scoresaver.core_ui.components.typography.CustomText
+import com.scoresaver.app.wear.components.typography.CustomText
+import com.scoresaver.app.wear.navigation.Screen
 import kotlinx.coroutines.delay
 
 @Composable
-internal fun TimeAndCaloriesScreen(viewModel: GameViewModel) {
+internal fun TimeAndCaloriesScreen(
+    navController: NavController,
+    viewModel: GameViewModel
+) {
 
     val isSingleMatch = viewModel.isSingleMatch
     val scalingLazyState = remember {
@@ -50,7 +53,7 @@ internal fun TimeAndCaloriesScreen(viewModel: GameViewModel) {
     }
 
     if (viewModel.showSnackbar) {
-        ShowAlertConfirmation(
+        ShowAlertKillerPoint(
             viewModel = viewModel,
             message = if (viewModel.isKillerPointActive)
                 stringResource(id = R.string.killer_point_active)
@@ -58,6 +61,38 @@ internal fun TimeAndCaloriesScreen(viewModel: GameViewModel) {
                 stringResource(id = R.string.killer_point_deactive)
             }
         )
+    }
+
+    if (viewModel.actionCloseGame) {
+        AlertDialog(
+            textTitle = stringResource(id = R.string.complete_game_title),
+            textMessage = stringResource(id = R.string.complete_game_description)
+        ) {
+            Row (horizontalArrangement = Arrangement.Center){
+                RoundButton(
+                    size = 46.dp,
+                    backgroundColor = LightRed,
+                    icon = R.drawable.ic_close,
+                    iconColor = Black,
+                    iconSize = 15.dp,
+                    onClick = {
+                        navController.navigate(Screen.GameScreen.route)
+                        viewModel.setOnClickCloseGame(false)
+                    })
+                CustomSpacer(size = 16.dp, horizontal = true)
+                RoundButton(
+                    size = 46.dp,
+                    backgroundColor = Green,
+                    icon = R.drawable.ic_check,
+                    iconColor = Black,
+                    iconSize = 18.5.dp,
+                    onClick = {
+                        viewModel.stopHeartRateListener()
+                        viewModel.stopTimer()
+                        navController.navigate(Screen.ListGameScreen.route)
+                    })
+            }
+        }
     }
     val isTieBreak = viewModel.gameTeam1 == "6" && viewModel.gameTeam2 == "6"
 
@@ -129,21 +164,25 @@ internal fun TimeAndCaloriesScreen(viewModel: GameViewModel) {
                         iconColor = Black,
                         iconSize = 15.dp,
                         onClick = {
-                            viewModel.stopTimer()
-                            viewModel.stopHeartRateListener()
+                            viewModel.onClickCloseGame()
                         })
 
                     CustomSpacer(size = 27.dp, horizontal = true)
 
                     RoundButton(
                         size = 46.dp,
-                        backgroundColor = Green,
-                        icon = R.drawable.ic_play,
+                        backgroundColor = if (viewModel.isTimerRunning) LightGrey else Green,
+                        icon = if (viewModel.isTimerRunning) R.drawable.ic_pause else R.drawable.ic_play,
                         iconColor = Black,
                         iconSize = 18.5.dp,
                         onClick = {
-                            viewModel.startTimer()
-                            viewModel.startHeartRateListener()
+                            if (viewModel.isTimerRunning) {
+                                viewModel.stopTimer()
+                                viewModel.stopHeartRateListener()
+                            } else {
+                                viewModel.startHeartRateListener()
+                                viewModel.startTimer()
+                            }
                         })
                 }
             }
@@ -153,12 +192,11 @@ internal fun TimeAndCaloriesScreen(viewModel: GameViewModel) {
 
 
 @Composable
-internal fun ShowAlertConfirmation(
+internal fun ShowAlertKillerPoint(
     viewModel: GameViewModel,
     message: String
 ) {
     val (alertConfirmation, showAlertCofirmation) = remember { mutableStateOf(false) }
-
 
     LaunchedEffect(alertConfirmation) {
         showAlertCofirmation(true)
@@ -180,4 +218,3 @@ internal fun ShowAlertConfirmation(
         }
     }
 }
-

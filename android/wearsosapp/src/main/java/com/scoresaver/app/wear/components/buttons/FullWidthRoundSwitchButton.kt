@@ -20,7 +20,7 @@ import com.scoresaver.app.util.LightGrey
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
 import com.scoresaver.core_ui.components.switchs.CustomSwitch
-import com.scoresaver.core_ui.components.typography.CustomText
+import com.scoresaver.app.wear.components.typography.CustomText
 
 @Composable
 fun FullWidthRoundSwitchButton(

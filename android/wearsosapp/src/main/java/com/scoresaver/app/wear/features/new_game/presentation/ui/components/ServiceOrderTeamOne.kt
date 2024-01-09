@@ -19,7 +19,7 @@ import com.scoresaver.app.util.White
 import com.scoresaver.app.wear.features.new_game.model.Player
 import com.scoresaver.core_ui.components.buttons.RoundButton
 import com.scoresaver.core_ui.components.layout.CustomSpacer
-import com.scoresaver.core_ui.components.typography.CustomText
+import com.scoresaver.app.wear.components.typography.CustomText
 
 @Composable
 internal fun ServiceOrderTeamOne(playerOne: Player, playerTwo: Player, swapTeamOrder: () -> Unit) {

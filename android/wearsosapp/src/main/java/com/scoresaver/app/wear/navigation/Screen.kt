@@ -13,7 +13,5 @@ sealed class Screen(val route: String) {
     data object GameScreen: Screen("game_screen")
     data object ScoreGameScreen: Screen("score_game_screen")
     data object TimerAndCalories: Screen("time_and_calories_screen")
-
-    data object CompleteGameScreen: Screen("complete_game_screen")
     data object ListGameScreen: Screen("list_game_screen")
 }

@@ -20,7 +20,7 @@ import com.scoresaver.app.R
 import com.scoresaver.app.util.Grey
 import com.scoresaver.app.util.White
 import com.scoresaver.core_ui.components.icons.CustomImageVectorIcon
-import com.scoresaver.core_ui.components.typography.CustomText
+import com.scoresaver.app.wear.components.typography.CustomText
 
 
 @Composable

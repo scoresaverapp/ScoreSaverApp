@@ -1,4 +1,4 @@
-package com.scoresaver.game_ui.screens
+package com.scoresaver.app.wear.features.game.presentation.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -75,7 +75,6 @@ internal fun ScoreGameScreen(viewModel: GameViewModel) {
                         backgroundColor = LightBlue,
                         showOnlyText = true,
                         titleButton = stringResource(id = R.string.team_2),
-
                         onClick = {
                             viewModel.addPointsTeam2()
                         })

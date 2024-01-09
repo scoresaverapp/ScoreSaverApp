@@ -24,7 +24,7 @@ import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.White
 import com.scoresaver.core_ui.components.icons.CustomImageVectorIcon
 import com.scoresaver.core_ui.components.layout.CustomSpacer
-import com.scoresaver.core_ui.components.typography.CustomText
+import com.scoresaver.app.wear.components.typography.CustomText
 
 @Composable
 fun RoundButton(

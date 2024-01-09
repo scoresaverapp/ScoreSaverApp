@@ -18,7 +18,7 @@ import com.scoresaver.app.R
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.app.wear.components.MyScaffold
-import com.scoresaver.core_ui.components.typography.CustomText
+import com.scoresaver.app.wear.components.typography.CustomText
 
 @Composable
 internal fun ListGameScreen(
@@ -51,6 +51,9 @@ internal fun ListGameScreen(
             item {
                 Button(onClick = {
                     navController.navigate(Screen.HomeScreen.route) {
+                        popUpTo(Screen.GameScreen.route) {
+                            inclusive = true
+                        }
                         popUpTo(Screen.ListGameScreen.route) {
                             inclusive = true
                         }
