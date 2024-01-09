@@ -1,7 +1,10 @@
 package com.scoresaver.app.wear.features.user_settings.ui
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -19,29 +22,26 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Black
-import com.scoresaver.app.util.LightGrey
 import com.scoresaver.app.util.Orange
+import com.scoresaver.app.util.White
 import com.scoresaver.app.wear.features.new_game.presentation.NewGameViewModel
 import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.core_ui.components.MyScaffold
 import com.scoresaver.core_ui.components.buttons.FullWidthRoundButton
-import com.scoresaver.core_ui.components.buttons.FullWidthRoundSwitchButton
 import com.scoresaver.core_ui.components.layout.CustomSpacer
 import com.scoresaver.core_ui.components.typography.CustomText
 
 @Composable
-internal fun GenderScreen(
+internal fun AgeScreen(
     navController: NavController,
     viewModel: NewGameViewModel
 ) {
 
-    val male = viewModel.getMaleSwitchValue()
-    val female = viewModel.getFemaleSwitchValue()
-    val buttonEnabled = male.switchValue || female.switchValue
+    val age = viewModel.getAge()
 
     val scalingLazyState = remember {
         ScalingLazyListState(
-            initialCenterItemIndex = 0,
+            initialCenterItemIndex = 2,
             initialCenterItemScrollOffset = 30
         )
     }
@@ -56,7 +56,7 @@ internal fun GenderScreen(
         ) {
             item {
                 CustomText(
-                    text = stringResource(id = R.string.gender_title),
+                    text = stringResource(id = R.string.age_title),
                     textStyle = TextStyle(
                         fontSize = 16.sp,
                         fontWeight = FontWeight(400),
@@ -65,38 +65,73 @@ internal fun GenderScreen(
                 )
             }
             item {
-                FullWidthRoundSwitchButton(
-                    text = stringResource(R.string.male),
-                    checked = male.switchValue,
-                    onClick = viewModel::setMaleSwitchValue
+                CustomText(
+                    text = stringResource(id = R.string.age_question),
+                    textStyle = TextStyle(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight(400),
+                        color = White,
+                    )
                 )
             }
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    CustomText(
+                        modifier = Modifier.clickable {
+                            viewModel.setAge(age + 1)
+                        },
+                        text = "+",
+                        textStyle = TextStyle(
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight(400),
+                            color = White,
+                        )
+                    )
 
-            item {
-                FullWidthRoundSwitchButton(
-                    text = stringResource(R.string.female),
-                    checked = female.switchValue,
-                    onClick = viewModel::setFemaleSwitchValue
-                )
+                    CustomText(
+                        text = age.toString(),
+                        textStyle = TextStyle(
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight(400),
+                            color = White,
+                        )
+                    )
+                    CustomText(
+                        modifier = Modifier.clickable {
+                            viewModel.setAge(age - 1)
+                        },
+                        text = "-",
+                        textStyle = TextStyle(
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight(400),
+                            color = White,
+                        )
+                    )
+                }
             }
             item {
-                CustomSpacer(size = 8.dp)
+                CustomSpacer(size = 16.dp)
             }
 
             item {
                 Row(modifier = Modifier.padding(horizontal = 38.dp)) {
                     FullWidthRoundButton(
                         text = stringResource(id = R.string.next_step),
-                        onPress = { navController.navigate(Screen.AgeScreen.route) },
-                        backgroundColor = if (buttonEnabled) Orange else LightGrey,
-                        borderColor = if (buttonEnabled) Orange else LightGrey,
+                        onPress = {
+                            navController.navigate(Screen.HeightScreen.route)
+                        },
+                        backgroundColor = Orange,
+                        borderColor = Orange,
                         textColor = Black,
                         textAlign = TextAlign.Center,
-                        enable = male.switchValue || female.switchValue
                     )
                 }
             }
         }
     }
 }
-

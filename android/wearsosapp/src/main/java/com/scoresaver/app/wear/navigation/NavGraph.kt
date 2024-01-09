@@ -14,6 +14,7 @@ import com.scoresaver.app.wear.features.new_game.presentation.ui.GameRuleScreen
 import com.scoresaver.app.wear.features.new_game.presentation.ui.GameTypeScreen
 import com.scoresaver.app.wear.features.new_game.presentation.ui.NewGameScreen
 import com.scoresaver.app.wear.features.new_game.presentation.ui.ServiceOrderScreen
+import com.scoresaver.app.wear.features.user_settings.ui.AgeScreen
 import com.scoresaver.app.wear.features.user_settings.ui.GenderScreen
 import com.scoresaver.app.wear.features.user_settings.ui.HeightScreen
 import com.scoresaver.app.wear.features.user_settings.ui.WeightScreen
@@ -30,6 +31,10 @@ fun NavGraph() {
     ) {
         composable(Screen.GenderScreen.route) {
             GenderScreen(navController = navController, viewModel = newGameViewModel)
+        }
+
+        composable(Screen.AgeScreen.route) {
+            AgeScreen(navController = navController, viewModel = newGameViewModel)
         }
 
         composable(Screen.HeightScreen.route) {

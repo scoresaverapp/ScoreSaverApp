@@ -1,6 +1,5 @@
 package com.scoresaver.app.wear.features.game.presentation
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -11,8 +10,8 @@ import com.scoresaver.app.wear.features.game.model.Team
 import com.scoresaver.app.wear.features.game.use_cases.GameInteractor
 import com.scoresaver.core.data.db.schema.GAME_POINT
 import com.scoresaver.core.data.db.schema.GAME_TYPE
-import com.scoresaver.core.data.db.schema.GENDER
-import com.scoresaver.core.data.db.schema.UserEntity
+import com.scoresaver.app.util.db.entity.GENDER
+import com.scoresaver.app.util.db.entity.UserEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -134,6 +133,7 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
         userData.value?.gender
         _calories.value =
             gameInteractor.getCalories(
+                age = userData?.value?.age ?: 18,
                 userData.value?.gender ?: GENDER.MALE,
                 userData.value?.weight ?: 180,
                 userData?.value?.height ?: 60,

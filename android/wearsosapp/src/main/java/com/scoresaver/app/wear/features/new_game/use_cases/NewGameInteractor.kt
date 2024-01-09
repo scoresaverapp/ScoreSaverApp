@@ -1,7 +1,7 @@
 package com.scoresaver.newgame_interactor.interactors
 
 import com.scoresaver.core.data.db.schema.GameSettingsEntity
-import com.scoresaver.core.data.db.schema.UserEntity
+import com.scoresaver.app.util.db.entity.UserEntity
 
 interface NewGameInteractor {
     suspend fun insertDataUser(userEntity: UserEntity)

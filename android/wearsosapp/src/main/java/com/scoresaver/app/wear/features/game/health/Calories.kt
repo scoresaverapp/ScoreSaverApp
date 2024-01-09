@@ -1,6 +1,6 @@
 package com.scoresaver.app.wear.features.game.health
 
-import com.scoresaver.core.data.db.schema.GENDER
+import com.scoresaver.app.util.db.entity.GENDER
 
 /**
  * ((−55.0969+(0.6309×Heart Rate)+(0.1988×Weight in kg)+(0.2017×Age))/4.184)×Time in minutes
@@ -16,11 +16,18 @@ import com.scoresaver.core.data.db.schema.GENDER
 
 class Calories {
 
-    fun calculateCalories(gender: GENDER, weight: Int, height: Int, heartRate: Float, minutes: Int): String {
-        return if(gender == GENDER.MALE) {
-            (((28*0.2017) - (weight*0.09036) + (heartRate*0.6309) - 55.0969) * 4.184).toString()
+    fun calculateCalories(
+        age: Int,
+        gender: GENDER,
+        weight: Int,
+        height: Int,
+        heartRate: Float,
+        minutes: Int
+    ): String {
+        return if (gender == GENDER.MALE) {
+            (((28 * 0.2017) - (weight * 0.09036) + (heartRate * 0.6309) - 55.0969) * 4.184).toString()
         } else {
-            (((28*0.2017) - (weight*0.09036) + (heartRate*0.6309) - 55.0969) * 4.184).toString()
+            (((28 * 0.2017) - (weight * 0.09036) + (heartRate * 0.6309) - 55.0969) * 4.184).toString()
         }
 
     }

@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.scoresaver.app.wear.db.dao.GameSettingsDao
 import com.scoresaver.core.data.db.schema.GameSettingsEntity
-import com.scoresaver.core.data.db.schema.UserEntity
+import com.scoresaver.app.util.db.entity.UserEntity
 
 
 const val DATABASE_NAME = "core-database"
