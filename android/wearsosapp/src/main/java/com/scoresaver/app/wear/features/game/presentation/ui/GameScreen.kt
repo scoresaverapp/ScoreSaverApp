@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.scoresaver.app.wear.features.game.presentation.GameViewModel
 import com.scoresaver.game_ui.screens.ScoreGameScreen
-import com.scoresaver.game_ui.screens.TimeAndCaloriesScreen
 
 @Composable
 internal fun GameScreen(

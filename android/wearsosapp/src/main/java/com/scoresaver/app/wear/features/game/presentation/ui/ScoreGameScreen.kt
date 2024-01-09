@@ -21,7 +21,7 @@ import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
 import com.scoresaver.app.wear.features.game.presentation.GameViewModel
 import com.scoresaver.app.wear.features.game.presentation.ui.components.ScoreText
-import com.scoresaver.core_ui.components.MyScaffold
+import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.core_ui.components.buttons.RoundButton
 import com.scoresaver.core_ui.components.layout.CustomSpacer
 import com.scoresaver.core_ui.components.layout.Separator

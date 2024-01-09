@@ -28,7 +28,7 @@ import com.scoresaver.app.util.util.checkPermission
 import com.scoresaver.app.util.util.requestPermission
 import com.scoresaver.app.wear.features.new_game.presentation.ViewModelFragment
 import com.scoresaver.app.wear.navigation.Screen
-import com.scoresaver.core_ui.components.MyScaffold
+import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.core_ui.components.buttons.FullWidthRoundButton
 import com.scoresaver.core_ui.components.layout.CustomSpacer
 import com.scoresaver.core_ui.components.lifecycle_observer.lifecycleObserver

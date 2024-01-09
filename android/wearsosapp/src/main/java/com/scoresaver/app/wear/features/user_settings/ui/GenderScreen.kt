@@ -23,7 +23,7 @@ import com.scoresaver.app.util.LightGrey
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.wear.features.new_game.presentation.NewGameViewModel
 import com.scoresaver.app.wear.navigation.Screen
-import com.scoresaver.core_ui.components.MyScaffold
+import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.core_ui.components.buttons.FullWidthRoundButton
 import com.scoresaver.core_ui.components.buttons.FullWidthRoundSwitchButton
 import com.scoresaver.core_ui.components.layout.CustomSpacer

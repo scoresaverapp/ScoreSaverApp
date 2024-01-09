@@ -24,7 +24,7 @@ import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.LightRed
 import com.scoresaver.app.util.White
 import com.scoresaver.app.wear.navigation.Screen
-import com.scoresaver.core_ui.components.MyScaffold
+import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.core_ui.components.buttons.RoundButton
 import com.scoresaver.core_ui.components.layout.CustomSpacer
 import com.scoresaver.core_ui.components.typography.CustomText
