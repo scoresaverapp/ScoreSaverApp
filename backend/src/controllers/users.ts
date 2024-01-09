@@ -38,7 +38,13 @@ export const signUp: RequestHandler<
 
     const newUser = result.toObject();
     delete newUser.password;
-    res.status(201).json(newUser);
+
+    req.logIn(newUser, (error) => {
+      if (error) {
+        throw error;
+      }
+      res.status(201).json(newUser);
+    });
   } catch (error) {
     next(error);
   }
