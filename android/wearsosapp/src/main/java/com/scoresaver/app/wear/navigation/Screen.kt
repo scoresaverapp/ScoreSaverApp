@@ -9,4 +9,10 @@ sealed class Screen(val route: String) {
     data object GameTypeScreen: Screen("game_type_screen")
     data object GameRulesScreen: Screen("game_rules_screen")
     data object ServiceOrderScreen: Screen("service_order_screen")
+    data object GameScreen: Screen("game_screen")
+    data object ScoreGameScreen: Screen("score_game_screen")
+    data object TimerAndCalories: Screen("time_and_calories_screen")
+
+    data object CompleteGameScreen: Screen("complete_game_screen")
+    data object ListGameScreen: Screen("list_game_screen")
 }

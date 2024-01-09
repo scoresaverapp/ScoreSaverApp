@@ -5,6 +5,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.scoresaver.app.wear.features.game.presentation.GameViewModel
+import com.scoresaver.app.wear.features.game.presentation.ui.GameScreen
+import com.scoresaver.app.wear.features.game.presentation.ui.ListGameScreen
 import com.scoresaver.app.wear.features.home.HomeScreen
 import com.scoresaver.app.wear.features.new_game.presentation.NewGameViewModel
 import com.scoresaver.app.wear.features.new_game.presentation.ui.GameRuleScreen
@@ -14,16 +17,16 @@ import com.scoresaver.app.wear.features.new_game.presentation.ui.ServiceOrderScr
 import com.scoresaver.app.wear.features.user_settings.ui.GenderScreen
 import com.scoresaver.app.wear.features.user_settings.ui.HeightScreen
 import com.scoresaver.app.wear.features.user_settings.ui.WeightScreen
-import com.scoresaver.app.wear.util.sharedViewModel
 
 @Composable
-fun NavGraph(firstLaunch: Boolean) {
+fun NavGraph() {
     val navController = rememberSwipeDismissableNavController()
     val newGameViewModel = hiltViewModel<NewGameViewModel>()
+    val gameViewModel = hiltViewModel<GameViewModel>()
 
     SwipeDismissableNavHost(
         navController = navController,
-        startDestination = if (firstLaunch) Screen.GenderScreen.route else Screen.HomeScreen.route
+        startDestination = if (gameViewModel.userData.value == null) Screen.GenderScreen.route else Screen.HomeScreen.route
     ) {
         composable(Screen.GenderScreen.route) {
             GenderScreen(navController = navController, viewModel = newGameViewModel)
@@ -55,6 +58,13 @@ fun NavGraph(firstLaunch: Boolean) {
 
         composable(Screen.ServiceOrderScreen.route) {
             ServiceOrderScreen(viewModel = newGameViewModel)
+        }
+
+        composable(Screen.GameScreen.route) {
+            GameScreen(navController = navController, viewModel = gameViewModel)
+        }
+        composable(Screen.ListGameScreen.route) {
+            ListGameScreen(navController = navController)
         }
 
     }

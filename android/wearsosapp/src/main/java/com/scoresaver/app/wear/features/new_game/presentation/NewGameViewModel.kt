@@ -10,11 +10,11 @@ import com.scoresaver.core.data.db.schema.GENDER
 import com.scoresaver.core.data.db.schema.GameSettingsEntity
 import com.scoresaver.core.data.db.schema.UserEntity
 import com.scoresaver.newgame_interactor.interactors.NewGameInteractor
-import com.scoresaver.app.wear.model.GameSetting
-import com.scoresaver.app.wear.model.Player
-import com.scoresaver.app.wear.model.ServiceOder
-import com.scoresaver.app.wear.model.SwitchState
-import com.scoresaver.app.wear.model.Team
+import com.scoresaver.app.wear.features.new_game.model.GameSetting
+import com.scoresaver.app.wear.features.new_game.model.Player
+import com.scoresaver.app.wear.features.new_game.model.ServiceOder
+import com.scoresaver.app.wear.features.new_game.model.SwitchState
+import com.scoresaver.app.wear.features.new_game.model.Team
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

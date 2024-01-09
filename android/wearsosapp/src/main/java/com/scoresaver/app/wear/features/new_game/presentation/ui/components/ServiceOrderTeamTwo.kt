@@ -16,7 +16,7 @@ import com.scoresaver.app.R
 import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
-import com.scoresaver.app.wear.model.Player
+import com.scoresaver.app.wear.features.new_game.model.Player
 import com.scoresaver.core_ui.components.buttons.RoundButton
 import com.scoresaver.core_ui.components.layout.CustomSpacer
 import com.scoresaver.core_ui.components.typography.CustomText

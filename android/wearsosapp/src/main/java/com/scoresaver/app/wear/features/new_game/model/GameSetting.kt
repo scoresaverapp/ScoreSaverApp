@@ -1,4 +1,4 @@
-package com.scoresaver.app.wear.model
+package com.scoresaver.app.wear.features.new_game.model
 
 internal sealed class GameSetting {
     data object Single: GameSetting()

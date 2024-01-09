@@ -71,7 +71,7 @@ internal fun NewGameScreen(
     fun getStartGameButtonBackgroundColor() = if (isStartGameButtonEnabled()) Orange else LightGrey
 
     val permissionResultLauncher = requestPermission(Manifest.permission.BODY_SENSORS) {
-        navController.navigate(Screen.NewGameScreen.route) {
+        navController.navigate(Screen.GameScreen.route) {
             popUpTo(Screen.NewGameScreen.route) {
                 inclusive = true
             }

@@ -1,8 +1,8 @@
 package com.scoresaver.app.wear.features.new_game.presentation
 
-import com.scoresaver.app.wear.model.GameSetting
-import com.scoresaver.app.wear.model.Player
-import com.scoresaver.app.wear.model.SwitchState
+import com.scoresaver.app.wear.features.new_game.model.GameSetting
+import com.scoresaver.app.wear.features.new_game.model.Player
+import com.scoresaver.app.wear.features.new_game.model.SwitchState
 
 internal sealed interface ViewModelFragment {
     interface NewGame {

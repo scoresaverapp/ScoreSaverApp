@@ -8,8 +8,6 @@ package com.scoresaver.app.wear
 
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -34,9 +32,6 @@ import kotlinx.coroutines.delay
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val PREFS_NAME = "ScoreSaverApp"
-    private val FIRST_LAUNCH_KEY = "isFirstLaunch"
-
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,23 +40,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             //SplashScreen()
-            NavGraph(isFirstLaunch())
-            if (isFirstLaunch()) {
-                markFirstLaunchDone()
-            }
+            NavGraph()
         }
-    }
-
-    private fun isFirstLaunch(): Boolean {
-        val prefs: SharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        return prefs.getBoolean(FIRST_LAUNCH_KEY, true)
-    }
-
-    private fun markFirstLaunchDone() {
-        val prefs: SharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = prefs.edit()
-        editor.putBoolean(FIRST_LAUNCH_KEY, false)
-        editor.apply()
     }
 }
 
