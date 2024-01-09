@@ -23,7 +23,7 @@ import com.scoresaver.app.util.LightGrey
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.wear.features.new_game.presentation.NewGameViewModel
 import com.scoresaver.app.wear.navigation.Screen
-import com.scoresaver.core_ui.components.MyScaffold
+import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.core_ui.components.buttons.FullWidthRoundButton
 import com.scoresaver.core_ui.components.buttons.FullWidthRoundSwitchButton
 import com.scoresaver.core_ui.components.layout.CustomSpacer
@@ -87,7 +87,7 @@ internal fun GenderScreen(
                 Row(modifier = Modifier.padding(horizontal = 38.dp)) {
                     FullWidthRoundButton(
                         text = stringResource(id = R.string.next_step),
-                        onPress = { navController.navigate(Screen.HeightScreen.route) },
+                        onPress = { navController.navigate(Screen.AgeScreen.route) },
                         backgroundColor = if (buttonEnabled) Orange else LightGrey,
                         borderColor = if (buttonEnabled) Orange else LightGrey,
                         textColor = Black,

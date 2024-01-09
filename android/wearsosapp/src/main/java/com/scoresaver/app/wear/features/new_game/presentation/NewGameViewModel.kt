@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scoresaver.core.data.db.schema.GAME_POINT
 import com.scoresaver.core.data.db.schema.GAME_TYPE
-import com.scoresaver.core.data.db.schema.GENDER
+import com.scoresaver.app.util.db.entity.GENDER
 import com.scoresaver.core.data.db.schema.GameSettingsEntity
-import com.scoresaver.core.data.db.schema.UserEntity
+import com.scoresaver.app.util.db.entity.UserEntity
 import com.scoresaver.newgame_interactor.interactors.NewGameInteractor
 import com.scoresaver.app.wear.features.new_game.model.GameSetting
 import com.scoresaver.app.wear.features.new_game.model.Player
@@ -28,7 +28,7 @@ internal class NewGameViewModel @Inject constructor(
     ViewModelFragment.GameRule,
     ViewModelFragment.ServiceOrder,
     ViewModelFragment.GenderType,
-    ViewModelFragment.HeightAndWeight {
+    ViewModelFragment.UserData {
     private val _maleSwitchState = mutableStateOf(SwitchState(GameSetting.Male, false))
     private val _femaleSwitchState = mutableStateOf(SwitchState(GameSetting.Female, false))
     private val _singleSwitchState = mutableStateOf(SwitchState(GameSetting.Single, false))
@@ -75,6 +75,7 @@ internal class NewGameViewModel @Inject constructor(
     private val _serviceOrderConfirmed = mutableStateOf(false)
     private var _heightValue = mutableStateOf(170)
     private val _weightValue = mutableStateOf(66)
+    private val _ageValue = mutableStateOf(18)
     private var isMaleOrGender: GENDER = GENDER.MALE
 
     override fun getSingleGameSwitchValue(): SwitchState<GameSetting.Single> {
@@ -265,6 +266,14 @@ internal class NewGameViewModel @Inject constructor(
         return _weightValue.value
     }
 
+    override fun setAge(value: Int) {
+        _ageValue.value = value
+    }
+
+    override fun getAge(): Int {
+        return _ageValue.value
+    }
+
     override fun insertDataUsers() {
         viewModelScope.launch {
 
@@ -272,6 +281,7 @@ internal class NewGameViewModel @Inject constructor(
                 UserEntity(
                     height = getHeightValue(),
                     weight = getWeightValue(),
+                    age = getAge(),
                     gender = isMaleOrGender,
                 )
             )

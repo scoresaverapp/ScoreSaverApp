@@ -47,11 +47,14 @@ internal sealed interface ViewModelFragment {
         fun setFemaleSwitchValue(value: Boolean)
     }
 
-    interface HeightAndWeight {
+    interface UserData {
         fun getHeightValue(): Int
         fun setHeightValue(value: Int)
         fun setWeightValue(value: Int)
         fun getWeightValue(): Int
+
+        fun setAge(value: Int)
+        fun getAge(): Int
 
         fun insertDataUsers()
     }

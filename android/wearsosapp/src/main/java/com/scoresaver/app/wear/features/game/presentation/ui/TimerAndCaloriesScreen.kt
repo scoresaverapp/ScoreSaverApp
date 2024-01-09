@@ -1,21 +1,14 @@
-package com.scoresaver.game_ui.screens
+package com.scoresaver.app.wear.features.game.presentation.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -27,17 +20,18 @@ import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import androidx.wear.compose.material.dialog.Confirmation
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.Green
 import com.scoresaver.app.util.Grey
-import com.scoresaver.app.util.LightBlack
 import com.scoresaver.app.util.LightRed
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
 import com.scoresaver.app.wear.features.game.presentation.GameViewModel
 import com.scoresaver.app.wear.features.game.presentation.ui.components.StatsValue
-import com.scoresaver.core_ui.components.MyScaffold
+import com.scoresaver.app.wear.components.MyScaffold
+import com.scoresaver.app.wear.components.dialogs.ConfirmationAlert
 import com.scoresaver.core_ui.components.buttons.RoundButton
 import com.scoresaver.core_ui.components.icons.CustomImageVectorIcon
 import com.scoresaver.core_ui.components.layout.CustomSpacer
@@ -56,7 +50,7 @@ internal fun TimeAndCaloriesScreen(viewModel: GameViewModel) {
     }
 
     if (viewModel.showSnackbar) {
-        ShowSnackbar(
+        ShowAlertConfirmation(
             viewModel = viewModel,
             message = if (viewModel.isKillerPointActive)
                 stringResource(id = R.string.killer_point_active)
@@ -90,7 +84,7 @@ internal fun TimeAndCaloriesScreen(viewModel: GameViewModel) {
                             onClick = { })
                         CustomSpacer(size = 4.dp, horizontal = true)
                     }
-                    if(!isTieBreak) {
+                    if (!isTieBreak) {
                         RoundButton(
                             size = 40.5.dp,
                             backgroundColor = if (viewModel.isKillerPointActive) Orange else Grey,
@@ -157,51 +151,32 @@ internal fun TimeAndCaloriesScreen(viewModel: GameViewModel) {
     }
 }
 
+
 @Composable
-internal fun ShowSnackbar(
+internal fun ShowAlertConfirmation(
     viewModel: GameViewModel,
     message: String
 ) {
-    val (snackbarVisibleState, setSnackBarState) = remember { mutableStateOf(false) }
+    val (alertConfirmation, showAlertCofirmation) = remember { mutableStateOf(false) }
 
-    LaunchedEffect(snackbarVisibleState) {
-        // Show the Snackbar
-        setSnackBarState(true)
-        // Delay for 2 seconds
+
+    LaunchedEffect(alertConfirmation) {
+        showAlertCofirmation(true)
         delay(500)
         viewModel.hideSnackBar()
-        setSnackBarState(false)
+        showAlertCofirmation(false)
     }
 
-    if (snackbarVisibleState) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(8.dp))
-                .border(1.dp, LightBlack, shape = RoundedCornerShape(8.dp))
-                .background(LightBlack)
-                .padding(horizontal = 24.dp, 8.dp)
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                CustomImageVectorIcon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_warning),
-                    color = LightRed,
-                    contentDescription = ""
+    if (alertConfirmation) {
+        ConfirmationAlert(colorIcon = LightRed, icon = R.drawable.ic_warning) {
+            CustomText(
+                text = message,
+                textStyle = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight(400),
+                    color = White,
                 )
-                CustomSpacer(size = 8.dp, horizontal = true)
-                CustomText(
-                    text = message,
-                    textStyle = TextStyle(
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight(400),
-                        color = White,
-                    )
-                )
-
-            }
+            )
         }
     }
 }

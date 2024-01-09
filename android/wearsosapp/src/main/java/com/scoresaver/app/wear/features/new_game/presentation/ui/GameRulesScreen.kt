@@ -1,6 +1,5 @@
 package com.scoresaver.app.wear.features.new_game.presentation.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,7 +9,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
@@ -25,7 +23,7 @@ import com.scoresaver.app.R
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
 import com.scoresaver.app.wear.features.new_game.presentation.ViewModelFragment
-import com.scoresaver.core_ui.components.MyScaffold
+import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.core_ui.components.buttons.FullWidthRoundSwitchButton
 import com.scoresaver.core_ui.components.icons.CustomImageVectorIcon
 import com.scoresaver.core_ui.components.typography.CustomText

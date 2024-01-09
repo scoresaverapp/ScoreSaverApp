@@ -28,15 +28,16 @@ import com.scoresaver.app.wear.features.new_game.presentation.NewGameViewModel
 import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.core_ui.components.buttons.FullWidthRoundButton
+import com.scoresaver.core_ui.components.layout.CustomSpacer
 import com.scoresaver.core_ui.components.typography.CustomText
 
 @Composable
-internal fun WeightScreen(
+internal fun AgeScreen(
     navController: NavController,
     viewModel: NewGameViewModel
 ) {
 
-    val weight = viewModel.getWeightValue()
+    val age = viewModel.getAge()
 
     val scalingLazyState = remember {
         ScalingLazyListState(
@@ -55,7 +56,7 @@ internal fun WeightScreen(
         ) {
             item {
                 CustomText(
-                    text = stringResource(id = R.string.weight_title),
+                    text = stringResource(id = R.string.age_title),
                     textStyle = TextStyle(
                         fontSize = 16.sp,
                         fontWeight = FontWeight(400),
@@ -65,7 +66,7 @@ internal fun WeightScreen(
             }
             item {
                 CustomText(
-                    text = stringResource(id = R.string.weight_question),
+                    text = stringResource(id = R.string.age_question),
                     textStyle = TextStyle(
                         fontSize = 16.sp,
                         fontWeight = FontWeight(400),
@@ -82,7 +83,7 @@ internal fun WeightScreen(
                 ) {
                     CustomText(
                         modifier = Modifier.clickable {
-                            viewModel.setWeightValue(weight + 1)
+                            viewModel.setAge(age + 1)
                         },
                         text = "+",
                         textStyle = TextStyle(
@@ -93,7 +94,7 @@ internal fun WeightScreen(
                     )
 
                     CustomText(
-                        text = weight.toString(),
+                        text = age.toString(),
                         textStyle = TextStyle(
                             fontSize = 24.sp,
                             fontWeight = FontWeight(400),
@@ -102,7 +103,7 @@ internal fun WeightScreen(
                     )
                     CustomText(
                         modifier = Modifier.clickable {
-                            viewModel.setWeightValue(weight - 1)
+                            viewModel.setAge(age - 1)
                         },
                         text = "-",
                         textStyle = TextStyle(
@@ -113,28 +114,16 @@ internal fun WeightScreen(
                     )
                 }
             }
-
             item {
-                CustomText(
-                    text = stringResource(id = R.string.kg),
-                    textStyle = TextStyle(
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight(400),
-                        color = White,
-                    )
-                )
+                CustomSpacer(size = 16.dp)
             }
+
             item {
                 Row(modifier = Modifier.padding(horizontal = 38.dp)) {
                     FullWidthRoundButton(
                         text = stringResource(id = R.string.next_step),
                         onPress = {
-                            viewModel.insertDataUsers()
-                            navController.navigate(Screen.HomeScreen.route) {
-                                popUpTo(Screen.GenderScreen.route) {
-                                    inclusive = true
-                                }
-                            }
+                            navController.navigate(Screen.HeightScreen.route)
                         },
                         backgroundColor = Orange,
                         borderColor = Orange,

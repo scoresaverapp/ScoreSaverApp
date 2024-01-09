@@ -1,4 +1,4 @@
-package com.scoresaver.core.data.db.schema
+package com.scoresaver.app.util.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,6 +9,7 @@ data class UserEntity (
     @PrimaryKey(autoGenerate = false) var id: Int = 0,
     val height: Int,
     val weight: Int,
+    val age: Int,
     val gender: GENDER
 )
 

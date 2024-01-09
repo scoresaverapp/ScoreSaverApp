@@ -17,7 +17,7 @@ import androidx.wear.compose.material.Button
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.wear.navigation.Screen
-import com.scoresaver.core_ui.components.MyScaffold
+import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.core_ui.components.typography.CustomText
 
 @Composable

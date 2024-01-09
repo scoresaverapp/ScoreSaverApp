@@ -11,9 +11,9 @@ import com.scoresaver.app.wear.features.game.model.mapIntToGameScore
 import com.scoresaver.app.wear.features.game.model.mapIntToPointScore
 import com.scoresaver.app.wear.features.game.repository.GameRepository
 import com.scoresaver.app.wear.features.game.timer.TimerHandler
-import com.scoresaver.core.data.db.schema.GENDER
+import com.scoresaver.app.util.db.entity.GENDER
 import com.scoresaver.core.data.db.schema.GameSettingsEntity
-import com.scoresaver.core.data.db.schema.UserEntity
+import com.scoresaver.app.util.db.entity.UserEntity
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
@@ -51,6 +51,7 @@ internal class GameInteractorImpl @Inject constructor(
     override fun stopHeartRateListener() = health.stopHeartRateListener()
 
     override fun getCalories(
+        age: Int,
         gender: GENDER,
         weight: Int,
         height: Int,
@@ -59,6 +60,7 @@ internal class GameInteractorImpl @Inject constructor(
     ): String {
         val minutes = seconds * 60
         return health.getCalories(
+            age = age,
             gender = gender, weight = weight, height = height, heartRate = heartRate,
             minutes = minutes
         )

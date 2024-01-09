@@ -15,7 +15,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.wear.features.new_game.presentation.ViewModelFragment
-import com.scoresaver.core_ui.components.MyScaffold
+import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.core_ui.components.buttons.FullWidthRoundSwitchButton
 import com.scoresaver.core_ui.components.typography.CustomText
 

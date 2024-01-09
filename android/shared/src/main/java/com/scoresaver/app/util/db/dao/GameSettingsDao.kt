@@ -5,8 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.scoresaver.core.data.db.schema.GameSettingsEntity
-import com.scoresaver.core.data.db.schema.UserEntity
-import kotlinx.coroutines.flow.Flow
+import com.scoresaver.app.util.db.entity.UserEntity
 
 @Dao
 interface GameSettingsDao {

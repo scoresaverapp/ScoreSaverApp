@@ -1,4 +1,4 @@
-package com.scoresaver.core_ui.components
+package com.scoresaver.app.wear.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
