@@ -2,12 +2,14 @@ package com.scoresaver.app.wear.features.user_settings.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -26,11 +28,11 @@ import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
 import com.scoresaver.app.util.util.MAX_WEIGHT
 import com.scoresaver.app.util.util.MIN_WEIGHT
+import com.scoresaver.app.wear.components.MyScaffold
+import com.scoresaver.app.wear.components.typography.CustomText
 import com.scoresaver.app.wear.features.new_game.presentation.NewGameViewModel
 import com.scoresaver.app.wear.navigation.Screen
-import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.core_ui.components.buttons.FullWidthRoundButton
-import com.scoresaver.app.wear.components.typography.CustomText
 
 @Composable
 internal fun WeightScreen(
@@ -49,6 +51,7 @@ internal fun WeightScreen(
 
     MyScaffold(scalingLazyState = scalingLazyState) {
         ScalingLazyColumn(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize(),
             autoCentering = AutoCenteringParams(itemIndex = 2),
             state = scalingLazyState,
@@ -78,9 +81,8 @@ internal fun WeightScreen(
             item {
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     CustomText(
                         modifier = Modifier.clickable {
@@ -95,14 +97,25 @@ internal fun WeightScreen(
                         )
                     )
 
-                    CustomText(
-                        text = weight.toString(),
-                        textStyle = TextStyle(
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight(400),
-                            color = White,
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        CustomText(
+                            text = weight.toString(),
+                            textStyle = TextStyle(
+                                fontSize = 24.sp,
+                                fontWeight = FontWeight(400),
+                                color = White,
+                            )
                         )
-                    )
+                        CustomText(
+                            text = stringResource(id = R.string.kg),
+                            textStyle = TextStyle(
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight(400),
+                                color = White,
+                            )
+                        )
+
+                    }
                     CustomText(
                         modifier = Modifier.clickable {
                             if(weight > MIN_WEIGHT)
@@ -119,17 +132,10 @@ internal fun WeightScreen(
             }
 
             item {
-                CustomText(
-                    text = stringResource(id = R.string.kg),
-                    textStyle = TextStyle(
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight(400),
-                        color = White,
-                    )
-                )
-            }
-            item {
-                Row(modifier = Modifier.padding(horizontal = 38.dp)) {
+                Row(
+                    modifier = Modifier.padding(top = 8.dp, start = 40.dp, end = 40.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
                     FullWidthRoundButton(
                         text = stringResource(id = R.string.next_step),
                         onPress = {

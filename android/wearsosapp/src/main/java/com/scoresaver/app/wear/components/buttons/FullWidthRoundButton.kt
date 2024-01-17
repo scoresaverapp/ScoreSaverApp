@@ -37,7 +37,7 @@ fun FullWidthRoundButton(
     textSize: Int = 12,
     iconContentDescription: String = "",
     onPress: () -> Unit,
-    enable: Boolean = true,
+    enable: Boolean = true
 ) {
     Row(
         modifier = Styles

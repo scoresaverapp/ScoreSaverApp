@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -62,7 +63,7 @@ internal fun AgeScreen(
                     textStyle = TextStyle(
                         fontSize = 16.sp,
                         fontWeight = FontWeight(400),
-                        color = Orange,
+                        color = Orange
                     )
                 )
             }
@@ -81,13 +82,15 @@ internal fun AgeScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 24.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.Absolute.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     CustomText(
-                        modifier = Modifier.clickable {
-                            if(age <= MAX_AGE)
-                                viewModel.setAge(age + 1)
-                        },
+                        modifier = Modifier
+                            .clickable {
+                                if (age <= MAX_AGE)
+                                    viewModel.setAge(age + 1)
+                            },
                         text = "+",
                         textStyle = TextStyle(
                             fontSize = 24.sp,
@@ -105,10 +108,11 @@ internal fun AgeScreen(
                         )
                     )
                     CustomText(
-                        modifier = Modifier.clickable {
-                            if(age > MIN_AGE)
-                                viewModel.setAge(age - 1)
-                        },
+                        modifier = Modifier
+                            .clickable {
+                                if (age > MIN_AGE)
+                                    viewModel.setAge(age - 1)
+                            },
                         text = "-",
                         textStyle = TextStyle(
                             fontSize = 24.sp,
@@ -123,7 +127,10 @@ internal fun AgeScreen(
             }
 
             item {
-                Row(modifier = Modifier.padding(horizontal = 38.dp)) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 40.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
                     FullWidthRoundButton(
                         text = stringResource(id = R.string.next_step),
                         onPress = {
