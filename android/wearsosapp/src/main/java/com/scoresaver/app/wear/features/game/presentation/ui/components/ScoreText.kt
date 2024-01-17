@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.sp
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Grey
 import com.scoresaver.app.util.White
-import com.scoresaver.core_ui.components.icons.CustomImageVectorIcon
 import com.scoresaver.app.wear.components.typography.CustomText
+import com.scoresaver.core_ui.components.icons.CustomImageVectorIcon
 
 
 @Composable
@@ -33,12 +33,12 @@ fun ScoreText(
     numberSetPlayer2: Int,
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceAround,
+        modifier = Modifier.fillMaxSize(1f),
+        horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if(numberSetPlayer1 == 0 && numberSetPlayer2 == 0) {
-            Spacer(modifier = Modifier.padding(end = 7.5.dp))
+        if(numberSetPlayer1 == 0 && numberSetPlayer2 != 0) {
+            Spacer(modifier = Modifier.size(10.5.dp))
         }
         Column {
             for (i in 0 until numberSetPlayer1) {
@@ -50,7 +50,11 @@ fun ScoreText(
                 )
             }
         }
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.weight(1f)
+        ) {
             CustomText(
                 text = currentPointPlayer1,
                 textStyle = TextStyle(
@@ -81,7 +85,10 @@ fun ScoreText(
             )
         )
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.weight(1f)
+        ) {
             CustomText(
                 text = currentPointPlayer2,
                 textStyle = TextStyle(
@@ -98,11 +105,8 @@ fun ScoreText(
                     color = Grey,
                 )
             )
+        }
 
-        }
-        if(numberSetPlayer1 == 0 && numberSetPlayer2 == 0) {
-           Spacer(modifier = Modifier.padding(end = 7.5.dp))
-        }
         Column {
             for (i in 0 until numberSetPlayer2) {
                 CustomImageVectorIcon(
@@ -113,6 +117,8 @@ fun ScoreText(
                 )
             }
         }
+        if(numberSetPlayer1 != 0 && numberSetPlayer2 == 0) {
+            Spacer(modifier = Modifier.size(10.5.dp))
+        }
     }
-
 }
