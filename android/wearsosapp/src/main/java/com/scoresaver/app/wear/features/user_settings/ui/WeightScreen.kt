@@ -24,6 +24,8 @@ import com.scoresaver.app.R
 import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
+import com.scoresaver.app.util.util.MAX_WEIGHT
+import com.scoresaver.app.util.util.MIN_WEIGHT
 import com.scoresaver.app.wear.features.new_game.presentation.NewGameViewModel
 import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.app.wear.components.MyScaffold
@@ -82,7 +84,8 @@ internal fun WeightScreen(
                 ) {
                     CustomText(
                         modifier = Modifier.clickable {
-                            viewModel.setWeightValue(weight + 1)
+                            if(weight < MAX_WEIGHT)
+                                viewModel.setWeightValue(weight + 1)
                         },
                         text = "+",
                         textStyle = TextStyle(
@@ -102,7 +105,8 @@ internal fun WeightScreen(
                     )
                     CustomText(
                         modifier = Modifier.clickable {
-                            viewModel.setWeightValue(weight - 1)
+                            if(weight > MIN_WEIGHT)
+                                viewModel.setWeightValue(weight - 1)
                         },
                         text = "-",
                         textStyle = TextStyle(

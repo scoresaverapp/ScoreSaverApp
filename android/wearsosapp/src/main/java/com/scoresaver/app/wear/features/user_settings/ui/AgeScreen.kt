@@ -24,6 +24,8 @@ import com.scoresaver.app.R
 import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
+import com.scoresaver.app.util.util.MAX_AGE
+import com.scoresaver.app.util.util.MIN_AGE
 import com.scoresaver.app.wear.features.new_game.presentation.NewGameViewModel
 import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.app.wear.components.MyScaffold
@@ -83,7 +85,8 @@ internal fun AgeScreen(
                 ) {
                     CustomText(
                         modifier = Modifier.clickable {
-                            viewModel.setAge(age + 1)
+                            if(age <= MAX_AGE)
+                                viewModel.setAge(age + 1)
                         },
                         text = "+",
                         textStyle = TextStyle(
@@ -103,7 +106,8 @@ internal fun AgeScreen(
                     )
                     CustomText(
                         modifier = Modifier.clickable {
-                            viewModel.setAge(age - 1)
+                            if(age > MIN_AGE)
+                                viewModel.setAge(age - 1)
                         },
                         text = "-",
                         textStyle = TextStyle(

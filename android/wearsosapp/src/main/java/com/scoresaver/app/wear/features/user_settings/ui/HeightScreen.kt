@@ -24,6 +24,8 @@ import com.scoresaver.app.R
 import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
+import com.scoresaver.app.util.util.MAX_HEIGHT
+import com.scoresaver.app.util.util.MIN_HEIGHT
 import com.scoresaver.app.wear.features.new_game.presentation.NewGameViewModel
 import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.app.wear.components.MyScaffold
@@ -82,7 +84,8 @@ internal fun HeightScreen(
                 ) {
                     CustomText(
                         modifier = Modifier.clickable {
-                            viewModel.setHeightValue(height + 1)
+                            if(height < MAX_HEIGHT)
+                                viewModel.setHeightValue(height + 1)
                         },
                         text = "+",
                         textStyle = TextStyle(
@@ -102,7 +105,8 @@ internal fun HeightScreen(
                     )
                     CustomText(
                         modifier = Modifier.clickable {
-                            viewModel.setHeightValue(height - 1)
+                            if(height > MIN_HEIGHT)
+                                viewModel.setHeightValue(height - 1)
                         },
                         text = "-",
                         textStyle = TextStyle(
