@@ -66,7 +66,7 @@ internal fun NewGameScreen(
 
     fun isStartGameButtonEnabled() =
         (single.switchValue && (advantages.switchValue || killerPoint.switchValue)) ||
-                (double.switchValue && (advantages.switchValue || killerPoint.switchValue) && serviceOrderConfirmed)
+                (double.switchValue && (advantages.switchValue || killerPoint.switchValue))
 
     fun getStartGameButtonBackgroundColor() = if (isStartGameButtonEnabled()) Orange else LightGrey
 
@@ -122,8 +122,7 @@ internal fun NewGameScreen(
                     iconColor = Blue
                 )
             }
-
-            item {
+/*            item {
                 if (showServiceOrder()) {
                     FullWidthRoundButton(
                         text = stringResource(id = R.string.order_service),
@@ -138,8 +137,7 @@ internal fun NewGameScreen(
                     )
                     CustomSpacer(size = 6.dp)
                 }
-            }
-
+            }*/
             item {
                 Row(modifier = Modifier.padding(horizontal = 38.dp)) {
                     FullWidthRoundButton(

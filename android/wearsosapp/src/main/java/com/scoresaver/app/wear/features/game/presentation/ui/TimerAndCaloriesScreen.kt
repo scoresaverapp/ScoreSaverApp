@@ -51,7 +51,7 @@ internal fun TimeAndCaloriesScreen(
             initialCenterItemScrollOffset = 140
         )
     }
-    val serviceOrder = viewModel.serviceOrder
+    //val serviceOrder = viewModel.serviceOrder
 
     if (viewModel.showSnackbar) {
         ShowAlertKillerPoint(
@@ -107,7 +107,7 @@ internal fun TimeAndCaloriesScreen(
         ) {
             item {
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                    if (isDoubleMatch && !isTieBreak) {
+/*                    if (isDoubleMatch && !isTieBreak) {
                         RoundButton(
                             size = 40.5.dp,
                             icon = R.drawable.ic_tennis_ball,
@@ -117,10 +117,9 @@ internal fun TimeAndCaloriesScreen(
                             borderBackground = White,
                             isDoubleMatch = true,
                             onClick = { },
-                            serviceOrder = serviceOrder.toString()
                         )
                         CustomSpacer(size = 4.dp, horizontal = true)
-                    }
+                    }*/
                     if (!isTieBreak) {
                         RoundButton(
                             size = 40.5.dp,

@@ -71,7 +71,7 @@ fun HomeScreen(navController: NavController) {
             item {
                 FullWidthRoundButton(
                     text = stringResource(id = R.string.game_save),
-                    onPress = { TODO() },
+                    onPress = {  },
                     backgroundColor = Orange,
                     borderColor = Orange,
                     textColor = Black,

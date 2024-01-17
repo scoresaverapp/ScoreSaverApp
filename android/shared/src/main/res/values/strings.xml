@@ -18,7 +18,7 @@
     <string name="killer_text">Killer Point</string>
     <string name="description_killer_point">Puoi attivare o disattivare il killer point durante la partita premendo sull\'icona con il teschio</string>
     <string name="height_title">Altezza</string>
-    <string name="age_title">Altezza</string>
+    <string name="age_title">Età</string>
     <string name="weight_title">Peso</string>
     <string name="gender_title">Sesso</string>
     <string name="next_step">Continua</string>
