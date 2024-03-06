@@ -90,6 +90,7 @@ internal fun TimeAndCaloriesScreen(
                     onClick = {
                         viewModel.stopHeartRateListener()
                         viewModel.stopTimer()
+                        viewModel.saveResult()
                         navController.navigate(Screen.ListGameScreen.route)
                     })
             }

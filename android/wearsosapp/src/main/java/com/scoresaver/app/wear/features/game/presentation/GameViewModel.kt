@@ -1,6 +1,5 @@
 package com.scoresaver.app.wear.features.game.presentation
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -9,8 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scoresaver.app.wear.features.game.model.Team
 import com.scoresaver.app.wear.features.game.use_cases.GameInteractor
-import com.scoresaver.core.data.db.schema.GAME_POINT
-import com.scoresaver.core.data.db.schema.GAME_TYPE
+import com.scoresaver.app.util.db.entity.GAME_POINT
+import com.scoresaver.app.util.db.entity.GAME_TYPE
 import com.scoresaver.app.util.db.entity.GENDER
 import com.scoresaver.app.util.db.entity.UserEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -88,7 +87,6 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
             userData?.let {
                 withContext(Dispatchers.Main) {
                     _userData.value = userData
-
                 }
             }
         }
@@ -200,6 +198,10 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
 
     fun onClickCloseGame() {
         _actionCloseGame.value = true
+    }
+
+    fun saveResult() {
+        gameInteractor.saveResult()
     }
 
     fun setOnClickCloseGame(value: Boolean) {

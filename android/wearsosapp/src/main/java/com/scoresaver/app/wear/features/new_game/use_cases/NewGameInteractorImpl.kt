@@ -1,6 +1,6 @@
 package com.scoresaver.newgame_interactor.interactors
 
-import com.scoresaver.core.data.db.schema.GameSettingsEntity
+import com.scoresaver.app.util.db.entity.GameSettingsEntity
 import com.scoresaver.app.util.db.entity.UserEntity
 import com.scoresaver.app.wear.features.new_game.repository.NewGameRepository
 import javax.inject.Inject

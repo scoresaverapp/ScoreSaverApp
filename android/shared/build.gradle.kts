@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.hilt.android)
     implementation(libs.hilt.compiler)
+    implementation(libs.gson)
     kapt(libs.hilt.compiler)
 
 }

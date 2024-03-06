@@ -22,6 +22,7 @@ ksp-version = "1.8.10-1.0.9"
 appcompat = "1.6.1"
 material = "1.11.0"
 uiGraphicsAndroid = "1.5.4"
+gson = "2.8.8"
 
 [libraries]
 androidx-compose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "composeNavigation" }
@@ -54,6 +55,7 @@ androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscree
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-ui-graphics-android = { group = "androidx.compose.ui", name = "ui-graphics-android", version.ref = "uiGraphicsAndroid" }
+gson = {group = "com.google.code.gson", name = "gson", version.ref = "gson"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

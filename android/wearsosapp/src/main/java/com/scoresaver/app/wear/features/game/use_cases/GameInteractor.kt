@@ -1,7 +1,7 @@
 package com.scoresaver.app.wear.features.game.use_cases
 
 import com.scoresaver.app.util.db.entity.GENDER
-import com.scoresaver.core.data.db.schema.GameSettingsEntity
+import com.scoresaver.app.util.db.entity.GameSettingsEntity
 import com.scoresaver.app.util.db.entity.UserEntity
 import com.scoresaver.app.wear.features.game.model.Team
 import kotlinx.coroutines.CoroutineScope
@@ -28,6 +28,8 @@ interface GameInteractor {
 
     fun getSetScoreTeam2(): Int
     fun getServiceOrder(): Int
+
+    fun saveResult()
     suspend fun getUserData(): UserEntity?
     suspend fun getGameSettings(): GameSettingsEntity?
 }

@@ -4,7 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.scoresaver.core.data.db.schema.GameSettingsEntity
+import com.scoresaver.app.util.db.entity.GameSettingsEntity
+import com.scoresaver.app.util.db.entity.ResultData
 import com.scoresaver.app.util.db.entity.UserEntity
 
 @Dao
@@ -19,4 +20,7 @@ interface GameSettingsDao {
     fun getGameSettings(): GameSettingsEntity
     @Query("SELECT * FROM user")
     fun getUserData(): UserEntity
+
+    @Insert
+    fun insertResultData(resulData: ResultData)
 }

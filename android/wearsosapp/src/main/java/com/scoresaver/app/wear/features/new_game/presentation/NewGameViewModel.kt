@@ -1,13 +1,12 @@
 package com.scoresaver.app.wear.features.new_game.presentation
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.scoresaver.core.data.db.schema.GAME_POINT
-import com.scoresaver.core.data.db.schema.GAME_TYPE
+import com.scoresaver.app.util.db.entity.GAME_POINT
+import com.scoresaver.app.util.db.entity.GAME_TYPE
 import com.scoresaver.app.util.db.entity.GENDER
-import com.scoresaver.core.data.db.schema.GameSettingsEntity
+import com.scoresaver.app.util.db.entity.GameSettingsEntity
 import com.scoresaver.app.util.db.entity.UserEntity
 import com.scoresaver.newgame_interactor.interactors.NewGameInteractor
 import com.scoresaver.app.wear.features.new_game.model.GameSetting

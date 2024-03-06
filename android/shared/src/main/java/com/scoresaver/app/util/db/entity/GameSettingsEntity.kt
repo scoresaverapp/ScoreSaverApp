@@ -1,4 +1,4 @@
-package com.scoresaver.core.data.db.schema
+package com.scoresaver.app.util.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

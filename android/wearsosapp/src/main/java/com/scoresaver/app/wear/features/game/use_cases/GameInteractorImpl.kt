@@ -14,9 +14,12 @@ import com.scoresaver.app.wear.features.game.model.mapIntToPointScore
 import com.scoresaver.app.wear.features.game.repository.GameRepository
 import com.scoresaver.app.wear.features.game.timer.TimerHandler
 import com.scoresaver.app.util.db.entity.GENDER
-import com.scoresaver.core.data.db.schema.GameSettingsEntity
+import com.scoresaver.app.util.db.entity.GameSettingsEntity
+import com.scoresaver.app.util.db.entity.ResultData
 import com.scoresaver.app.util.db.entity.UserEntity
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 internal class GameInteractorImpl @Inject constructor(
@@ -27,6 +30,8 @@ internal class GameInteractorImpl @Inject constructor(
 
     private val listPoints = mutableListOf<PointType>()
     private val listGame = mutableListOf<GameType>()
+    private val previousListGameA = mutableListOf<Int>()
+    private val previousListGameB = mutableListOf<Int>()
     private val listSet = mutableListOf<SetType>()
     private val serviceOrder = mutableIntStateOf(1)
 
@@ -237,6 +242,19 @@ internal class GameInteractorImpl @Inject constructor(
 
             scoreSelectedTeam == GameScore.FIVE || scoreSelectedTeam == GameScore.SIX -> {
                 listSet.add(SetType.Base(team))
+                previousListGameA.add(
+                    if (calculateGameScore(Team.TEAM_1).score.toInt() == 0)
+                        calculateGameScore(Team.TEAM_2).score.toInt()
+                    else
+                        calculateGameScore(Team.TEAM_1).score.toInt() + 1
+                )
+
+                previousListGameB.add(
+                    if (calculateGameScore(Team.TEAM_2).score.toInt() == 0)
+                        calculateGameScore(Team.TEAM_2).score.toInt()
+                    else
+                        calculateGameScore(Team.TEAM_2).score.toInt() + 1
+                )
                 listGame.clear()
                 setServiceOrder()
             }
@@ -247,6 +265,44 @@ internal class GameInteractorImpl @Inject constructor(
         }
     }
 
+    override fun saveResult() {
+        val gameA = calculateGameScore(Team.TEAM_1).score
+        val gameB = calculateGameScore(Team.TEAM_2).score
+        val setA = calculateSetScore(Team.TEAM_1)
+        val setB = calculateSetScore(Team.TEAM_2)
+
+        val resultData = ResultData(
+            listGameTeam1 = if (listSet.isNotEmpty()) {
+                previousListGameA.add(gameA.toInt())
+                previousListGameA
+            } else {
+                mutableListOf(gameA.toInt())
+            },
+            listGameTeam2 = if (listSet.isNotEmpty()) {
+                previousListGameB.add(gameA.toInt())
+                previousListGameB
+            } else {
+                mutableListOf(gameB.toInt())
+            },
+            winner = if (listSet.isEmpty()) {
+                if (gameA.toInt() > gameB.toInt()) 1 else if (gameA.toInt() == gameB
+                        .toInt()
+                ) 3 else 2
+            } else {
+                if (setA > setB) 1 else if (setA == setB) 3 else 2
+            }
+        )
+
+
+        CoroutineScope(Dispatchers.IO).launch {
+            gameRepository.insetResultMatch(resultData)
+            previousListGameA.clear()
+            previousListGameB.clear()
+            listSet.clear()
+            listGame.clear()
+            listPoints.clear()
+        }
+    }
 
     private fun isAdvantages(team: Team): Boolean {
         val lastPoints = listPoints.last()
@@ -294,7 +350,7 @@ internal class GameInteractorImpl @Inject constructor(
     }
 
     private fun setServiceOrder() {
-        if(serviceOrder.intValue == 4) {
+        if (serviceOrder.intValue == 4) {
             serviceOrder.intValue = 1
         } else {
             serviceOrder.intValue++
@@ -313,3 +369,4 @@ internal class GameInteractorImpl @Inject constructor(
         return gameRepository.getGameSettings()
     }
 }
+
