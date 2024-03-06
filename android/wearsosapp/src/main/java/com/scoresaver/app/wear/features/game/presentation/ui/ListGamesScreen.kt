@@ -1,7 +1,10 @@
 package com.scoresaver.app.wear.features.game.presentation.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,10 +22,12 @@ import com.scoresaver.app.util.Orange
 import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.app.wear.components.typography.CustomText
+import com.scoresaver.app.wear.features.game.presentation.GameViewModel
 
 @Composable
 internal fun ListGameScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: GameViewModel
 ) {
     val scalingLazyState = remember {
         ScalingLazyListState(
@@ -30,6 +35,11 @@ internal fun ListGameScreen(
             initialCenterItemScrollOffset = 40
         )
     }
+
+    viewModel.loadHistoryMatches()
+    val historyMatchesState by viewModel.historyMatches.collectAsState(initial = emptyList())
+
+    Log.d( "LIST Matches ","$historyMatchesState")
 
     MyScaffold(scalingLazyState = scalingLazyState) {
         ScalingLazyColumn(

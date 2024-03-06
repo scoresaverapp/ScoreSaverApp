@@ -1,7 +1,10 @@
 package com.scoresaver.app.wear.features.game.use_cases
 
-import android.util.Log
 import androidx.compose.runtime.mutableIntStateOf
+import com.scoresaver.app.util.db.entity.GENDER
+import com.scoresaver.app.util.db.entity.GameSettingsEntity
+import com.scoresaver.app.util.db.entity.ResultData
+import com.scoresaver.app.util.db.entity.UserEntity
 import com.scoresaver.app.wear.features.game.health.Health
 import com.scoresaver.app.wear.features.game.model.GameScore
 import com.scoresaver.app.wear.features.game.model.GameType
@@ -13,12 +16,9 @@ import com.scoresaver.app.wear.features.game.model.mapIntToGameScore
 import com.scoresaver.app.wear.features.game.model.mapIntToPointScore
 import com.scoresaver.app.wear.features.game.repository.GameRepository
 import com.scoresaver.app.wear.features.game.timer.TimerHandler
-import com.scoresaver.app.util.db.entity.GENDER
-import com.scoresaver.app.util.db.entity.GameSettingsEntity
-import com.scoresaver.app.util.db.entity.ResultData
-import com.scoresaver.app.util.db.entity.UserEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,7 +34,7 @@ internal class GameInteractorImpl @Inject constructor(
     private val previousListGameB = mutableListOf<Int>()
     private val listSet = mutableListOf<SetType>()
     private val serviceOrder = mutableIntStateOf(1)
-
+    private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
     override fun startTimer(
         scope: CoroutineScope,
         onTimerChangeCallback: (Int, Boolean) -> Unit
@@ -293,8 +293,7 @@ internal class GameInteractorImpl @Inject constructor(
             }
         )
 
-
-        CoroutineScope(Dispatchers.IO).launch {
+        coroutineScope.launch {
             gameRepository.insetResultMatch(resultData)
             previousListGameA.clear()
             previousListGameB.clear()
@@ -303,6 +302,11 @@ internal class GameInteractorImpl @Inject constructor(
             listPoints.clear()
         }
     }
+
+    override suspend fun loadHistoryMatches(): Flow<List<ResultData>> {
+        return gameRepository.getHistoryMatches()
+    }
+
 
     private fun isAdvantages(team: Team): Boolean {
         val lastPoints = listPoints.last()

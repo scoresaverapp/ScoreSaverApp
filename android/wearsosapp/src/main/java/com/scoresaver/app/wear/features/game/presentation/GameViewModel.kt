@@ -6,14 +6,16 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.scoresaver.app.wear.features.game.model.Team
-import com.scoresaver.app.wear.features.game.use_cases.GameInteractor
 import com.scoresaver.app.util.db.entity.GAME_POINT
 import com.scoresaver.app.util.db.entity.GAME_TYPE
 import com.scoresaver.app.util.db.entity.GENDER
+import com.scoresaver.app.util.db.entity.ResultData
 import com.scoresaver.app.util.db.entity.UserEntity
+import com.scoresaver.app.wear.features.game.model.Team
+import com.scoresaver.app.wear.features.game.use_cases.GameInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -72,6 +74,10 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
 
     private val _serviceOrder = mutableIntStateOf(1)
     val serviceOrder by _serviceOrder
+
+    private val _historyMatches = MutableStateFlow<List<ResultData>>(listOf())
+    val historyMatches: MutableStateFlow<List<ResultData>>
+        get() = _historyMatches
 
     init {
         startTimer()
@@ -207,6 +213,16 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     fun setOnClickCloseGame(value: Boolean) {
         _actionCloseGame.value = value
     }
+
+    fun loadHistoryMatches() {
+        viewModelScope.launch {
+            gameInteractor.loadHistoryMatches().collect{
+                _historyMatches.value = it
+            }
+        }
+    }
+
+
 
     override fun onCleared() {
         super.onCleared()

@@ -7,6 +7,7 @@ import androidx.room.Query
 import com.scoresaver.app.util.db.entity.GameSettingsEntity
 import com.scoresaver.app.util.db.entity.ResultData
 import com.scoresaver.app.util.db.entity.UserEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface GameSettingsDao {
@@ -23,4 +24,7 @@ interface GameSettingsDao {
 
     @Insert
     fun insertResultData(resulData: ResultData)
+
+    @Query("SELECT * FROM result_match")
+    fun getHistoryMatches(): Flow<List<ResultData>>
 }

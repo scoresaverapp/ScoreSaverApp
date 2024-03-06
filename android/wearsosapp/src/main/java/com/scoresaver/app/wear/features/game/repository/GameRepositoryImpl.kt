@@ -5,6 +5,7 @@ import com.scoresaver.app.util.db.entity.GameSettingsEntity
 import com.scoresaver.app.util.db.entity.ResultData
 import com.scoresaver.app.util.db.entity.UserEntity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -25,5 +26,11 @@ internal class GameRepositoryImpl @Inject constructor(
 
     override suspend fun insetResultMatch(resultData: ResultData) {
         gameSettingsDao.insertResultData(resultData)
+    }
+
+    override suspend fun getHistoryMatches(): Flow<List<ResultData>> {
+        return withContext(Dispatchers.IO) {
+            gameSettingsDao.getHistoryMatches()
+        }
     }
 }

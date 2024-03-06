@@ -2,20 +2,31 @@ package com.scoresaver.app.wear.features.game.use_cases
 
 import com.scoresaver.app.util.db.entity.GENDER
 import com.scoresaver.app.util.db.entity.GameSettingsEntity
+import com.scoresaver.app.util.db.entity.ResultData
 import com.scoresaver.app.util.db.entity.UserEntity
 import com.scoresaver.app.wear.features.game.model.Team
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
 
 interface GameInteractor {
     fun startTimer(
         scope: CoroutineScope,
         onTimerChangeCallback: (Int, Boolean) -> Unit
     )
+
     fun stopTimer()
     fun clearTimer()
     fun startHeartRateListener(onHeartRateChangeCallback: (Float) -> Unit)
     fun stopHeartRateListener()
-    fun getCalories(age: Int, gender: GENDER, weight: Int, height: Int, heartRate: Float, seconds: Int): String
+    fun getCalories(
+        age: Int,
+        gender: GENDER,
+        weight: Int,
+        height: Int,
+        heartRate: Float,
+        seconds: Int
+    ): String
+
     fun formatSeconds(value: Int): String
     fun addPoint(team: Team, isKillerPointActive: Boolean)
     fun removeLastPoint()
@@ -30,6 +41,7 @@ interface GameInteractor {
     fun getServiceOrder(): Int
 
     fun saveResult()
+    suspend fun loadHistoryMatches(): Flow<List<ResultData>>
     suspend fun getUserData(): UserEntity?
     suspend fun getGameSettings(): GameSettingsEntity?
 }

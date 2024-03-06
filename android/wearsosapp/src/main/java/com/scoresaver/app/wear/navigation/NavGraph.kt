@@ -69,7 +69,7 @@ fun NavGraph() {
             GameScreen(navController = navController,viewModel = gameViewModel)
         }
         composable(Screen.ListGameScreen.route) {
-            ListGameScreen(navController = navController)
+            ListGameScreen(navController = navController, viewModel = gameViewModel)
         }
 
     }
