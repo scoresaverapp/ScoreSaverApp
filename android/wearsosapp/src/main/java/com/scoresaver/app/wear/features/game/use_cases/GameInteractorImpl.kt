@@ -1,10 +1,13 @@
 package com.scoresaver.app.wear.features.game.use_cases
 
+import android.text.format.DateUtils
 import androidx.compose.runtime.mutableIntStateOf
+import com.scoresaver.app.util.db.entity.GAME_TYPE
 import com.scoresaver.app.util.db.entity.GENDER
 import com.scoresaver.app.util.db.entity.GameSettingsEntity
 import com.scoresaver.app.util.db.entity.ResultData
 import com.scoresaver.app.util.db.entity.UserEntity
+import com.scoresaver.app.util.util.getCurrentDate
 import com.scoresaver.app.wear.features.game.health.Health
 import com.scoresaver.app.wear.features.game.model.GameScore
 import com.scoresaver.app.wear.features.game.model.GameType
@@ -35,6 +38,14 @@ internal class GameInteractorImpl @Inject constructor(
     private val listSet = mutableListOf<SetType>()
     private val serviceOrder = mutableIntStateOf(1)
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+    private var isSingleGame: Boolean = false
+
+    init {
+        coroutineScope.launch {
+            isSingleGame = gameRepository.getGameSettings()?.gameType == GAME_TYPE.SINGLE
+        }
+
+    }
     override fun startTimer(
         scope: CoroutineScope,
         onTimerChangeCallback: (Int, Boolean) -> Unit
@@ -290,7 +301,9 @@ internal class GameInteractorImpl @Inject constructor(
                 ) 3 else 2
             } else {
                 if (setA > setB) 1 else if (setA == setB) 3 else 2
-            }
+            },
+            data = getCurrentDate(),
+            single = isSingleGame
         )
 
         coroutineScope.launch {

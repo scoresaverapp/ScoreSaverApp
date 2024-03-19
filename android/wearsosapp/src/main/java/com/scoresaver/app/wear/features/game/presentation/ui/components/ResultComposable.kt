@@ -34,11 +34,11 @@ fun ResultComposable(match: ResultData) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(vertical = 8.dp, horizontal = 6.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             CustomText(
-                text = "12-04-20222",
+                text = match.data ?: "",
                 textStyle = TextStyle(
                     fontSize = 12.sp,
                     fontWeight = FontWeight(400),
@@ -51,9 +51,9 @@ fun ResultComposable(match: ResultData) {
 
             CustomImageVectorIcon(
                 modifier = Modifier.size(10.dp),
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_profile_selected),
+                imageVector = if(match.single == true) ImageVector.vectorResource(id = R.drawable.ic_profile_selected) else ImageVector.vectorResource(id = R.drawable.ic_double_profile_selected),
                 contentDescription = "",
-                color = Orange
+                color = White
             )
 
             CustomText(
@@ -68,9 +68,9 @@ fun ResultComposable(match: ResultData) {
 
             CustomImageVectorIcon(
                 modifier = Modifier.size(10.dp),
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_profile_selected),
+                imageVector = if(match.single == true) ImageVector.vectorResource(id = R.drawable.ic_profile_selected) else ImageVector.vectorResource(id = R.drawable.ic_double_profile_selected),
                 contentDescription = "",
-                color = Orange
+                color = White
             )
         }
         Row(
@@ -94,7 +94,7 @@ fun ResultComposable(match: ResultData) {
                             textAlign = TextAlign.Center
                         )
                     )
-                    if (true) {
+                    if (match.winner == 1) {
                         CustomImageVectorIcon(
                             modifier = Modifier
                                 .padding(start = 3.dp)
@@ -125,7 +125,7 @@ fun ResultComposable(match: ResultData) {
                             textAlign = TextAlign.Center
                         )
                     )
-                    if (false) {
+                    if (match.winner == 2) {
                         CustomImageVectorIcon(
                             modifier = Modifier
                                 .padding(start = 3.dp)

@@ -1,7 +1,7 @@
 package com.scoresaver.app.wear.features.game.presentation.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
@@ -19,6 +21,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.items
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Orange
+import com.scoresaver.app.util.White
 import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.app.wear.components.typography.CustomText
 import com.scoresaver.app.wear.features.game.presentation.GameViewModel
@@ -39,8 +42,6 @@ internal fun ListGameScreen(
     viewModel.loadHistoryMatches()
     val listMatches by viewModel.historyMatches.collectAsState(initial = emptyList())
 
-    Log.d("LIST Matches ", "$listMatches")
-
 
     MyScaffold(scalingLazyState = scalingLazyState) {
         ScalingLazyColumn(
@@ -59,8 +60,24 @@ internal fun ListGameScreen(
                     )
                 )
             }
-            items(listMatches) { match ->
-                ResultComposable(match)
+            if (listMatches.isEmpty()) {
+                item {
+                    CustomText(
+                        modifier = Modifier.padding(horizontal = 8.dp),
+                        text = stringResource(id = R.string.empty_history),
+                        textStyle = TextStyle(
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight(400),
+                            color = White,
+                            textAlign = TextAlign.Center
+                        )
+                    )
+                }
+            } else {
+                items(listMatches) { match ->
+                    ResultComposable(match)
+                }
+
             }
         }
     }

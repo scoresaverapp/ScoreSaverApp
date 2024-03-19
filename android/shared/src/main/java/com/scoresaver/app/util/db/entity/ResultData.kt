@@ -12,7 +12,9 @@ data class ResultData(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val listGameTeam1: List<Int>? = null,
     val listGameTeam2: List<Int>? = null,
-    val winner: Int? = null
+    val winner: Int? = null,
+    val data: String? = null,
+    val single: Boolean? = null
 )
 
 

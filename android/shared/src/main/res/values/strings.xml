@@ -3,6 +3,7 @@
     <string name="new_game">Nuova partita</string>
     <string name="game_save">Partita salvata</string>
     <string name="history_game">Storico</string>
+    <string name="empty_history">Nessuna partita salvata</string>
     <string name="type_game">Tipo di gioco</string>
     <string name="rules_game">Regole del game</string>
     <string name="order_service">Ordine di servizio</string>
