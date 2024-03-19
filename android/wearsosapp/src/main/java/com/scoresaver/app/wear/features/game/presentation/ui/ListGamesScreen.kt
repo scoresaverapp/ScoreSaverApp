@@ -16,13 +16,13 @@ import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
-import androidx.wear.compose.material.Button
+import androidx.wear.compose.foundation.lazy.items
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Orange
-import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.app.wear.components.typography.CustomText
 import com.scoresaver.app.wear.features.game.presentation.GameViewModel
+import com.scoresaver.app.wear.features.game.presentation.ui.components.ResultComposable
 
 @Composable
 internal fun ListGameScreen(
@@ -37,9 +37,10 @@ internal fun ListGameScreen(
     }
 
     viewModel.loadHistoryMatches()
-    val historyMatchesState by viewModel.historyMatches.collectAsState(initial = emptyList())
+    val listMatches by viewModel.historyMatches.collectAsState(initial = emptyList())
 
-    Log.d( "LIST Matches ","$historyMatchesState")
+    Log.d("LIST Matches ", "$listMatches")
+
 
     MyScaffold(scalingLazyState = scalingLazyState) {
         ScalingLazyColumn(
@@ -58,21 +59,9 @@ internal fun ListGameScreen(
                     )
                 )
             }
-            item {
-                Button(onClick = {
-                    navController.navigate(Screen.HomeScreen.route) {
-                        popUpTo(Screen.GameScreen.route) {
-                            inclusive = true
-                        }
-                        popUpTo(Screen.ListGameScreen.route) {
-                            inclusive = true
-                        }
-                    }
-                }) {
-
-                }
+            items(listMatches) { match ->
+                ResultComposable(match)
             }
-
         }
     }
 }
