@@ -90,6 +90,7 @@ internal fun TimeAndCaloriesScreen(
                         viewModel.stopTimer()
                         viewModel.saveResult()
                         navController.navigate(Screen.ListGameScreen.route) {
+                            viewModel.resetData()
                             popUpTo(Screen.GameScreen.route) {
                                 inclusive = true
                             }

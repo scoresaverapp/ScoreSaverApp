@@ -214,6 +214,8 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
         _scoreTeam2.value = "0"
         _gameTeam1.value = "0"
         _gameTeam2.value = "0"
+        _setTeam1.intValue = 0
+        _setTeam2.intValue = 0
         _actionCloseGame.value = false
         _isTimerRunning.value = false
         _formattedSeconds.value = "00:00:00"

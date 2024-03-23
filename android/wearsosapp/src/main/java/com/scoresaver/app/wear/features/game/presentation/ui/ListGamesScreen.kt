@@ -45,7 +45,6 @@ internal fun ListGameScreen(
         )
     }
     viewModel.loadHistoryMatches()
-    viewModel.resetData()
 
     val listMatches by viewModel.historyMatches.collectAsState(initial = emptyList())
 

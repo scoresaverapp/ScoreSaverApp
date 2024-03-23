@@ -180,7 +180,7 @@ internal class NewGameViewModel @Inject constructor(
     override fun resetData() {
         _singleSwitchState.value = SwitchState(GameSetting.Single, false)
         _doubleSwitchState.value = SwitchState(GameSetting.Double, false)
-        _singleSwitchState.value = SwitchState(GameSetting.Single, false)
+        _killerPointSwitchState.value = SwitchState(GameSetting.KillerPoint, false)
         _advantagesSwitchState.value = SwitchState(GameSetting.Advantages, false)
         _sportType.intValue = 1
     }
