@@ -78,7 +78,6 @@ internal fun NewGameScreen(
         navController.navigate(Screen.GameScreen.route) {
             viewModel.resetData()
             gameViewModel.startTimer()
-            gameViewModel.startHeartRateListener()
             popUpTo(Screen.NewGameScreen.route) {
                 inclusive = true
             }

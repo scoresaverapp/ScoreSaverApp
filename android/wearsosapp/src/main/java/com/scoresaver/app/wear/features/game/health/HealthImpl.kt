@@ -40,6 +40,6 @@ internal class HealthImpl @Inject constructor(
         age: Int, gender: GENDER, weight: Int, height: Int, heartRate: Float, minutes: Int
     ): String = calories.calculateCalories(
         age = age,
-        gender = gender, weight = weight, height = height, heartRate = heartRate, minutes = minutes
+        gender = gender, weight = weight.toDouble(), heartRatePerSecond = heartRate.toInt(), met = 7.0, duration = minutes,
     )
 }
