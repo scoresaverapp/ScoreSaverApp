@@ -1,4 +1,4 @@
-package com.scoresaver.app.wear.features.game.presentation.ui.components
+package com.scoresaver.app.wear.features.game.presentation.ui. components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -139,7 +139,10 @@ fun ResultComposable(match: ResultData) {
             }
             Row(
                 horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(start = 30.dp)
+                modifier = Modifier.padding(start = if((match.listGameTeam1?.size?.plus(
+                        match.listGameTeam2?.size ?: 0
+                    ) ?: 0) <= 3
+                ) 30.dp else 0.dp)
             ) {
                 ResultNumber(match)
             }
@@ -158,7 +161,7 @@ fun ResultNumber(match: ResultData) {
             val team1List = if (team1Scores.size > 1) team1Scores.dropLast(1) else team1Scores
             team1List.zip(team2Scores) { team1Score, team2Score ->
                 Column(
-                    modifier = Modifier.padding(horizontal = 8.dp) // Add padding to control spacing
+                    modifier = Modifier.padding(horizontal = 6.dp) // Add padding to control spacing
                 ) {
                     CustomText(
                         text = team1Score.toString(),
