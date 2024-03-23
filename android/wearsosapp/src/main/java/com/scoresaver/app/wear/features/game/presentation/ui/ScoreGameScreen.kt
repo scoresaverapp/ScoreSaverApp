@@ -49,7 +49,7 @@ internal fun ScoreGameScreen(
             if (viewModel.setTeam1 > viewModel.setTeam2) "A" else "B"
         )
         AlertDialog(
-            textTitle = title
+            textMessage = title
         ) {
             RoundButton(
                 size = 46.dp,

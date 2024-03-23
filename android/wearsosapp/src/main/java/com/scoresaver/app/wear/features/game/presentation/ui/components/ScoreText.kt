@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Grey
+import com.scoresaver.app.util.NormalGrey
 import com.scoresaver.app.util.White
 import com.scoresaver.app.wear.components.typography.CustomText
 import com.scoresaver.core_ui.components.icons.CustomImageVectorIcon
@@ -68,7 +69,7 @@ fun ScoreText(
                 textStyle = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight(400),
-                    color = Grey,
+                    color = NormalGrey,
                 )
             )
         }
@@ -102,7 +103,7 @@ fun ScoreText(
                 textStyle = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight(400),
-                    color = Grey,
+                    color = NormalGrey,
                 )
             )
         }
