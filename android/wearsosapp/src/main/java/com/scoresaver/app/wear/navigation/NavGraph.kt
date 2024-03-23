@@ -13,10 +13,10 @@ import com.scoresaver.app.wear.features.new_game.presentation.NewGameViewModel
 import com.scoresaver.app.wear.features.new_game.presentation.ui.GameRuleScreen
 import com.scoresaver.app.wear.features.new_game.presentation.ui.GameTypeScreen
 import com.scoresaver.app.wear.features.new_game.presentation.ui.NewGameScreen
-import com.scoresaver.app.wear.features.new_game.presentation.ui.ServiceOrderScreen
 import com.scoresaver.app.wear.features.user_settings.ui.AgeScreen
 import com.scoresaver.app.wear.features.user_settings.ui.GenderScreen
 import com.scoresaver.app.wear.features.user_settings.ui.HeightScreen
+import com.scoresaver.app.wear.features.user_settings.ui.SportScreen
 import com.scoresaver.app.wear.features.user_settings.ui.WeightScreen
 
 @Composable
@@ -48,6 +48,9 @@ fun NavGraph() {
         composable(Screen.HomeScreen.route) {
             HomeScreen(navController = navController)
         }
+        composable(Screen.SportScreen.route) {
+            SportScreen(navController = navController, viewModel = newGameViewModel)
+        }
 
         composable(Screen.NewGameScreen.route) {
             NewGameScreen(navController = navController, viewModel = newGameViewModel)
@@ -60,11 +63,7 @@ fun NavGraph() {
         composable(Screen.GameRulesScreen.route) {
             GameRuleScreen(viewModel = newGameViewModel)
         }
-
-        composable(Screen.ServiceOrderScreen.route) {
-            ServiceOrderScreen(viewModel = newGameViewModel)
-        }
-
+        
         composable(Screen.GameScreen.route) {
             GameScreen(navController = navController,viewModel = gameViewModel)
         }

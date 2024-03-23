@@ -109,7 +109,7 @@ internal fun HeightScreen(
                         )
 
                         CustomText(
-                            modifier = Modifier.padding(end = 8.dp),
+                            modifier = Modifier.padding(end = 6.dp),
                             text = stringResource(id = R.string.cm),
                             textStyle = TextStyle(
                                 fontSize = 12.sp,

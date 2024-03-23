@@ -46,7 +46,6 @@ internal fun NewGameScreen(
     val double = viewModel.getDoubleGameSwitchValue()
     val advantages = viewModel.getAdvantagesSwitchValue()
     val killerPoint = viewModel.getKillerPointSwitchValue()
-    val serviceOrderConfirmed = viewModel.getServiceOrderConfirmed()
 
     val scalingLazyState = remember {
         ScalingLazyListState(
@@ -60,11 +59,6 @@ internal fun NewGameScreen(
 
     fun getGameRuleIcon() =
         if (advantages.switchValue || killerPoint.switchValue) R.drawable.ic_check else null
-
-    fun getOrderServiceIcon() =
-        if (serviceOrderConfirmed) R.drawable.ic_check else null
-
-    fun showServiceOrder() = double.switchValue
 
     fun isStartGameButtonEnabled() =
         (single.switchValue && (advantages.switchValue || killerPoint.switchValue)) ||
@@ -126,22 +120,6 @@ internal fun NewGameScreen(
                     iconColor = Blue
                 )
             }
-/*            item {
-                if (showServiceOrder()) {
-                    FullWidthRoundButton(
-                        text = stringResource(id = R.string.order_service),
-                        onPress = { navController.navigate(Screen.ServiceOrderScreen.route) },
-                        backgroundColor = LightBlack,
-                        borderColor = LightBlack,
-                        textColor = White,
-                        rightIcon = getOrderServiceIcon(),
-                        textSize = 16,
-                        iconSize = 12.dp,
-                        iconColor = Blue
-                    )
-                    CustomSpacer(size = 6.dp)
-                }
-            }*/
             item {
                 Row(modifier = Modifier.padding(horizontal = 38.dp)) {
                     FullWidthRoundButton(

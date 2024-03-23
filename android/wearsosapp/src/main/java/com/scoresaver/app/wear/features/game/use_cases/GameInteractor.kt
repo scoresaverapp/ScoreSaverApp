@@ -38,7 +38,6 @@ interface GameInteractor {
     fun getSetScoreTeam1(): Int
 
     fun getSetScoreTeam2(): Int
-    fun getServiceOrder(): Int
 
     fun saveResult()
     suspend fun loadHistoryMatches(): Flow<List<ResultData>>

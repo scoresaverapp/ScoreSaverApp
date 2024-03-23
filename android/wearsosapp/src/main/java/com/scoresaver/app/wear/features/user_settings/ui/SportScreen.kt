@@ -71,6 +71,7 @@ internal fun SportScreen(
 
             item {
                 Row(
+                    verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceAround,
                     modifier = Modifier.padding(top = 8.dp)
                 ) {

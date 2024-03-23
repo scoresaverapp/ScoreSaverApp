@@ -36,7 +36,6 @@ internal class GameInteractorImpl @Inject constructor(
     private val previousListGameA = mutableListOf<Int>()
     private val previousListGameB = mutableListOf<Int>()
     private val listSet = mutableListOf<SetType>()
-    private val serviceOrder = mutableIntStateOf(1)
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
     private var isSingleGame: Boolean = false
 
@@ -102,13 +101,11 @@ internal class GameInteractorImpl @Inject constructor(
             isTieBreakAdvantages(team) -> {
                 listPoints.clear()
                 addGame(team)
-                setServiceOrder()
             }
 
             isTiebreak() && scoreSelectedTeam.score.toInt() == 6 && !isTieBreakAdvantages(otherTeam) -> {
                 listPoints.clear()
                 addGame(team)
-                setServiceOrder()
             }
 
             isTiebreak() -> {
@@ -130,14 +127,12 @@ internal class GameInteractorImpl @Inject constructor(
             scoreSelectedTeam == PointScore.Adv() -> {
                 listPoints.clear()
                 addGame(team)
-                setServiceOrder()
             }
 
             scoreSelectedTeam == PointScore.Forty() && scoreOtherTeam == PointScore.Forty() -> {
                 if (isKillerPointActive) {
                     listPoints.clear()
                     addGame(team)
-                    setServiceOrder()
                 } else {
                     listPoints.add(PointType.Advantages(team))
                 }
@@ -146,7 +141,6 @@ internal class GameInteractorImpl @Inject constructor(
             scoreSelectedTeam == PointScore.Forty() -> {
                 listPoints.clear()
                 addGame(team)
-                setServiceOrder()
             }
         }
     }
@@ -267,7 +261,7 @@ internal class GameInteractorImpl @Inject constructor(
                         calculateGameScore(Team.TEAM_2).score.toInt() + 1
                 )
                 listGame.clear()
-                setServiceOrder()
+
             }
 
             else -> {
@@ -364,18 +358,6 @@ internal class GameInteractorImpl @Inject constructor(
 
     override fun getSetScoreTeam2(): Int {
         return calculateSetScore(Team.TEAM_2)
-    }
-
-    private fun setServiceOrder() {
-        if (serviceOrder.intValue == 4) {
-            serviceOrder.intValue = 1
-        } else {
-            serviceOrder.intValue++
-        }
-    }
-
-    override fun getServiceOrder(): Int {
-        return serviceOrder.intValue
     }
 
     override suspend fun getUserData(): UserEntity? {

@@ -29,18 +29,6 @@ internal sealed interface ViewModelFragment {
         fun setKillerPointSwitchValue(value: Boolean)
     }
 
-    interface ServiceOrder {
-        fun  getPlayerOneValue(): Player
-        fun getPlayerTwoValue(): Player
-        fun getPlayerThreeValue(): Player
-        fun getPlayerFourValue(): Player
-        fun getServiceOrderConfirmed(): Boolean
-        fun swapServiceOrderTeamOne()
-        fun swapServiceOrderTeamTwo()
-        fun swapServiceOrdersBetweenTeams()
-        fun toggleServiceOrderConfirmed(newValue: Boolean)
-    }
-
     interface GenderType {
         fun getMaleSwitchValue(): SwitchState<GameSetting.Male>
         fun getFemaleSwitchValue(): SwitchState<GameSetting.Female>

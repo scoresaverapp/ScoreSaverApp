@@ -27,7 +27,6 @@ internal class NewGameViewModel @Inject constructor(
     ViewModelFragment.NewGame,
     ViewModelFragment.GameType,
     ViewModelFragment.GameRule,
-    ViewModelFragment.ServiceOrder,
     ViewModelFragment.GenderType,
     ViewModelFragment.UserData {
     private val _maleSwitchState = mutableStateOf(SwitchState(GameSetting.Male, false))
@@ -73,7 +72,6 @@ internal class NewGameViewModel @Inject constructor(
             )
         )
 
-    private val _serviceOrderConfirmed = mutableStateOf(false)
     private var _heightValue = mutableIntStateOf(160)
     private val _weightValue = mutableIntStateOf(70)
     private val _ageValue = mutableIntStateOf(18)
@@ -175,26 +173,6 @@ internal class NewGameViewModel @Inject constructor(
         }
     }
 
-    override fun getPlayerOneValue(): Player {
-        return _playerOneState.value
-    }
-
-    override fun getPlayerTwoValue(): Player {
-        return _playerTwoState.value
-    }
-
-    override fun getPlayerThreeValue(): Player {
-        return _playerThreeState.value
-    }
-
-    override fun getPlayerFourValue(): Player {
-        return _playerFourState.value
-    }
-
-    override fun getServiceOrderConfirmed(): Boolean {
-        return _serviceOrderConfirmed.value
-    }
-
 
     override fun getMaleSwitchValue(): SwitchState<GameSetting.Male> {
         return _maleSwitchState.value
@@ -226,38 +204,6 @@ internal class NewGameViewModel @Inject constructor(
         }
     }
 
-    override fun swapServiceOrderTeamOne() {
-        val newPlayerOneServiceOrder = _playerTwoState.value.serviceOrder
-        val newPlayerTwoServiceOrder = _playerOneState.value.serviceOrder
-        _playerOneState.value = _playerOneState.value.copy(serviceOrder = newPlayerOneServiceOrder)
-        _playerTwoState.value = _playerTwoState.value.copy(serviceOrder = newPlayerTwoServiceOrder)
-    }
-
-    override fun swapServiceOrderTeamTwo() {
-        val newPlayerThreeServiceOrder = _playerFourState.value.serviceOrder
-        val newPlayerFourServiceOrder = _playerThreeState.value.serviceOrder
-        _playerThreeState.value =
-            _playerThreeState.value.copy(serviceOrder = newPlayerThreeServiceOrder)
-        _playerFourState.value =
-            _playerFourState.value.copy(serviceOrder = newPlayerFourServiceOrder)
-    }
-
-    override fun swapServiceOrdersBetweenTeams() {
-        val newPlayerOneServiceOrder = _playerThreeState.value.serviceOrder
-        val newPlayerTwoServiceOrder = _playerFourState.value.serviceOrder
-        val newPlayerThreeServiceOrder = _playerOneState.value.serviceOrder
-        val newPlayerFourServiceOrder = _playerTwoState.value.serviceOrder
-        _playerOneState.value = _playerOneState.value.copy(serviceOrder = newPlayerOneServiceOrder)
-        _playerTwoState.value = _playerTwoState.value.copy(serviceOrder = newPlayerTwoServiceOrder)
-        _playerThreeState.value =
-            _playerThreeState.value.copy(serviceOrder = newPlayerThreeServiceOrder)
-        _playerFourState.value =
-            _playerFourState.value.copy(serviceOrder = newPlayerFourServiceOrder)
-    }
-
-    override fun toggleServiceOrderConfirmed(newValue: Boolean) {
-        _serviceOrderConfirmed.value = newValue
-    }
 
     override fun getHeightValue(): Int {
         return _heightValue.intValue

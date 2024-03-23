@@ -41,7 +41,6 @@ internal fun ScoreGameScreen(
             initialCenterItemScrollOffset = 140
         )
     }
-    viewModel.getServiceOrder()
 
     if (viewModel.setTeam1 == 3 || viewModel.setTeam2 == 3
         ) {

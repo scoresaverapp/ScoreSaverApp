@@ -73,9 +73,6 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     private val _actionCloseGame = mutableStateOf(false)
     val actionCloseGame by _actionCloseGame
 
-    private val _serviceOrder = mutableIntStateOf(1)
-    val serviceOrder by _serviceOrder
-
     private val _historyMatches = MutableStateFlow<List<ResultData>>(listOf())
     val historyMatches: MutableStateFlow<List<ResultData>>
         get() = _historyMatches
@@ -97,10 +94,6 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
                 }
             }
         }
-    }
-
-    fun getServiceOrder() {
-        _serviceOrder.intValue = gameInteractor.getServiceOrder()
     }
 
     fun getSettingsData() {
@@ -167,7 +160,6 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     }
 
     fun addPointsTeam1() {
-        //_serviceOrder.intValue = gameInteractor.getServiceOrder()
         gameInteractor.addPoint(team = Team.TEAM_1, isKillerPointActive = isKillerPointActive)
         _scoreTeam1.value = gameInteractor.getPointScoreTeam1()
         _scoreTeam2.value = gameInteractor.getPointScoreTeam2()
@@ -178,7 +170,6 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     }
 
     fun addPointsTeam2() {
-        //_serviceOrder.intValue = gameInteractor.getServiceOrder()
         gameInteractor.addPoint(team = Team.TEAM_2, isKillerPointActive = isKillerPointActive)
         _scoreTeam1.value = gameInteractor.getPointScoreTeam1()
         _scoreTeam2.value = gameInteractor.getPointScoreTeam2()
