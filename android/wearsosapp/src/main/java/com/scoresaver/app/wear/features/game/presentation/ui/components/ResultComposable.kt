@@ -139,9 +139,7 @@ fun ResultComposable(match: ResultData) {
             }
             Row(
                 horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(start = if((match.listGameTeam1?.size?.plus(
-                        match.listGameTeam2?.size ?: 0
-                    ) ?: 0) <= 3
+                modifier = Modifier.padding(start = if(((match.listGameTeam1?.size) ?: 0) <= 3
                 ) 30.dp else 0.dp)
             ) {
                 ResultNumber(match)
