@@ -54,7 +54,8 @@ internal fun AgeScreen(
             modifier = Modifier.fillMaxSize(),
             autoCentering = AutoCenteringParams(itemIndex = 2),
             state = scalingLazyState,
-            anchorType = ScalingLazyListAnchorType.ItemStart
+            anchorType = ScalingLazyListAnchorType.ItemStart,
+            horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
             item {
@@ -80,9 +81,8 @@ internal fun AgeScreen(
             item {
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp),
-                    horizontalArrangement = Arrangement.Absolute.SpaceBetween,
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     CustomText(
@@ -100,6 +100,7 @@ internal fun AgeScreen(
                     )
 
                     CustomText(
+                        modifier = Modifier.padding(end = 8.dp),
                         text = age.toString(),
                         textStyle = TextStyle(
                             fontSize = 24.sp,
@@ -138,7 +139,7 @@ internal fun AgeScreen(
                         },
                         backgroundColor = Orange,
                         borderColor = Orange,
-                        textColor = Black,
+                        textColor = White,
                         textAlign = TextAlign.Center,
                     )
                 }

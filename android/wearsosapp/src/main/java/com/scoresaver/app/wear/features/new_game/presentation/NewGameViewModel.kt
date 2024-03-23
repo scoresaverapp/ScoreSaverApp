@@ -1,5 +1,6 @@
 package com.scoresaver.app.wear.features.new_game.presentation
 
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -72,9 +73,9 @@ internal class NewGameViewModel @Inject constructor(
         )
 
     private val _serviceOrderConfirmed = mutableStateOf(false)
-    private var _heightValue = mutableStateOf(170)
-    private val _weightValue = mutableStateOf(66)
-    private val _ageValue = mutableStateOf(18)
+    private var _heightValue = mutableIntStateOf(160)
+    private val _weightValue = mutableIntStateOf(70)
+    private val _ageValue = mutableIntStateOf(18)
     private var isMaleOrGender: GENDER = GENDER.MALE
 
     override fun getSingleGameSwitchValue(): SwitchState<GameSetting.Single> {
@@ -249,27 +250,27 @@ internal class NewGameViewModel @Inject constructor(
     }
 
     override fun getHeightValue(): Int {
-        return _heightValue.value
+        return _heightValue.intValue
     }
 
     override fun setHeightValue(value: Int) {
-        _heightValue.value = value
+        _heightValue.intValue = value
     }
 
     override fun setWeightValue(value: Int) {
-        _weightValue.value = value
+        _weightValue.intValue = value
     }
 
     override fun getWeightValue(): Int {
-        return _weightValue.value
+        return _weightValue.intValue
     }
 
     override fun setAge(value: Int) {
-        _ageValue.value = value
+        _ageValue.intValue = value
     }
 
     override fun getAge(): Int {
-        return _ageValue.value
+        return _ageValue.intValue
     }
 
     override fun insertDataUsers() {

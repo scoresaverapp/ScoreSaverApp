@@ -99,6 +99,7 @@ internal fun HeightScreen(
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         CustomText(
+                            modifier = Modifier.padding(end = 7.dp),
                             text = height.toString(),
                             textStyle = TextStyle(
                                 fontSize = 24.sp,
@@ -108,11 +109,13 @@ internal fun HeightScreen(
                         )
 
                         CustomText(
+                            modifier = Modifier.padding(end = 8.dp),
                             text = stringResource(id = R.string.cm),
                             textStyle = TextStyle(
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight(400),
                                 color = White,
+                                textAlign = TextAlign.Center
                             )
                         )
 
@@ -143,7 +146,7 @@ internal fun HeightScreen(
                         },
                         backgroundColor = Orange,
                         borderColor = Orange,
-                        textColor = Black,
+                        textColor = White,
                         textAlign = TextAlign.Center,
                     )
                 }

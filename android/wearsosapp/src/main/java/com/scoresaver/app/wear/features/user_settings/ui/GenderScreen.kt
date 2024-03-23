@@ -21,6 +21,7 @@ import com.scoresaver.app.R
 import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.LightGrey
 import com.scoresaver.app.util.Orange
+import com.scoresaver.app.util.White
 import com.scoresaver.app.wear.features.new_game.presentation.NewGameViewModel
 import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.app.wear.components.MyScaffold
@@ -90,7 +91,7 @@ internal fun GenderScreen(
                         onPress = { navController.navigate(Screen.AgeScreen.route) },
                         backgroundColor = if (buttonEnabled) Orange else LightGrey,
                         borderColor = if (buttonEnabled) Orange else LightGrey,
-                        textColor = Black,
+                        textColor = White,
                         textAlign = TextAlign.Center,
                         enable = male.switchValue || female.switchValue
                     )

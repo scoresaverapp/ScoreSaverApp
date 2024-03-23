@@ -99,6 +99,7 @@ internal fun WeightScreen(
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         CustomText(
+                            modifier = Modifier.padding(end = 7.dp),
                             text = weight.toString(),
                             textStyle = TextStyle(
                                 fontSize = 24.sp,
@@ -107,6 +108,7 @@ internal fun WeightScreen(
                             )
                         )
                         CustomText(
+                            modifier = Modifier.padding(end = 8.dp),
                             text = stringResource(id = R.string.kg),
                             textStyle = TextStyle(
                                 fontSize = 12.sp,
@@ -148,7 +150,7 @@ internal fun WeightScreen(
                         },
                         backgroundColor = Orange,
                         borderColor = Orange,
-                        textColor = Black,
+                        textColor = White,
                         textAlign = TextAlign.Center,
                     )
                 }
