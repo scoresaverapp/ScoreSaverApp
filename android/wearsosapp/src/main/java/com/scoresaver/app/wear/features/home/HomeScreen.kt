@@ -20,6 +20,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.Orange
+import com.scoresaver.app.util.White
 import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.core_ui.components.buttons.FullWidthRoundButton
@@ -71,27 +72,29 @@ fun HomeScreen(navController: NavController) {
             item {
                 FullWidthRoundButton(
                     text = stringResource(id = R.string.game_save),
-                    onPress = {  },
+                    onPress = { },
                     backgroundColor = Orange,
                     borderColor = Orange,
-                    textColor = Black,
+                    textColor = White,
                     rightIcon = R.drawable.ic_clock,
                     iconSize = 17.dp,
                     textSize = 16,
-                    iconColor = Black
+                    iconColor = White
                 )
             }
             item {
                 FullWidthRoundButton(
                     text = stringResource(id = R.string.history_game),
-                    onPress = { },
+                    onPress = {
+                        navController.navigate(Screen.ListGameScreen.route)
+                    },
                     backgroundColor = Orange,
                     borderColor = Orange,
-                    textColor = Black,
+                    textColor = White,
                     rightIcon = R.drawable.ic_round_arrow_left,
                     iconSize = 17.dp,
                     textSize = 16,
-                    iconColor = Black
+                    iconColor = White
                 )
             }
         }
