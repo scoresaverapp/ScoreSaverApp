@@ -12,7 +12,7 @@ import com.scoresaver.app.wear.components.typography.CustomText
 @Composable
 fun AlertDialog(
     textTitle: String,
-    textMessage: String,
+    textMessage: String? = null,
     content: @Composable () -> Unit
 ) {
 
@@ -30,7 +30,7 @@ fun AlertDialog(
         },
         message = {
             CustomText(
-                text = textMessage,
+                text = textMessage ?: "",
                 textStyle = TextStyle(
                     fontSize = 12.sp,
                     fontWeight = FontWeight(400),

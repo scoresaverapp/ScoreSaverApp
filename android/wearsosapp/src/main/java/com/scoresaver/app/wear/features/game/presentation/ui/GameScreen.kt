@@ -33,7 +33,7 @@ internal fun GameScreen(
         Column(modifier = Modifier.weight(1f)) {
             HorizontalPager(state = pagerState) { page ->
                 when (page) {
-                    0 -> ScoreGameScreen(viewModel = viewModel)
+                    0 -> ScoreGameScreen(navController = navController, viewModel = viewModel)
                     1 -> TimeAndCaloriesScreen(navController = navController, viewModel = viewModel)
                 }
             }

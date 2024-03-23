@@ -10,6 +10,7 @@ import com.scoresaver.app.util.db.entity.GAME_POINT
 import com.scoresaver.app.util.db.entity.GAME_TYPE
 import com.scoresaver.app.util.db.entity.GENDER
 import com.scoresaver.app.util.db.entity.ResultData
+import com.scoresaver.app.util.db.entity.SPORT_TYPE
 import com.scoresaver.app.util.db.entity.UserEntity
 import com.scoresaver.app.wear.features.game.model.Team
 import com.scoresaver.app.wear.features.game.use_cases.GameInteractor
@@ -60,8 +61,8 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     private val _setTeam2 = mutableIntStateOf(0)
     val setTeam2 by _setTeam2
 
-    private val _isDoubleMatch = mutableStateOf(false)
-    val isDoubleMatch by _isDoubleMatch
+    private val _isPadelMatch = mutableStateOf(true)
+    val isPadelMatch by _isPadelMatch
 
     private val _userData = mutableStateOf<UserEntity?>(null)
     val userData = _userData
@@ -108,7 +109,7 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
 
             gameSettings?.let {
                 withContext(Dispatchers.Main) {
-                    _isDoubleMatch.value = gameSettings.gameType == GAME_TYPE.DOUBLE
+                    _isPadelMatch.value = gameSettings.sportType == SPORT_TYPE.PADEL
                     _isKillerPointActive.value = gameSettings.gamePoint == GAME_POINT.KILLER
                 }
             }

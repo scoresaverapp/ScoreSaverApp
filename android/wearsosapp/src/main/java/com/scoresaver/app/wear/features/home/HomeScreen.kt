@@ -59,7 +59,7 @@ fun HomeScreen(navController: NavController) {
             item {
                 FullWidthRoundButton(
                     text = stringResource(id = R.string.new_game),
-                    onPress = { navController.navigate(Screen.NewGameScreen.route) },
+                    onPress = { navController.navigate(Screen.SportScreen.route) },
                     backgroundColor = Black,
                     borderColor = Orange,
                     textColor = Orange,

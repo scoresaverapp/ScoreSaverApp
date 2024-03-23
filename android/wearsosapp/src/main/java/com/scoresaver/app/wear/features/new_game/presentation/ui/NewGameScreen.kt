@@ -19,7 +19,9 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import com.scoresaver.app.R
+import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.Blue
+import com.scoresaver.app.util.Darkgrey
 import com.scoresaver.app.util.LightBlack
 import com.scoresaver.app.util.LightGrey
 import com.scoresaver.app.util.Orange
@@ -68,7 +70,9 @@ internal fun NewGameScreen(
         (single.switchValue && (advantages.switchValue || killerPoint.switchValue)) ||
                 (double.switchValue && (advantages.switchValue || killerPoint.switchValue))
 
-    fun getStartGameButtonBackgroundColor() = if (isStartGameButtonEnabled()) Orange else LightGrey
+    fun getStartGameButtonBackgroundColor() = if (isStartGameButtonEnabled()) Orange else Black
+    fun getStartGameButtonBorderColor() = if (isStartGameButtonEnabled()) Orange else Darkgrey
+    fun getStartGameTextColor() = if (isStartGameButtonEnabled()) White else Darkgrey
 
     val permissionResultLauncher = requestPermission(Manifest.permission.BODY_SENSORS) {
         navController.navigate(Screen.GameScreen.route) {
@@ -147,8 +151,8 @@ internal fun NewGameScreen(
                             viewModel.insertGameSettings()
                             permissionResultLauncher() },
                         backgroundColor = getStartGameButtonBackgroundColor(),
-                        borderColor = getStartGameButtonBackgroundColor(),
-                        textColor = LightBlack,
+                        borderColor = getStartGameButtonBorderColor(),
+                        textColor = getStartGameTextColor(),
                         enable = isStartGameButtonEnabled()
                     )
                 }

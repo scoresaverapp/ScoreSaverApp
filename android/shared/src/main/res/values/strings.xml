@@ -37,4 +37,7 @@
     <string name="killer_point_active">Killer point attivato</string>
     <string name="complete_game_title">Concludere partita</string>
     <string name="complete_game_description">Sei sicuro di voler concludere la partita?</string>
+    <string name="padel">Padel</string>
+    <string name="tennis">Tennis</string>
+    <string name="finish_match_descritpion">Partita conclusa, il vincitore è il team %s</string>
 </resources>

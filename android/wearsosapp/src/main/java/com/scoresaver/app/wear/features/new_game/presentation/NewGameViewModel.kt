@@ -8,6 +8,7 @@ import com.scoresaver.app.util.db.entity.GAME_POINT
 import com.scoresaver.app.util.db.entity.GAME_TYPE
 import com.scoresaver.app.util.db.entity.GENDER
 import com.scoresaver.app.util.db.entity.GameSettingsEntity
+import com.scoresaver.app.util.db.entity.SPORT_TYPE
 import com.scoresaver.app.util.db.entity.UserEntity
 import com.scoresaver.newgame_interactor.interactors.NewGameInteractor
 import com.scoresaver.app.wear.features.new_game.model.GameSetting
@@ -76,7 +77,15 @@ internal class NewGameViewModel @Inject constructor(
     private var _heightValue = mutableIntStateOf(160)
     private val _weightValue = mutableIntStateOf(70)
     private val _ageValue = mutableIntStateOf(18)
+    private val _sportType = mutableIntStateOf(1)
     private var isMaleOrGender: GENDER = GENDER.MALE
+    override fun getSportType(): Int {
+        return _sportType.intValue
+    }
+
+    override fun setSportType(value: Int) {
+        _sportType.intValue = value
+    }
 
     override fun getSingleGameSwitchValue(): SwitchState<GameSetting.Single> {
         return _singleSwitchState.value
@@ -210,7 +219,8 @@ internal class NewGameViewModel @Inject constructor(
             newGameInteractor.insertGameSettings(
                 GameSettingsEntity(
                     gameType = if (getSingleGameSwitchValue().switchValue) GAME_TYPE.SINGLE else GAME_TYPE.DOUBLE,
-                    gamePoint = if (getAdvantagesSwitchValue().switchValue) GAME_POINT.ADV else GAME_POINT.KILLER
+                    gamePoint = if (getAdvantagesSwitchValue().switchValue) GAME_POINT.ADV else GAME_POINT.KILLER,
+                    sportType = if(_sportType.intValue == 1) SPORT_TYPE.PADEL else SPORT_TYPE.TENNIS
                 )
             )
         }

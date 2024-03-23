@@ -39,6 +39,7 @@ fun RoundButton(
     titleButton: String = "",
     onClick: () -> Unit,
     textSize: TextUnit = 10.5.sp,
+    textColor: Color = Black,
     serviceOrder: String? = null
 ) {
     Box(
@@ -56,7 +57,7 @@ fun RoundButton(
                 textStyle = TextStyle(
                     fontSize = textSize,
                     fontWeight = FontWeight(400),
-                    color = Black,
+                    color = textColor,
                 )
             )
         } else {
@@ -82,7 +83,6 @@ fun RoundButton(
                     )
                 }
             }
-
         }
     }
 }

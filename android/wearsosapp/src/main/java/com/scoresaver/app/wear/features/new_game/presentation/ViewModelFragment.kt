@@ -6,11 +6,12 @@ import com.scoresaver.app.wear.features.new_game.model.SwitchState
 
 internal sealed interface ViewModelFragment {
     interface NewGame {
+        fun getSportType(): Int
+        fun setSportType(value: Int)
         fun getSingleGameSwitchValue(): SwitchState<GameSetting.Single>
         fun getDoubleGameSwitchValue(): SwitchState<GameSetting.Double>
         fun getAdvantagesSwitchValue(): SwitchState<GameSetting.Advantages>
         fun getKillerPointSwitchValue(): SwitchState<GameSetting.KillerPoint>
-        fun getServiceOrderConfirmed(): Boolean
         fun insertGameSettings()
     }
 

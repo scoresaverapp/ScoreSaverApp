@@ -44,14 +44,12 @@ internal fun TimeAndCaloriesScreen(
     viewModel: GameViewModel
 ) {
 
-    val isDoubleMatch = viewModel.isDoubleMatch
     val scalingLazyState = remember {
         ScalingLazyListState(
             initialCenterItemIndex = 0,
             initialCenterItemScrollOffset = 140
         )
     }
-    //val serviceOrder = viewModel.serviceOrder
 
     if (viewModel.showSnackbar) {
         ShowAlertKillerPoint(
@@ -69,7 +67,7 @@ internal fun TimeAndCaloriesScreen(
             textTitle = stringResource(id = R.string.complete_game_title),
             textMessage = stringResource(id = R.string.complete_game_description)
         ) {
-            Row (horizontalArrangement = Arrangement.Center){
+            Row(horizontalArrangement = Arrangement.Center) {
                 RoundButton(
                     size = 46.dp,
                     backgroundColor = LightRed,
@@ -108,31 +106,19 @@ internal fun TimeAndCaloriesScreen(
         ) {
             item {
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
-/*                    if (isDoubleMatch && !isTieBreak) {
-                        RoundButton(
-                            size = 40.5.dp,
-                            icon = R.drawable.ic_tennis_ball,
-                            iconColor = White,
-                            iconSize = 16.5.dp,
-                            backgroundColor = Black,
-                            borderBackground = White,
-                            isDoubleMatch = true,
-                            onClick = { },
-                        )
-                        CustomSpacer(size = 4.dp, horizontal = true)
-                    }*/
-                    if (!isTieBreak) {
+                    if (!isTieBreak && viewModel.isPadelMatch && (viewModel.scoreTeam1 != "A" && viewModel.scoreTeam2 != "A")) {
                         RoundButton(
                             size = 40.5.dp,
                             backgroundColor = if (viewModel.isKillerPointActive) Orange else Grey,
                             borderBackground = if (viewModel.isKillerPointActive) Orange else Grey,
                             icon = R.drawable.ic_poison,
-                            iconColor = Black,
+                            iconColor = if (viewModel.isKillerPointActive) White else Black,
                             iconSize = 16.5.dp,
                             onClick = {
                                 viewModel.updateKillerPoint()
                             }
                         )
+
                     }
                 }
             }
