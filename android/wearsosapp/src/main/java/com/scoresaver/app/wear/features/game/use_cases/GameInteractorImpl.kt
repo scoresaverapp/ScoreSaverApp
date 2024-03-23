@@ -1,7 +1,5 @@
 package com.scoresaver.app.wear.features.game.use_cases
 
-import android.text.format.DateUtils
-import androidx.compose.runtime.mutableIntStateOf
 import com.scoresaver.app.util.db.entity.GAME_TYPE
 import com.scoresaver.app.util.db.entity.GENDER
 import com.scoresaver.app.util.db.entity.GameSettingsEntity
@@ -246,22 +244,18 @@ internal class GameInteractorImpl @Inject constructor(
             }
 
             scoreSelectedTeam == GameScore.FIVE || scoreSelectedTeam == GameScore.SIX -> {
-                listSet.add(SetType.Base(team))
-                previousListGameA.add(
-                    if (calculateGameScore(Team.TEAM_1).score.toInt() == 0)
-                        calculateGameScore(Team.TEAM_2).score.toInt()
-                    else
-                        calculateGameScore(Team.TEAM_1).score.toInt() + 1
-                )
-
-                previousListGameB.add(
-                    if (calculateGameScore(Team.TEAM_2).score.toInt() == 0)
-                        calculateGameScore(Team.TEAM_2).score.toInt()
-                    else
-                        calculateGameScore(Team.TEAM_2).score.toInt() + 1
-                )
+                if (calculateSetScore(team) < 5) {
+                    listSet.add(SetType.Base(team))
+                }
+                if (team == Team.TEAM_1) {
+                    previousListGameA.add(calculateGameScore(Team.TEAM_1).score.toInt() + 1)
+                    previousListGameB.add(calculateGameScore(Team.TEAM_2).score.toInt())
+                } else {
+                    previousListGameA.add(calculateGameScore(Team.TEAM_1).score.toInt())
+                    previousListGameB.add(calculateGameScore(Team.TEAM_2).score.toInt() + 1)
+                }
                 listGame.clear()
-
+                listPoints.clear()
             }
 
             else -> {
@@ -284,7 +278,7 @@ internal class GameInteractorImpl @Inject constructor(
                 mutableListOf(gameA.toInt())
             },
             listGameTeam2 = if (listSet.isNotEmpty()) {
-                previousListGameB.add(gameA.toInt())
+                previousListGameB.add(gameB.toInt())
                 previousListGameB
             } else {
                 mutableListOf(gameB.toInt())
