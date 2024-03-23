@@ -61,7 +61,15 @@ internal fun ScoreGameScreen(
                     viewModel.stopHeartRateListener()
                     viewModel.stopTimer()
                     viewModel.saveResult()
-                    navController.navigate(Screen.ListGameScreen.route)
+                    navController.navigate(Screen.ListGameScreen.route) {
+                        popUpTo(Screen.GameScreen.route) {
+                            inclusive = true
+                        }
+                        popUpTo(Screen.SportScreen.route) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
                 })
         }
     }
@@ -99,7 +107,6 @@ internal fun ScoreGameScreen(
                         showOnlyText = true,
                         textColor = White,
                         titleButton = stringResource(id = R.string.team_1),
-
                         onClick = {
                             viewModel.addPointsTeam1()
                         })

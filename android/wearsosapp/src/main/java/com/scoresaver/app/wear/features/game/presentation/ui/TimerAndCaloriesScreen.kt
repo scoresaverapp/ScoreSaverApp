@@ -89,7 +89,15 @@ internal fun TimeAndCaloriesScreen(
                         viewModel.stopHeartRateListener()
                         viewModel.stopTimer()
                         viewModel.saveResult()
-                        navController.navigate(Screen.ListGameScreen.route)
+                        navController.navigate(Screen.ListGameScreen.route) {
+                            popUpTo(Screen.GameScreen.route) {
+                                inclusive = true
+                            }
+                            popUpTo(Screen.SportScreen.route) {
+                                inclusive = true
+                            }
+                            launchSingleTop = true
+                        }
                     })
             }
         }

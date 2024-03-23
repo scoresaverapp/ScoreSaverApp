@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +29,7 @@ import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
 import com.scoresaver.app.util.util.MAX_WEIGHT
 import com.scoresaver.app.util.util.MIN_WEIGHT
+import com.scoresaver.app.util.util.SharedPreferencesManager
 import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.app.wear.components.typography.CustomText
 import com.scoresaver.app.wear.features.new_game.presentation.NewGameViewModel
@@ -41,6 +43,7 @@ internal fun WeightScreen(
 ) {
 
     val weight = viewModel.getWeightValue()
+    val sharedPreferencesManager = SharedPreferencesManager(LocalContext.current)
 
     val scalingLazyState = remember {
         ScalingLazyListState(
@@ -141,6 +144,7 @@ internal fun WeightScreen(
                     FullWidthRoundButton(
                         text = stringResource(id = R.string.next_step),
                         onPress = {
+                            sharedPreferencesManager.saveValue("start_destination", true)
                             viewModel.insertDataUsers()
                             navController.navigate(Screen.HomeScreen.route) {
                                 popUpTo(Screen.GenderScreen.route) {

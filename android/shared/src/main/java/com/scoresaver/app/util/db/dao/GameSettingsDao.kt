@@ -1,6 +1,7 @@
 package com.scoresaver.app.util.db.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -27,4 +28,7 @@ interface GameSettingsDao {
 
     @Query("SELECT * FROM result_match")
     fun getHistoryMatches(): Flow<List<ResultData>>
+
+    @Query("DELETE FROM game_settings")
+    fun deteleSettingsData()
 }

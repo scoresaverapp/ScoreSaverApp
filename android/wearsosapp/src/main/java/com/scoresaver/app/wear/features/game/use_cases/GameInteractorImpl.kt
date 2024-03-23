@@ -367,5 +367,9 @@ internal class GameInteractorImpl @Inject constructor(
     override suspend fun getGameSettings(): GameSettingsEntity? {
         return gameRepository.getGameSettings()
     }
+
+    override suspend fun deleteSettingsData() {
+        gameRepository
+    }
 }
 

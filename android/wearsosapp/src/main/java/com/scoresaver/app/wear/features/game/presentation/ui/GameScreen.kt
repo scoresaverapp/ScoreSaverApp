@@ -21,6 +21,7 @@ internal fun GameScreen(
 
     viewModel.getSettingsData()
     viewModel.getDataUsers()
+
     val pagerState = rememberPagerState(pageCount = {
         2
     })

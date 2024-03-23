@@ -33,4 +33,10 @@ internal class GameRepositoryImpl @Inject constructor(
             gameSettingsDao.getHistoryMatches()
         }
     }
+
+    override suspend fun deleteSettingsData() {
+        return withContext(Dispatchers.IO) {
+            gameSettingsDao.deteleSettingsData()
+        }
+    }
 }

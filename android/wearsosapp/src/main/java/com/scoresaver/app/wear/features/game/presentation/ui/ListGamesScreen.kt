@@ -23,6 +23,8 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.items
+import androidx.wear.compose.material.SwipeToDismissBox
+import androidx.wear.compose.material.rememberSwipeToDismissBoxState
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
@@ -30,10 +32,10 @@ import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.app.wear.components.typography.CustomText
 import com.scoresaver.app.wear.features.game.presentation.GameViewModel
 import com.scoresaver.app.wear.features.game.presentation.ui.components.ResultComposable
+import com.scoresaver.app.wear.navigation.Screen
 
 @Composable
 internal fun ListGameScreen(
-    navController: NavController,
     viewModel: GameViewModel
 ) {
     val scalingLazyState = remember {
@@ -42,8 +44,9 @@ internal fun ListGameScreen(
             initialCenterItemScrollOffset = 40
         )
     }
-
     viewModel.loadHistoryMatches()
+    viewModel.resetData()
+
     val listMatches by viewModel.historyMatches.collectAsState(initial = emptyList())
 
 

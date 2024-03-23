@@ -1,10 +1,12 @@
 package com.scoresaver.app.wear.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.scoresaver.app.util.util.SharedPreferencesManager
 import com.scoresaver.app.wear.features.game.presentation.GameViewModel
 import com.scoresaver.app.wear.features.game.presentation.ui.GameScreen
 import com.scoresaver.app.wear.features.game.presentation.ui.ListGameScreen
@@ -24,10 +26,12 @@ fun NavGraph() {
     val navController = rememberSwipeDismissableNavController()
     val newGameViewModel = hiltViewModel<NewGameViewModel>()
     val gameViewModel = hiltViewModel<GameViewModel>()
+    val sharedPreferencesManager = SharedPreferencesManager(LocalContext.current)
+
 
     SwipeDismissableNavHost(
         navController = navController,
-        startDestination = if (gameViewModel.userData.value == null) Screen.GenderScreen.route else Screen.HomeScreen.route
+        startDestination = if (sharedPreferencesManager.getValue("start_destination", false)) Screen.HomeScreen.route else Screen.GenderScreen.route
     ) {
         composable(Screen.GenderScreen.route) {
             GenderScreen(navController = navController, viewModel = newGameViewModel)
@@ -53,7 +57,7 @@ fun NavGraph() {
         }
 
         composable(Screen.NewGameScreen.route) {
-            NewGameScreen(navController = navController, viewModel = newGameViewModel)
+            NewGameScreen(navController = navController, viewModel = newGameViewModel, gameViewModel = gameViewModel)
         }
 
         composable(Screen.GameTypeScreen.route) {
@@ -68,7 +72,7 @@ fun NavGraph() {
             GameScreen(navController = navController,viewModel = gameViewModel)
         }
         composable(Screen.ListGameScreen.route) {
-            ListGameScreen(navController = navController, viewModel = gameViewModel)
+            ListGameScreen(viewModel = gameViewModel)
         }
 
     }

@@ -43,4 +43,6 @@ interface GameInteractor {
     suspend fun loadHistoryMatches(): Flow<List<ResultData>>
     suspend fun getUserData(): UserEntity?
     suspend fun getGameSettings(): GameSettingsEntity?
+
+    suspend fun deleteSettingsData()
 }

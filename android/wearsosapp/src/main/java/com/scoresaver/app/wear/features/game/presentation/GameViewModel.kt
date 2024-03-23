@@ -77,11 +77,6 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     val historyMatches: MutableStateFlow<List<ResultData>>
         get() = _historyMatches
 
-    init {
-        startTimer()
-        startHeartRateListener()
-        getDataUsers()
-    }
 
     fun getDataUsers() {
         viewModelScope.launch(Dispatchers.IO)
@@ -208,13 +203,28 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
 
     fun loadHistoryMatches() {
         viewModelScope.launch {
-            gameInteractor.loadHistoryMatches().collect{
+            gameInteractor.loadHistoryMatches().collect {
                 _historyMatches.value = it
             }
         }
     }
 
-
+    fun resetData() {
+        _scoreTeam1.value = "0"
+        _scoreTeam2.value = "0"
+        _gameTeam1.value = "0"
+        _gameTeam2.value = "0"
+        _actionCloseGame.value = false
+        _isTimerRunning.value = false
+        _formattedSeconds.value = "00:00:00"
+        stopHeartRateListener()
+        stopTimer()
+        gameInteractor.clearTimer()
+        _hearthRate.floatValue = 0f
+        viewModelScope.launch {
+            gameInteractor.deleteSettingsData()
+        }
+    }
 
     override fun onCleared() {
         super.onCleared()

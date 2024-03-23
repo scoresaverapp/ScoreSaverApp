@@ -13,6 +13,7 @@ internal sealed interface ViewModelFragment {
         fun getAdvantagesSwitchValue(): SwitchState<GameSetting.Advantages>
         fun getKillerPointSwitchValue(): SwitchState<GameSetting.KillerPoint>
         fun insertGameSettings()
+        fun resetData()
     }
 
     interface GameType {

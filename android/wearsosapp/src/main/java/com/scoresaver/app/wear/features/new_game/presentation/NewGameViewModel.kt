@@ -1,5 +1,7 @@
 package com.scoresaver.app.wear.features.new_game.presentation
 
+import android.content.SharedPreferences
+import android.content.Context
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -17,12 +19,16 @@ import com.scoresaver.app.wear.features.new_game.model.ServiceOder
 import com.scoresaver.app.wear.features.new_game.model.SwitchState
 import com.scoresaver.app.wear.features.new_game.model.Team
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 internal class NewGameViewModel @Inject constructor(
-    private val newGameInteractor: NewGameInteractor
+    private val newGameInteractor: NewGameInteractor,
+    @ApplicationContext
+    context: Context
 ) : ViewModel(),
     ViewModelFragment.NewGame,
     ViewModelFragment.GameType,
@@ -36,41 +42,6 @@ internal class NewGameViewModel @Inject constructor(
     private val _advantagesSwitchState = mutableStateOf(SwitchState(GameSetting.Advantages, false))
     private val _killerPointSwitchState =
         mutableStateOf(SwitchState(GameSetting.KillerPoint, false))
-    private val _playerOneState =
-        mutableStateOf(
-            Player(
-                isUserPlayer = true,
-                serviceOrder = ServiceOder.First,
-                team = Team.One
-            )
-        )
-
-    private val _playerTwoState =
-        mutableStateOf(
-            Player(
-                isUserPlayer = false,
-                serviceOrder = ServiceOder.Second,
-                team = Team.One
-            )
-        )
-
-    private val _playerThreeState =
-        mutableStateOf(
-            Player(
-                isUserPlayer = false,
-                serviceOrder = ServiceOder.Third,
-                team = Team.Two
-            )
-        )
-
-    private val _playerFourState =
-        mutableStateOf(
-            Player(
-                isUserPlayer = false,
-                serviceOrder = ServiceOder.Fourth,
-                team = Team.Two
-            )
-        )
 
     private var _heightValue = mutableIntStateOf(160)
     private val _weightValue = mutableIntStateOf(70)
@@ -170,6 +141,8 @@ internal class NewGameViewModel @Inject constructor(
 
                 _femaleSwitchState.value = _femaleSwitchState.value.copy(switchValue = value)
             }
+
+            else -> {}
         }
     }
 
@@ -202,6 +175,14 @@ internal class NewGameViewModel @Inject constructor(
                 )
             )
         }
+    }
+
+    override fun resetData() {
+        _singleSwitchState.value = SwitchState(GameSetting.Single, false)
+        _doubleSwitchState.value = SwitchState(GameSetting.Double, false)
+        _singleSwitchState.value = SwitchState(GameSetting.Single, false)
+        _advantagesSwitchState.value = SwitchState(GameSetting.Advantages, false)
+        _sportType.intValue = 1
     }
 
 

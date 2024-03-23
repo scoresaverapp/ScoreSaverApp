@@ -1,12 +1,15 @@
 package com.scoresaver.app.wear.features.new_game.presentation.ui
 
 import android.Manifest
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -31,16 +34,19 @@ import com.scoresaver.app.util.util.requestPermission
 import com.scoresaver.app.wear.features.new_game.presentation.ViewModelFragment
 import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.app.wear.components.MyScaffold
+import com.scoresaver.app.wear.components.dialogs.AlertDialog
 import com.scoresaver.core_ui.components.buttons.FullWidthRoundButton
 import com.scoresaver.core_ui.components.layout.CustomSpacer
 import com.scoresaver.core_ui.components.lifecycle_observer.lifecycleObserver
 import com.scoresaver.app.wear.components.typography.CustomText
+import com.scoresaver.app.wear.features.game.presentation.GameViewModel
 
 
 @Composable
 internal fun NewGameScreen(
     navController: NavController,
-    viewModel: ViewModelFragment.NewGame
+    viewModel: ViewModelFragment.NewGame,
+    gameViewModel: GameViewModel
 ) {
     val single = viewModel.getSingleGameSwitchValue()
     val double = viewModel.getDoubleGameSwitchValue()
@@ -70,6 +76,9 @@ internal fun NewGameScreen(
 
     val permissionResultLauncher = requestPermission(Manifest.permission.BODY_SENSORS) {
         navController.navigate(Screen.GameScreen.route) {
+            viewModel.resetData()
+            gameViewModel.startTimer()
+            gameViewModel.startHeartRateListener()
             popUpTo(Screen.NewGameScreen.route) {
                 inclusive = true
             }
@@ -79,10 +88,6 @@ internal fun NewGameScreen(
     val checkBodySensorPermissionStatus =
         checkPermission(permission = Manifest.permission.BODY_SENSORS)
 
-    lifecycleObserver(onResume = {
-        checkBodySensorPermissionStatus()
-    })
-
     MyScaffold(scalingLazyState = scalingLazyState) {
         ScalingLazyColumn(
             modifier = Modifier.fillMaxSize(),
@@ -91,7 +96,10 @@ internal fun NewGameScreen(
             anchorType = ScalingLazyListAnchorType.ItemStart
         ) {
             item {
-                CustomText(text = stringResource(id = R.string.new_game), textStyle = titleTextStyle())
+                CustomText(
+                    text = stringResource(id = R.string.new_game),
+                    textStyle = titleTextStyle()
+                )
             }
             item {
                 FullWidthRoundButton(
@@ -126,8 +134,9 @@ internal fun NewGameScreen(
                         text = stringResource(id = R.string.start_game),
                         textAlign = TextAlign.Center,
                         onPress = {
+                            permissionResultLauncher()
                             viewModel.insertGameSettings()
-                            permissionResultLauncher() },
+                        },
                         backgroundColor = getStartGameButtonBackgroundColor(),
                         borderColor = getStartGameButtonBorderColor(),
                         textColor = getStartGameTextColor(),
@@ -136,8 +145,10 @@ internal fun NewGameScreen(
                 }
             }
         }
-
     }
+    lifecycleObserver(onResume = {
+        checkBodySensorPermissionStatus()
+    })
 }
 
 private fun titleTextStyle() = TextStyle(

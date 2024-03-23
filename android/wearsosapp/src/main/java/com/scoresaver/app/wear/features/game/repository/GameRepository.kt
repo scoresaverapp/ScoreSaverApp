@@ -9,6 +9,6 @@ interface GameRepository {
     suspend fun getUserData(): UserEntity?
     suspend fun getGameSettings(): GameSettingsEntity?
     suspend fun insetResultMatch(resultData: ResultData)
-
     suspend fun getHistoryMatches(): Flow<List<ResultData>>
+    suspend fun deleteSettingsData()
 }
