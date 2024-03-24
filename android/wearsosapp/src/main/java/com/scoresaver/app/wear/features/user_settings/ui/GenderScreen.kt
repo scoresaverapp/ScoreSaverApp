@@ -19,6 +19,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Black
+import com.scoresaver.app.util.Darkgrey
 import com.scoresaver.app.util.LightGrey
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
@@ -39,6 +40,10 @@ internal fun GenderScreen(
     val male = viewModel.getMaleSwitchValue()
     val female = viewModel.getFemaleSwitchValue()
     val buttonEnabled = male.switchValue || female.switchValue
+
+    fun getStartGameButtonBackgroundColor() = if (buttonEnabled) Orange else Black
+    fun getStartGameButtonBorderColor() = if (buttonEnabled) Orange else Darkgrey
+    fun getStartGameTextColor() = if (buttonEnabled) White else Darkgrey
 
     val scalingLazyState = remember {
         ScalingLazyListState(
@@ -89,9 +94,9 @@ internal fun GenderScreen(
                     FullWidthRoundButton(
                         text = stringResource(id = R.string.next_step),
                         onPress = { navController.navigate(Screen.AgeScreen.route) },
-                        backgroundColor = if (buttonEnabled) Orange else LightGrey,
-                        borderColor = if (buttonEnabled) Orange else LightGrey,
-                        textColor = White,
+                        backgroundColor = getStartGameButtonBackgroundColor(),
+                        borderColor = getStartGameButtonBorderColor(),
+                        textColor = getStartGameTextColor(),
                         textAlign = TextAlign.Center,
                         enable = male.switchValue || female.switchValue
                     )

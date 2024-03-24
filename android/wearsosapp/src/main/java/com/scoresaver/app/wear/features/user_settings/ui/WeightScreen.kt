@@ -24,7 +24,6 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import com.scoresaver.app.R
-import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
 import com.scoresaver.app.util.util.MAX_WEIGHT
@@ -41,7 +40,6 @@ internal fun WeightScreen(
     navController: NavController,
     viewModel: NewGameViewModel
 ) {
-
     val weight = viewModel.getWeightValue()
     val sharedPreferencesManager = SharedPreferencesManager(LocalContext.current)
 
@@ -59,7 +57,6 @@ internal fun WeightScreen(
             autoCentering = AutoCenteringParams(itemIndex = 2),
             state = scalingLazyState,
             anchorType = ScalingLazyListAnchorType.ItemStart
-
         ) {
             item {
                 CustomText(
@@ -83,16 +80,15 @@ internal fun WeightScreen(
             }
             item {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     CustomText(
                         modifier = Modifier.clickable {
-                            if(weight < MAX_WEIGHT)
-                                viewModel.setWeightValue(weight + 1)
+                            if (weight > MIN_WEIGHT)
+                                viewModel.setWeightValue(weight - 1)
                         },
-                        text = "+",
+                        text = "-",
                         textStyle = TextStyle(
                             fontSize = 24.sp,
                             fontWeight = FontWeight(400),
@@ -100,9 +96,10 @@ internal fun WeightScreen(
                         )
                     )
 
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         CustomText(
-                            modifier = Modifier.padding(end = 7.dp),
                             text = weight.toString(),
                             textStyle = TextStyle(
                                 fontSize = 24.sp,
@@ -110,23 +107,25 @@ internal fun WeightScreen(
                                 color = White,
                             )
                         )
+
                         CustomText(
-                            modifier = Modifier.padding(end = 8.dp),
+                            modifier = Modifier.padding(start = if (weight < 100) 1.5.dp else 2.5.dp),
                             text = stringResource(id = R.string.kg),
                             textStyle = TextStyle(
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight(400),
                                 color = White,
+                                textAlign = TextAlign.Center
                             )
                         )
-
                     }
+
                     CustomText(
                         modifier = Modifier.clickable {
-                            if(weight > MIN_WEIGHT)
-                                viewModel.setWeightValue(weight - 1)
+                            if (weight <= MAX_WEIGHT)
+                                viewModel.setWeightValue(weight + 1)
                         },
-                        text = "-",
+                        text = "+",
                         textStyle = TextStyle(
                             fontSize = 24.sp,
                             fontWeight = FontWeight(400),

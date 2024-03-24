@@ -39,7 +39,6 @@ internal fun HeightScreen(
     navController: NavController,
     viewModel: NewGameViewModel
 ) {
-
     val height = viewModel.getHeightValue()
 
     val scalingLazyState = remember {
@@ -56,7 +55,6 @@ internal fun HeightScreen(
             autoCentering = AutoCenteringParams(itemIndex = 2),
             state = scalingLazyState,
             anchorType = ScalingLazyListAnchorType.ItemStart
-
         ) {
             item {
                 CustomText(
@@ -80,46 +78,9 @@ internal fun HeightScreen(
             }
             item {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    CustomText(
-                        modifier = Modifier.clickable {
-                            if (height < MAX_HEIGHT)
-                                viewModel.setHeightValue(height + 1)
-                        },
-                        text = "+",
-                        textStyle = TextStyle(
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight(400),
-                            color = White,
-                        )
-                    )
-
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        CustomText(
-                            modifier = Modifier.padding(end = 7.dp),
-                            text = height.toString(),
-                            textStyle = TextStyle(
-                                fontSize = 24.sp,
-                                fontWeight = FontWeight(400),
-                                color = White,
-                            )
-                        )
-
-                        CustomText(
-                            modifier = Modifier.padding(end = 6.dp),
-                            text = stringResource(id = R.string.cm),
-                            textStyle = TextStyle(
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight(400),
-                                color = White,
-                                textAlign = TextAlign.Center
-                            )
-                        )
-
-                    }
                     CustomText(
                         modifier = Modifier.clickable {
                             if (height > MIN_HEIGHT)
@@ -132,13 +93,51 @@ internal fun HeightScreen(
                             color = White,
                         )
                     )
+
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        CustomText(
+                            text = height.toString(),
+                            textStyle = TextStyle(
+                                fontSize = 24.sp,
+                                fontWeight = FontWeight(400),
+                                color = White,
+                            )
+                        )
+
+                        CustomText(
+                            modifier = Modifier.padding(start = if(height < 100) 1.5.dp else 2.5.dp),
+                            text = stringResource(id = R.string.cm),
+                            textStyle = TextStyle(
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight(400),
+                                color = White,
+                                textAlign = TextAlign.Center
+                            )
+                        )
+                    }
+
+                    CustomText(
+                        modifier = Modifier.clickable {
+                            if (height <= MAX_HEIGHT)
+                                viewModel.setHeightValue(height + 1)
+                        },
+                        text = "+",
+                        textStyle = TextStyle(
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight(400),
+                            color = White,
+                        )
+                    )
                 }
             }
 
-
             item {
-                Row(modifier = Modifier.padding(top = 8.dp, start = 40.dp, end = 40.dp),
-                    horizontalArrangement = Arrangement.Center) {
+                Row(
+                    modifier = Modifier.padding(top = 8.dp, start = 40.dp, end = 40.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
                     FullWidthRoundButton(
                         text = stringResource(id = R.string.next_step),
                         onPress = {

@@ -88,10 +88,10 @@ internal fun AgeScreen(
                     CustomText(
                         modifier = Modifier
                             .clickable {
-                                if (age <= MAX_AGE)
-                                    viewModel.setAge(age + 1)
+                                if (age > MIN_AGE)
+                                    viewModel.setAge(age - 1)
                             },
-                        text = "+",
+                        text = "-",
                         textStyle = TextStyle(
                             fontSize = 24.sp,
                             fontWeight = FontWeight(400),
@@ -100,7 +100,7 @@ internal fun AgeScreen(
                     )
 
                     CustomText(
-                        modifier = Modifier.padding(end = 8.dp),
+                        modifier = Modifier.padding(start = 5.5.dp),
                         text = age.toString(),
                         textStyle = TextStyle(
                             fontSize = 24.sp,
@@ -111,10 +111,10 @@ internal fun AgeScreen(
                     CustomText(
                         modifier = Modifier
                             .clickable {
-                                if (age > MIN_AGE)
-                                    viewModel.setAge(age - 1)
+                                if (age <= MAX_AGE)
+                                    viewModel.setAge(age + 1)
                             },
-                        text = "-",
+                        text = "+",
                         textStyle = TextStyle(
                             fontSize = 24.sp,
                             fontWeight = FontWeight(400),
