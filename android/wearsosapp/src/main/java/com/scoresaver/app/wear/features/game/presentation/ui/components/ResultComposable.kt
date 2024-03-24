@@ -1,4 +1,4 @@
-package com.scoresaver.app.wear.features.game.presentation.ui. components
+package com.scoresaver.app.wear.features.game.presentation.ui.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -38,6 +38,7 @@ fun ResultComposable(match: ResultData) {
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             CustomText(
+                modifier = Modifier.padding(start = 14.dp),
                 text = match.data ?: "",
                 textStyle = TextStyle(
                     fontSize = 12.sp,
@@ -51,7 +52,9 @@ fun ResultComposable(match: ResultData) {
 
             CustomImageVectorIcon(
                 modifier = Modifier.size(10.dp),
-                imageVector = if(match.single == true) ImageVector.vectorResource(id = R.drawable.ic_profile_selected) else ImageVector.vectorResource(id = R.drawable.ic_double_profile_selected),
+                imageVector = if (match.single == true) ImageVector.vectorResource(id = R.drawable.ic_profile_selected) else ImageVector.vectorResource(
+                    id = R.drawable.ic_double_profile_selected
+                ),
                 contentDescription = "",
                 color = White
             )
@@ -67,8 +70,12 @@ fun ResultComposable(match: ResultData) {
             )
 
             CustomImageVectorIcon(
-                modifier = Modifier.size(10.dp),
-                imageVector = if(match.single == true) ImageVector.vectorResource(id = R.drawable.ic_profile_selected) else ImageVector.vectorResource(id = R.drawable.ic_double_profile_selected),
+                modifier = Modifier
+                    .padding(end = 14.dp)
+                    .size(10.dp),
+                imageVector = if (match.single == true) ImageVector.vectorResource(id = R.drawable.ic_profile_selected) else ImageVector.vectorResource(
+                    id = R.drawable.ic_double_profile_selected
+                ),
                 contentDescription = "",
                 color = White
             )
@@ -77,12 +84,12 @@ fun ResultComposable(match: ResultData) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(2.dp)
-                .border(width = 1.dp, color = Orange, shape = RoundedCornerShape(8.dp))
+                .border(width = 1.dp, color = Orange, shape = RoundedCornerShape(16.dp))
                 .padding(2.dp)
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(vertical = 6.dp)
+                modifier = Modifier.padding(top = 6.dp, bottom = 6.dp, start = 8.dp)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     CustomText(
@@ -94,16 +101,6 @@ fun ResultComposable(match: ResultData) {
                             textAlign = TextAlign.Center
                         )
                     )
-                    if (match.winner == 1) {
-                        CustomImageVectorIcon(
-                            modifier = Modifier
-                                .padding(start = 3.dp)
-                                .size(10.dp),
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_winner),
-                            contentDescription = "",
-                            color = Blue
-                        )
-                    }
                 }
                 CustomText(
                     text = "-",
@@ -125,22 +122,48 @@ fun ResultComposable(match: ResultData) {
                             textAlign = TextAlign.Center
                         )
                     )
-                    if (match.winner == 2) {
-                        CustomImageVectorIcon(
-                            modifier = Modifier
-                                .padding(start = 3.dp)
-                                .size(10.dp),
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_winner),
-                            contentDescription = "",
-                            color = Blue
-                        )
-                    }
+                }
+            }
+            Column {
+                if (match.winner == 1) {
+                    CustomImageVectorIcon(
+                        modifier = Modifier
+                            .padding(start = 3.dp, top = 10.dp)
+                            .size(10.dp),
+                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_winner),
+                        contentDescription = "",
+                        color = Blue
+                    )
+                }
+                if (match.winner == 2) {
+                    CustomImageVectorIcon(
+                        modifier = Modifier
+                            .padding(start = 3.dp, top = 43.dp)
+                            .size(10.dp),
+                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_winner),
+                        contentDescription = "",
+                        color = Blue
+                    )
                 }
             }
             Row(
                 horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(start = if(((match.listGameTeam1?.size) ?: 0) <= 3
-                ) 30.dp else 0.dp)
+                modifier = Modifier.padding(
+                    start = when ((match.listGameTeam1?.size) ?: 0) {
+                        1, 2, 3, 4, 5 -> {
+                            30.dp
+                        }
+
+                        6 -> {
+                            //5
+                            0.dp
+                        }
+
+                        else -> {
+                            0.dp
+                        }
+                    }
+                )
             ) {
                 ResultNumber(match)
             }
@@ -159,7 +182,7 @@ fun ResultNumber(match: ResultData) {
             val team1List = if (team1Scores.size > 1) team1Scores.dropLast(1) else team1Scores
             team1List.zip(team2Scores) { team1Score, team2Score ->
                 Column(
-                    modifier = Modifier.padding(horizontal = 6.dp) // Add padding to control spacing
+                    modifier = Modifier.padding(horizontal = 6.dp)
                 ) {
                     CustomText(
                         text = team1Score.toString(),
@@ -172,6 +195,7 @@ fun ResultNumber(match: ResultData) {
                     )
 
                     CustomText(
+                        modifier = Modifier.padding(start = 1.5.dp),
                         text = "-",
                         textStyle = TextStyle(
                             fontSize = 12.sp,
