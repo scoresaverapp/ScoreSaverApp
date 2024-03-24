@@ -99,7 +99,7 @@ fun ResultComposable(match: ResultData) {
                             modifier = Modifier
                                 .padding(start = 3.dp)
                                 .size(10.dp),
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_profile_selected),
+                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_winner),
                             contentDescription = "",
                             color = Blue
                         )
@@ -130,7 +130,7 @@ fun ResultComposable(match: ResultData) {
                             modifier = Modifier
                                 .padding(start = 3.dp)
                                 .size(10.dp),
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_profile_selected),
+                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_winner),
                             contentDescription = "",
                             color = Blue
                         )
