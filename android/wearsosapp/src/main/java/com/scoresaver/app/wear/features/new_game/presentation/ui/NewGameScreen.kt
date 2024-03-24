@@ -107,6 +107,9 @@ internal fun NewGameScreen(
                     iconColor = Blue
                 )
             }
+            item {
+                Modifier.padding(top = 6.dp)
+            }
 
             item {
                 FullWidthRoundButton(
@@ -122,7 +125,7 @@ internal fun NewGameScreen(
                 )
             }
             item {
-                Row(modifier = Modifier.padding(horizontal = 38.dp)) {
+                Row(modifier = Modifier.padding(start = 38.dp, end = 38.dp, top = 10.dp)) {
                     FullWidthRoundButton(
                         text = stringResource(id = R.string.start_game),
                         textAlign = TextAlign.Center,
