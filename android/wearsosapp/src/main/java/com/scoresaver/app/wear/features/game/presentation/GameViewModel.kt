@@ -61,9 +61,6 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
     private val _setTeam2 = mutableIntStateOf(0)
     val setTeam2 by _setTeam2
 
-    private val _isPadelMatch = mutableStateOf(true)
-    val isPadelMatch by _isPadelMatch
-
     private val _userData = mutableStateOf<UserEntity?>(null)
     val userData = _userData
 
@@ -97,7 +94,6 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
 
             gameSettings?.let {
                 withContext(Dispatchers.Main) {
-                    _isPadelMatch.value = gameSettings.sportType == SPORT_TYPE.PADEL
                     _isKillerPointActive.value = gameSettings.gamePoint == GAME_POINT.KILLER
                 }
             }

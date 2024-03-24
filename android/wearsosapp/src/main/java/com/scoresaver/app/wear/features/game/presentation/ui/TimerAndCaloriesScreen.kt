@@ -115,7 +115,7 @@ internal fun TimeAndCaloriesScreen(
         ) {
             item {
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                    if (!isTieBreak && viewModel.isPadelMatch && (viewModel.scoreTeam1 != "A" && viewModel.scoreTeam2 != "A")) {
+                    if (!isTieBreak && (viewModel.scoreTeam1 != "A" && viewModel.scoreTeam2 != "A")) {
                         RoundButton(
                             size = 40.5.dp,
                             backgroundColor = if (viewModel.isKillerPointActive) Orange else Grey,
