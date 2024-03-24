@@ -1,9 +1,13 @@
 package com.scoresaver.app.wear.features.user_settings.ui
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,19 +28,17 @@ import com.scoresaver.app.util.LightBlack
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
 import com.scoresaver.app.wear.components.MyScaffold
+import com.scoresaver.app.wear.components.buttons.FullWidthRoundButton
 import com.scoresaver.app.wear.components.typography.CustomText
 import com.scoresaver.app.wear.features.new_game.presentation.ViewModelFragment
 import com.scoresaver.app.wear.navigation.Screen
-import com.scoresaver.app.wear.components.buttons.FullWidthRoundButton
 import com.scoresaver.core_ui.components.buttons.RoundButton
-import com.scoresaver.core_ui.components.layout.CustomSpacer
 
 @Composable
 internal fun SportScreen(
     navController: NavController,
     viewModel: ViewModelFragment.NewGame
 ) {
-
     val sport = viewModel.getSportType()
     val scalingLazyState = remember {
         ScalingLazyListState(
@@ -53,10 +55,10 @@ internal fun SportScreen(
             state = scalingLazyState,
             anchorType = ScalingLazyListAnchorType.ItemStart,
             horizontalAlignment = Alignment.CenterHorizontally
-
         ) {
             item {
                 CustomText(
+                    modifier = Modifier.padding(top = 16.dp),
                     text = stringResource(id = R.string.new_game),
                     textStyle = TextStyle(
                         fontSize = 16.sp,
@@ -70,37 +72,34 @@ internal fun SportScreen(
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceAround,
-                    modifier = Modifier.padding(top = 8.dp)
+                    modifier = Modifier.padding(top = 24.dp)
                 ) {
                     RoundButton(
                         textColor = White,
-                        size = 50.dp,
+                        size = 60.dp,
                         backgroundColor = if (sport == 1) Orange else LightBlack,
                         showOnlyText = true,
                         titleButton = stringResource(id = R.string.padel),
-
-                        onClick = {
-                            viewModel.setSportType(1)
-                        })
-                    CustomSpacer(size = 32.5.dp, horizontal = true)
+                        textSize = 16.sp,
+                        onClick = { viewModel.setSportType(1) }
+                    )
+                    Spacer(modifier = Modifier.width(32.5.dp))
                     RoundButton(
                         textColor = White,
-                        size = 50.dp,
+                        size = 60.dp,
                         backgroundColor = if (sport == 2) Orange else LightBlack,
                         showOnlyText = true,
+                        textSize = 16.sp,
                         titleButton = stringResource(id = R.string.tennis),
-                        onClick = {
-                            viewModel.setSportType(2)
-                        })
+                        onClick = { viewModel.setSportType(2) }
+                    )
                 }
             }
-            item {
-                CustomSpacer(size = 32.dp)
-            }
+
 
             item {
                 Row(
-                    modifier = Modifier.padding(horizontal = 40.dp),
+                    modifier = Modifier.padding(start = 40.dp, end = 40.dp, top = 32.dp, bottom = 8.dp),
                     horizontalArrangement = Arrangement.Center
                 ) {
                     FullWidthRoundButton(
@@ -115,7 +114,6 @@ internal fun SportScreen(
                     )
                 }
             }
-
         }
     }
 }
