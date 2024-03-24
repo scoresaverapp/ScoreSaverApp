@@ -84,7 +84,7 @@ internal fun ListGameScreen(
                     )
                 }
             } else {
-                items(listMatches) { match ->
+                items(listMatches.asReversed()) { match ->
                     ResultComposable(match)
                 }
             }
