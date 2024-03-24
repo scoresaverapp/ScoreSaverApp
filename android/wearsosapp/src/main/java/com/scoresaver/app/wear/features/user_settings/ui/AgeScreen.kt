@@ -100,7 +100,7 @@ internal fun AgeScreen(
                     )
 
                     CustomText(
-                        modifier = Modifier.padding(start = 5.5.dp),
+                        modifier = Modifier.padding(start = 1.5.dp),
                         text = age.toString(),
                         textStyle = TextStyle(
                             fontSize = 24.sp,

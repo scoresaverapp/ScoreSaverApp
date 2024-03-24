@@ -100,6 +100,7 @@ internal fun WeightScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         CustomText(
+                            modifier = Modifier.padding(start = 1.5.dp),
                             text = weight.toString(),
                             textStyle = TextStyle(
                                 fontSize = 24.sp,
