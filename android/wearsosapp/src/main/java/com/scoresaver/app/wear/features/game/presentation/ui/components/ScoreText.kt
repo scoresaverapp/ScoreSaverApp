@@ -44,7 +44,7 @@ fun ScoreText(
         Column {
             for (i in 0 until numberSetPlayer1) {
                 CustomImageVectorIcon(
-                    modifier = Modifier.size(10.5.dp),
+                    modifier = Modifier.padding(start = 3.5.dp).size(10.5.dp),
                     imageVector = ImageVector.vectorResource(R.drawable.ic_tennis_ball),
                     color = White,
                     contentDescription = ""
@@ -111,7 +111,7 @@ fun ScoreText(
         Column {
             for (i in 0 until numberSetPlayer2) {
                 CustomImageVectorIcon(
-                    modifier = Modifier.size(10.5.dp),
+                    modifier = Modifier.padding(end = 3.5.dp).size(10.5.dp),
                     imageVector = ImageVector.vectorResource(R.drawable.ic_tennis_ball),
                     color = White,
                     contentDescription = ""
