@@ -23,7 +23,6 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import com.scoresaver.app.R
-import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
 import com.scoresaver.app.util.util.MAX_HEIGHT
@@ -32,7 +31,7 @@ import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.app.wear.components.typography.CustomText
 import com.scoresaver.app.wear.features.new_game.presentation.NewGameViewModel
 import com.scoresaver.app.wear.navigation.Screen
-import com.scoresaver.core_ui.components.buttons.FullWidthRoundButton
+import com.scoresaver.app.wear.components.buttons.FullWidthRoundButton
 
 @Composable
 internal fun HeightScreen(

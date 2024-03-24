@@ -1,4 +1,4 @@
-package com.scoresaver.core_ui.components.buttons
+package com.scoresaver.app.wear.components.buttons
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
@@ -31,6 +32,7 @@ fun FullWidthRoundButton(
     textAlign: TextAlign = TextAlign.Left,
     borderColor: Color,
     backgroundColor: Color,
+    brush: Brush? = null,
     rightIcon: Int? = null,
     iconColor: Color = Color.Black,
     iconSize: Dp = 17.dp,
@@ -39,12 +41,18 @@ fun FullWidthRoundButton(
     onPress: () -> Unit,
     enable: Boolean = true
 ) {
+    val styles = if (brush != null) {
+        Styles.rootContainerGradient(
+            brush = brush
+        )
+    } else {
+        Styles.rootContainer(
+            backgroundColor = backgroundColor,
+            borderColor = borderColor
+        )
+    }
     Row(
-        modifier = Styles
-            .rootContainer(
-                backgroundColor = backgroundColor,
-                borderColor = borderColor
-            )
+        modifier = styles
             .clickable {
                 if (enable) {
                     onPress()
@@ -81,5 +89,12 @@ private object Styles {
         .clip(RoundedCornerShape(26.19.dp))
         .border(1.dp, borderColor, shape = RoundedCornerShape(26.19.dp))
         .background(backgroundColor)
+        .padding(vertical = 6.dp, horizontal = 14.5.dp)
+
+    fun rootContainerGradient(brush: Brush) = Modifier
+        .fillMaxWidth()
+        .clip(RoundedCornerShape(26.19.dp))
+        .border(1.dp, brush, shape = RoundedCornerShape(26.19.dp))
+        .background(brush)
         .padding(vertical = 6.dp, horizontal = 14.5.dp)
 }

@@ -1,15 +1,12 @@
 package com.scoresaver.app.wear.features.new_game.presentation.ui
 
 import android.Manifest
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -26,7 +23,6 @@ import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.Blue
 import com.scoresaver.app.util.Darkgrey
 import com.scoresaver.app.util.LightBlack
-import com.scoresaver.app.util.LightGrey
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
 import com.scoresaver.app.util.util.checkPermission
@@ -34,9 +30,7 @@ import com.scoresaver.app.util.util.requestPermission
 import com.scoresaver.app.wear.features.new_game.presentation.ViewModelFragment
 import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.app.wear.components.MyScaffold
-import com.scoresaver.app.wear.components.dialogs.AlertDialog
-import com.scoresaver.core_ui.components.buttons.FullWidthRoundButton
-import com.scoresaver.core_ui.components.layout.CustomSpacer
+import com.scoresaver.app.wear.components.buttons.FullWidthRoundButton
 import com.scoresaver.core_ui.components.lifecycle_observer.lifecycleObserver
 import com.scoresaver.app.wear.components.typography.CustomText
 import com.scoresaver.app.wear.features.game.presentation.GameViewModel

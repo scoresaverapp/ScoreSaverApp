@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,7 +24,7 @@ import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
 import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.app.wear.components.MyScaffold
-import com.scoresaver.core_ui.components.buttons.FullWidthRoundButton
+import com.scoresaver.app.wear.components.buttons.FullWidthRoundButton
 import com.scoresaver.core_ui.components.layout.CustomSpacer
 
 @Composable
@@ -57,29 +58,32 @@ fun HomeScreen(navController: NavController) {
                 CustomSpacer(size = 8.dp)
             }
             item {
+                val brush = Brush.horizontalGradient(
+                    colors = listOf(Orange, White)
+                )
                 FullWidthRoundButton(
                     text = stringResource(id = R.string.new_game),
                     onPress = { navController.navigate(Screen.SportScreen.route) },
-                    backgroundColor = Black,
+                    backgroundColor = Orange,
                     borderColor = Orange,
-                    textColor = Orange,
+                    textColor = White,
                     rightIcon = R.drawable.ic_add,
                     iconSize = 17.dp,
                     textSize = 16,
-                    iconColor = Orange
+                    iconColor = White
                 )
             }
             item {
                 FullWidthRoundButton(
                     text = stringResource(id = R.string.game_save),
                     onPress = { },
-                    backgroundColor = Orange,
+                    backgroundColor = Black,
                     borderColor = Orange,
-                    textColor = White,
+                    textColor = Orange,
                     rightIcon = R.drawable.ic_clock,
                     iconSize = 17.dp,
                     textSize = 16,
-                    iconColor = White
+                    iconColor = Orange
                 )
             }
             item {
@@ -88,13 +92,13 @@ fun HomeScreen(navController: NavController) {
                     onPress = {
                         navController.navigate(Screen.ListGameScreen.route)
                     },
-                    backgroundColor = Orange,
+                    backgroundColor = Black,
                     borderColor = Orange,
-                    textColor = White,
+                    textColor = Orange,
                     rightIcon = R.drawable.ic_round_arrow_left,
                     iconSize = 17.dp,
                     textSize = 16,
-                    iconColor = White
+                    iconColor = Orange
                 )
             }
         }
