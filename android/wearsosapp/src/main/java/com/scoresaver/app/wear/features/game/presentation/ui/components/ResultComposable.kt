@@ -147,23 +147,8 @@ fun ResultComposable(match: ResultData) {
                 }
             }
             Row(
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(
-                    start = when ((match.listGameTeam1?.size) ?: 0) {
-                        1, 2, 3, 4, 5 -> {
-                            30.dp
-                        }
-
-                        6 -> {
-                            //5
-                            0.dp
-                        }
-
-                        else -> {
-                            0.dp
-                        }
-                    }
-                )
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
             ) {
                 ResultNumber(match)
             }
@@ -174,7 +159,7 @@ fun ResultComposable(match: ResultData) {
 @Composable
 fun ResultNumber(match: ResultData) {
     Column(
-        modifier = Modifier.padding(vertical = 6.dp)
+        modifier = Modifier.padding(top = 6.dp, bottom = 10.dp, end = 3.dp)
     ) {
         Row {
             val team1Scores = match.listGameTeam1 ?: emptyList()
