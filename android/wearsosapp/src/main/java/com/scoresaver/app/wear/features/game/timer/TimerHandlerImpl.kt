@@ -1,19 +1,23 @@
 package com.scoresaver.app.wear.features.game.timer
 
-import com.scoresaver.app.wear.features.game.timer.Timer
-import com.scoresaver.app.wear.features.game.timer.TimerHandler
+import android.content.Context
+import android.os.PowerManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-internal class TimerHandlerImpl : TimerHandler {
+internal class TimerHandlerImpl @Inject constructor(
+    private val context: Context
+) : TimerHandler {
     private var timer: Timer
     private var timerValue: MutableStateFlow<Pair<Int, Boolean>>
     private var scope: CoroutineScope? = null
     private var timerJob: Job? = null
     private var collectJob: Job? = null
+    private var wakeLock: PowerManager.WakeLock? = null
 
     init {
         timer = Timer()
@@ -34,6 +38,7 @@ internal class TimerHandlerImpl : TimerHandler {
 
     override fun starTimer() {
         timer.startTimer()
+        acquireWakeLock()
         timerJob = scope?.launch {
             while (true) {
                 delay(1000)
@@ -57,6 +62,7 @@ internal class TimerHandlerImpl : TimerHandler {
         timer.stopTimer()
         cancelTimerJob()
         cancelCollectJob()
+        releaseWakeLock()
     }
 
     override fun clearTimer() {
@@ -70,6 +76,17 @@ internal class TimerHandlerImpl : TimerHandler {
 
     override fun formatSeconds(value: Int) =
         timer.formatSeconds()
+
+    private fun acquireWakeLock() {
+        val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyApp:TimerWakeLock")
+        wakeLock?.acquire(10*60*1000L /*10 minutes*/)
+    }
+
+    private fun releaseWakeLock() {
+        wakeLock?.release()
+        wakeLock = null
+    }
 
 
 }
