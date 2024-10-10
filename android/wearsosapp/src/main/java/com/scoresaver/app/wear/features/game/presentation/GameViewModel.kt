@@ -242,7 +242,6 @@ internal class GameViewModel @Inject constructor(
         _setTeam1.intValue = 0
         _setTeam2.intValue = 0
         _actionCloseGame.value = false
-        _isTimerRunning.value = false
         stopHeartRateListener()
         stopTimer()
         stopTimer()
