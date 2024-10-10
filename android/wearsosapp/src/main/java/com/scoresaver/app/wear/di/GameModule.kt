@@ -9,7 +9,7 @@ import com.scoresaver.app.wear.features.game.use_cases.GameInteractor
 import com.scoresaver.app.wear.features.game.use_cases.GameInteractorImpl
 import com.scoresaver.app.wear.features.game.health.Health
 import com.scoresaver.app.wear.features.game.health.HealthImpl
-import com.scoresaver.app.wear.features.game.timer.TimerHandler
+import com.scoresaver.app.wear.features.game.timer.TimerService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,9 +39,13 @@ object GameModule {
 
     @Provides
     fun provideTimerInteractor(
-        timerHandler: TimerHandler,
         health: Health,
         gameRepository: GameRepository
     ): GameInteractor =
-        GameInteractorImpl(timerHandler, health, gameRepository)
+        GameInteractorImpl(health, gameRepository)
+
+    @Provides
+    fun provideTimerService(): TimerService {
+        return TimerService()
+    }
 }

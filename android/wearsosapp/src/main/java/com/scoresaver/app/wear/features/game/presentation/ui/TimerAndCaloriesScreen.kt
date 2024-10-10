@@ -1,6 +1,5 @@
 package com.scoresaver.app.wear.features.game.presentation.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,12 +29,12 @@ import com.scoresaver.app.util.White
 import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.app.wear.components.dialogs.AlertDialog
 import com.scoresaver.app.wear.components.dialogs.ConfirmationAlert
+import com.scoresaver.app.wear.components.typography.CustomText
 import com.scoresaver.app.wear.features.game.presentation.GameViewModel
 import com.scoresaver.app.wear.features.game.presentation.ui.components.StatsValue
+import com.scoresaver.app.wear.navigation.Screen
 import com.scoresaver.core_ui.components.buttons.RoundButton
 import com.scoresaver.core_ui.components.layout.CustomSpacer
-import com.scoresaver.app.wear.components.typography.CustomText
-import com.scoresaver.app.wear.navigation.Screen
 import kotlinx.coroutines.delay
 
 @Composable
@@ -44,6 +43,7 @@ internal fun TimeAndCaloriesScreen(
     viewModel: GameViewModel
 ) {
 
+    val formattedSeconds = viewModel.formattedSeconds
     val scalingLazyState = remember {
         ScalingLazyListState(
             initialCenterItemIndex = 0,
@@ -134,7 +134,7 @@ internal fun TimeAndCaloriesScreen(
             item {
                 StatsValue(
                     text = stringResource(id = R.string.time),
-                    value = viewModel.formattedSeconds,
+                    value = formattedSeconds,
                     valueColor = Orange
                 )
             }
@@ -179,6 +179,7 @@ internal fun TimeAndCaloriesScreen(
                             } else {
                                 viewModel.startHeartRateListener()
                                 viewModel.startTimer()
+                                viewModel.checkCounter()
                             }
                         })
                 }

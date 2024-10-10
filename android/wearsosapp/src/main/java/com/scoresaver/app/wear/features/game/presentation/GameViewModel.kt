@@ -1,5 +1,14 @@
 package com.scoresaver.app.wear.features.game.presentation
 
+import android.app.ActivityManager
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.ServiceConnection
+import android.os.Build
+import android.os.IBinder
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -7,38 +16,41 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scoresaver.app.util.db.entity.GAME_POINT
-import com.scoresaver.app.util.db.entity.GAME_TYPE
 import com.scoresaver.app.util.db.entity.GENDER
 import com.scoresaver.app.util.db.entity.ResultData
-import com.scoresaver.app.util.db.entity.SPORT_TYPE
 import com.scoresaver.app.util.db.entity.UserEntity
 import com.scoresaver.app.wear.features.game.model.Team
+import com.scoresaver.app.wear.features.game.timer.TimerBroadcastReceiver
+import com.scoresaver.app.wear.features.game.timer.TimerService
 import com.scoresaver.app.wear.features.game.use_cases.GameInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.io.path.name
 
 @HiltViewModel
-internal class GameViewModel @Inject constructor(private val gameInteractor: GameInteractor) :
-    ViewModel() {
-    private val _formattedSeconds = mutableStateOf("00:00:00")
-    val formattedSeconds by _formattedSeconds
+internal class GameViewModel @Inject constructor(
+    private val gameInteractor: GameInteractor,
+    @ApplicationContext private val context: Context,
+) : ViewModel() {
+
+    private val timerBroadcastReceiver = TimerBroadcastReceiver()
 
     private val _isTimerRunning = mutableStateOf(false)
     val isTimerRunning by _isTimerRunning
+
+    private val _formattedSeconds = mutableStateOf("00:00:00")
+    val formattedSeconds by _formattedSeconds
 
     private val _hearthRate = mutableFloatStateOf(0f)
     val hearthRate by _hearthRate
 
     private val _calories = mutableStateOf("0")
     val calories by _calories
-
-    private fun updateTimerValue(value: Int) {
-        _formattedSeconds.value = gameInteractor.formatSeconds(value)
-    }
 
     private val _scoreTeam1 = mutableStateOf("0")
     val scoreTeam1 by _scoreTeam1
@@ -114,18 +126,35 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
 
     fun startTimer() {
         _isTimerRunning.value = true
-        gameInteractor.startTimer(
-            scope = viewModelScope,
-            onTimerChangeCallback = { value, isRunning ->
-                updateTimerValue(value)
-                updateIsTimerRunning(isRunning)
-                getCalories(value / 60)
-            })
+        val intent = Intent(context, TimerService::class.java).apply {
+            action = "START_TIMER"
+        }
+        context.startService(intent)
     }
 
     fun stopTimer() {
         _isTimerRunning.value = false
-        gameInteractor.stopTimer()
+        val intent = Intent(context, TimerService::class.java).apply {
+            action = "STOP_TIMER"
+        }
+        context.startService(intent)
+    }
+
+    fun checkCounter() {
+        timerBroadcastReceiver.onTimerTick = { seconds ->
+            viewModelScope.launch {
+                _formattedSeconds.value = formatSeconds(seconds)
+                getCalories(seconds / 60)
+            }
+        }
+        val intentFilter = IntentFilter("TIMER_TICK")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            context.registerReceiver(
+                timerBroadcastReceiver,
+                intentFilter,
+                Context.RECEIVER_NOT_EXPORTED
+            )
+        }
     }
 
     fun startHeartRateListener() {
@@ -214,19 +243,25 @@ internal class GameViewModel @Inject constructor(private val gameInteractor: Gam
         _setTeam2.intValue = 0
         _actionCloseGame.value = false
         _isTimerRunning.value = false
-        _formattedSeconds.value = "00:00:00"
         stopHeartRateListener()
         stopTimer()
-        gameInteractor.clearTimer()
+        stopTimer()
         _hearthRate.floatValue = 0f
         viewModelScope.launch {
             gameInteractor.deleteSettingsData()
         }
     }
 
+    private fun formatSeconds(seconds: Int): String {
+        val hours = seconds / 3600
+        val minutes = (seconds % 3600) / 60
+        val remainingSeconds = seconds % 60
+        return String.format("%02d:%02d:%02d", hours, minutes, remainingSeconds)
+    }
+
     override fun onCleared() {
         super.onCleared()
-        gameInteractor.clearTimer()
+        stopTimer()
     }
 
 }

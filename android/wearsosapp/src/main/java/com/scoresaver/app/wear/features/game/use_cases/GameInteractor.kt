@@ -5,17 +5,9 @@ import com.scoresaver.app.util.db.entity.GameSettingsEntity
 import com.scoresaver.app.util.db.entity.ResultData
 import com.scoresaver.app.util.db.entity.UserEntity
 import com.scoresaver.app.wear.features.game.model.Team
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
 interface GameInteractor {
-    fun startTimer(
-        scope: CoroutineScope,
-        onTimerChangeCallback: (Int, Boolean) -> Unit
-    )
-
-    fun stopTimer()
-    fun clearTimer()
     fun startHeartRateListener(onHeartRateChangeCallback: (Float) -> Unit)
     fun stopHeartRateListener()
     fun getCalories(
@@ -27,7 +19,6 @@ interface GameInteractor {
         seconds: Int
     ): String
 
-    fun formatSeconds(value: Int): String
     fun addPoint(team: Team, isKillerPointActive: Boolean)
     fun removeLastPoint()
     fun getPointScoreTeam1(): String

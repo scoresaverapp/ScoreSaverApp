@@ -16,7 +16,6 @@ import com.scoresaver.app.wear.features.game.model.Team
 import com.scoresaver.app.wear.features.game.model.mapIntToGameScore
 import com.scoresaver.app.wear.features.game.model.mapIntToPointScore
 import com.scoresaver.app.wear.features.game.repository.GameRepository
-import com.scoresaver.app.wear.features.game.timer.TimerHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +23,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 internal class GameInteractorImpl @Inject constructor(
-    private val timerHandler: TimerHandler,
     private val health: Health,
     private val gameRepository: GameRepository,
 ) : GameInteractor {
@@ -43,22 +41,6 @@ internal class GameInteractorImpl @Inject constructor(
         }
 
     }
-    override fun startTimer(
-        scope: CoroutineScope,
-        onTimerChangeCallback: (Int, Boolean) -> Unit
-    ) {
-        timerHandler.setScope(scope)
-        timerHandler.addTimerListener(onTimerChangeCallback)
-        timerHandler.starTimer()
-    }
-
-    override fun stopTimer() =
-        timerHandler.stopTimer()
-
-
-    override fun clearTimer() =
-        timerHandler.clearTimer()
-
 
     override fun startHeartRateListener(onHeartRateChangeCallback: (Float) -> Unit) =
         health.startHeartRateListener(onHeartRateChangeCallback)
@@ -82,8 +64,6 @@ internal class GameInteractorImpl @Inject constructor(
         )
     }
 
-    override fun formatSeconds(value: Int) =
-        timerHandler.formatSeconds(value)
 
     override fun addPoint(team: Team, isKillerPointActive: Boolean) {
         val otherTeam = if (team == Team.TEAM_1) Team.TEAM_2 else Team.TEAM_1
