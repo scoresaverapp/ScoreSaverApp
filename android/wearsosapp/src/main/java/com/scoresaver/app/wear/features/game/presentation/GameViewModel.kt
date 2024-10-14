@@ -126,6 +126,7 @@ internal class GameViewModel @Inject constructor(
 
     fun startTimer() {
         _isTimerRunning.value = true
+        Log.d("LOLVM", "START TIMER")
         val intent = Intent(context, TimerService::class.java).apply {
             action = "START_TIMER"
         }
@@ -140,6 +141,14 @@ internal class GameViewModel @Inject constructor(
         context.startService(intent)
     }
 
+    fun resetTimer() {
+        _isTimerRunning.value = false
+        val intent = Intent(context, TimerService::class.java).apply {
+            action = "RESET_TIMER"
+        }
+        context.startService(intent)
+    }
+
     fun checkCounter() {
         timerBroadcastReceiver.onTimerTick = { seconds ->
             viewModelScope.launch {
@@ -148,13 +157,11 @@ internal class GameViewModel @Inject constructor(
             }
         }
         val intentFilter = IntentFilter("TIMER_TICK")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.registerReceiver(
                 timerBroadcastReceiver,
                 intentFilter,
                 Context.RECEIVER_NOT_EXPORTED
             )
-        }
     }
 
     fun startHeartRateListener() {
@@ -242,9 +249,8 @@ internal class GameViewModel @Inject constructor(
         _setTeam1.intValue = 0
         _setTeam2.intValue = 0
         _actionCloseGame.value = false
+        resetTimer()
         stopHeartRateListener()
-        stopTimer()
-        stopTimer()
         _hearthRate.floatValue = 0f
         viewModelScope.launch {
             gameInteractor.deleteSettingsData()
@@ -257,10 +263,4 @@ internal class GameViewModel @Inject constructor(
         val remainingSeconds = seconds % 60
         return String.format("%02d:%02d:%02d", hours, minutes, remainingSeconds)
     }
-
-    override fun onCleared() {
-        super.onCleared()
-        stopTimer()
-    }
-
 }

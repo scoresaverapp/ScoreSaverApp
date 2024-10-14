@@ -59,7 +59,6 @@ internal fun ScoreGameScreen(
                 iconSize = 18.5.dp,
                 onClick = {
                     viewModel.stopHeartRateListener()
-                    viewModel.stopTimer()
                     viewModel.saveResult()
                     navController.navigate(Screen.ListGameScreen.route) {
                         viewModel.resetData()
