@@ -8,7 +8,6 @@ import android.content.IntentFilter
 import android.os.Build
 import android.os.IBinder
 import android.os.SystemClock
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.scoresaver.app.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,8 +62,7 @@ class TimerService : Service() {
     private fun stopTimer() {
         if (isRunning) {
             isRunning = false
-            serviceJob.cancel() // Cancella solo il Job, ma ricrealo all'avvio
-            Log.d("LOLO STOP", "Timer stopped.")
+            serviceJob.cancel()
         }
     }
 
@@ -73,12 +71,10 @@ class TimerService : Service() {
             stopTimer()
         }
         elapsedSeconds = 0
-        startTime = 0 // Opzionale, poiché startTime verrà ricalcolato quando si avvia
-        Log.d("LOLO RESET", "Timer reset.")
+        startTime = 0
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
         val notification = NotificationCompat.Builder(this, "CHANNEL")
             .setContentTitle("Timer Service")
             .setContentText("Timer is running...")

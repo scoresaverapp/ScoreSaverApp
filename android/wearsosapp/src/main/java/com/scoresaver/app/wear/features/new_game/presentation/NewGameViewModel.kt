@@ -1,6 +1,5 @@
 package com.scoresaver.app.wear.features.new_game.presentation
 
-import android.content.SharedPreferences
 import android.content.Context
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -12,15 +11,11 @@ import com.scoresaver.app.util.db.entity.GENDER
 import com.scoresaver.app.util.db.entity.GameSettingsEntity
 import com.scoresaver.app.util.db.entity.SPORT_TYPE
 import com.scoresaver.app.util.db.entity.UserEntity
-import com.scoresaver.newgame_interactor.interactors.NewGameInteractor
 import com.scoresaver.app.wear.features.new_game.model.GameSetting
-import com.scoresaver.app.wear.features.new_game.model.Player
-import com.scoresaver.app.wear.features.new_game.model.ServiceOder
 import com.scoresaver.app.wear.features.new_game.model.SwitchState
-import com.scoresaver.app.wear.features.new_game.model.Team
+import com.scoresaver.newgame_interactor.interactors.NewGameInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

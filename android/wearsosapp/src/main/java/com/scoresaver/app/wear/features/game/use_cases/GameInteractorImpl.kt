@@ -33,7 +33,6 @@ internal class GameInteractorImpl @Inject constructor(
     private val previousListGameB = mutableListOf<Int>()
     private val listSet = mutableListOf<SetType>()
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
-    private var isSingleGame: Boolean = false
 
 
     override fun startHeartRateListener(onHeartRateChangeCallback: (Float) -> Unit) =

@@ -11,6 +11,8 @@ lifecycleRuntimeKtx = "2.8.6"
 activityCompose = "1.9.2"
 composeBom = "2024.09.03"
 lifecycleViewmodelCompose = "2.8.6"
+playServicesAuth = "20.5.0"
+playServicesFitness = "20.0.0"
 playServicesWearable = "18.2.0"
 composeMaterial = "1.4.0"
 composeFoundation = "1.4.0"
@@ -30,6 +32,8 @@ androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-com
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "daggerHilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "daggerHilt" }
+play-services-fitness = { module = "com.google.android.gms:play-services-fitness", version.ref = "playServicesFitness" }
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 room = {group = "androidx.room", name = "room-runtime", version.ref = "room_version"}
 room-compiler = {group = "androidx.room", name = "room-compiler", version.ref = "room_version"}
 room-kapt = {group = "androidx.room", name = "room-compiler", version.ref = "room_version"}

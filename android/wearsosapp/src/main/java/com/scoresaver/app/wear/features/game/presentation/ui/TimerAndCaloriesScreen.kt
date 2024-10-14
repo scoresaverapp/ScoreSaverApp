@@ -1,13 +1,21 @@
 package com.scoresaver.app.wear.features.game.presentation.ui
 
+import android.app.Activity
+import android.content.Context
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -18,6 +26,13 @@ import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.fitness.FitnessOptions
+import com.google.android.gms.fitness.data.DataType
+import com.google.android.gms.tasks.Task
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Black
 import com.scoresaver.app.util.Green
@@ -42,6 +57,43 @@ internal fun TimeAndCaloriesScreen(
     navController: NavController,
     viewModel: GameViewModel
 ) {
+    val context = LocalContext.current
+    var account by remember { mutableStateOf<GoogleSignInAccount?>(null) }
+    var isSignInLaunched by remember { mutableStateOf(false) }
+    val fitnessOptions = FitnessOptions.builder()
+        .addDataType(DataType.TYPE_CALORIES_EXPENDED, FitnessOptions.ACCESS_READ)
+        .build()
+
+    val signInLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            Log.d("LOLO", "Authentication ok")
+            handleSignInResult(task) { acc ->
+                account = acc
+                saveAccountToPreferences(context, acc)
+                checkFitPermissions(acc, fitnessOptions, context, viewModel)
+            }
+        } else {
+            Log.d("LOLO", "Authentication failed ${result.resultCode}")
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        if (!isSignInLaunched) {
+            account = getAccountFromPreferences(context)
+
+            if (account == null) {
+                isSignInLaunched = true
+                val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build()
+                val googleSignInClient = GoogleSignIn.getClient(context as Activity, gso)
+                signInLauncher.launch(googleSignInClient.signInIntent)
+            } else {
+                checkFitPermissions(account!!, fitnessOptions, context, viewModel)
+            }
+        }
+    }
 
     val formattedSeconds = viewModel.formattedSeconds
     val scalingLazyState = remember {
@@ -50,6 +102,8 @@ internal fun TimeAndCaloriesScreen(
             initialCenterItemScrollOffset = 140
         )
     }
+
+    val calories = viewModel.calories
 
     if (viewModel.showSnackbar) {
         ShowAlertKillerPoint(
@@ -102,8 +156,8 @@ internal fun TimeAndCaloriesScreen(
             }
         }
     }
-    val isTieBreak = viewModel.gameTeam1 == "6" && viewModel.gameTeam2 == "6"
 
+    val isTieBreak = viewModel.gameTeam1 == "6" && viewModel.gameTeam2 == "6"
 
     MyScaffold(scalingLazyState = scalingLazyState) {
         ScalingLazyColumn(
@@ -126,7 +180,6 @@ internal fun TimeAndCaloriesScreen(
                                 viewModel.updateKillerPoint()
                             }
                         )
-
                     }
                 }
             }
@@ -147,7 +200,7 @@ internal fun TimeAndCaloriesScreen(
             item {
                 StatsValue(
                     text = stringResource(id = R.string.kcal),
-                    value = viewModel.calories,
+                    value = calories.toString(), // Usa il valore di calorie da Google Fit
                     valueColor = Orange
                 )
             }
@@ -174,10 +227,12 @@ internal fun TimeAndCaloriesScreen(
                         onClick = {
                             if (viewModel.isTimerRunning) {
                                 viewModel.stopTimer()
+                                viewModel.stopCounterCalories()
                                 viewModel.stopHeartRateListener()
                             } else {
                                 viewModel.startHeartRateListener()
                                 viewModel.startTimer()
+                                viewModel.startCounterCalories()
                                 viewModel.checkCounter()
                             }
                         })
@@ -187,19 +242,53 @@ internal fun TimeAndCaloriesScreen(
     }
 }
 
+private fun checkFitPermissions(account: GoogleSignInAccount, fitnessOptions: FitnessOptions, context: Context, viewModel: GameViewModel) {
+    if (!GoogleSignIn.hasPermissions(account, fitnessOptions)) {
+        GoogleSignIn.requestPermissions(
+            context as Activity,
+            1,
+            account,
+            fitnessOptions
+        )
+    } else {
+        viewModel.setAccount(account)
+    }
+}
+
+private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>, onSuccess: (GoogleSignInAccount) -> Unit) {
+    try {
+        val account = completedTask.getResult(ApiException::class.java)
+        onSuccess(account)
+    } catch (e: ApiException) {
+        Log.e("Error auth: ", e.statusCode.toString())
+    }
+}
+
+private fun saveAccountToPreferences(context: Context, account: GoogleSignInAccount) {
+    val sharedPreferences = context.getSharedPreferences("fitness_prefs", Context.MODE_PRIVATE)
+    sharedPreferences.edit().putString("accountId", account.id).apply()
+}
+
+private fun getAccountFromPreferences(context: Context): GoogleSignInAccount? {
+    val sharedPreferences = context.getSharedPreferences("fitness_prefs", Context.MODE_PRIVATE)
+    val accountId = sharedPreferences.getString("accountId", null) ?: return null
+
+    val accounts = GoogleSignIn.getLastSignedInAccount(context)
+    return if (accounts?.id == accountId) accounts else null
+}
 
 @Composable
 internal fun ShowAlertKillerPoint(
     viewModel: GameViewModel,
     message: String
 ) {
-    val (alertConfirmation, showAlertCofirmation) = remember { mutableStateOf(false) }
+    val (alertConfirmation, showAlertConfirmation) = remember { mutableStateOf(false) }
 
     LaunchedEffect(alertConfirmation) {
-        showAlertCofirmation(true)
+        showAlertConfirmation(true)
         delay(500)
         viewModel.hideSnackBar()
-        showAlertCofirmation(false)
+        showAlertConfirmation(false)
     }
 
     if (alertConfirmation) {

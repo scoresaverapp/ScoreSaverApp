@@ -1,13 +1,8 @@
 package com.scoresaver.app.wear.features.game.presentation
 
-import android.app.ActivityManager
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.ServiceConnection
-import android.os.Build
-import android.os.IBinder
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -15,10 +10,17 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.fitness.Fitness
+import com.google.android.gms.fitness.data.DataType
+import com.google.android.gms.fitness.data.Field
+import com.google.android.gms.fitness.request.DataReadRequest
 import com.scoresaver.app.util.db.entity.GAME_POINT
 import com.scoresaver.app.util.db.entity.GENDER
 import com.scoresaver.app.util.db.entity.ResultData
 import com.scoresaver.app.util.db.entity.UserEntity
+import com.scoresaver.app.wear.features.game.calories.CaloriesBroadcastReceiver
+import com.scoresaver.app.wear.features.game.calories.CaloriesTrackingService
 import com.scoresaver.app.wear.features.game.model.Team
 import com.scoresaver.app.wear.features.game.timer.TimerBroadcastReceiver
 import com.scoresaver.app.wear.features.game.timer.TimerService
@@ -26,11 +28,13 @@ import com.scoresaver.app.wear.features.game.use_cases.GameInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import kotlin.io.path.name
+import kotlin.math.roundToInt
 
 @HiltViewModel
 internal class GameViewModel @Inject constructor(
@@ -39,6 +43,7 @@ internal class GameViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val timerBroadcastReceiver = TimerBroadcastReceiver()
+    private val caloriesBroadcastReceiver = CaloriesBroadcastReceiver()
 
     private val _isTimerRunning = mutableStateOf(false)
     val isTimerRunning by _isTimerRunning
@@ -86,6 +91,8 @@ internal class GameViewModel @Inject constructor(
     val historyMatches: MutableStateFlow<List<ResultData>>
         get() = _historyMatches
 
+    private var googleSignInAccount: GoogleSignInAccount? = null
+
 
     fun getDataUsers() {
         viewModelScope.launch(Dispatchers.IO)
@@ -126,7 +133,6 @@ internal class GameViewModel @Inject constructor(
 
     fun startTimer() {
         _isTimerRunning.value = true
-        Log.d("LOLVM", "START TIMER")
         val intent = Intent(context, TimerService::class.java).apply {
             action = "START_TIMER"
         }
@@ -141,10 +147,38 @@ internal class GameViewModel @Inject constructor(
         context.startService(intent)
     }
 
-    fun resetTimer() {
+    private fun resetTimer() {
         _isTimerRunning.value = false
         val intent = Intent(context, TimerService::class.java).apply {
             action = "RESET_TIMER"
+        }
+        context.startService(intent)
+    }
+
+    fun setAccount(account: GoogleSignInAccount) {
+        googleSignInAccount = account
+        startCounterCalories()
+        Log.d("LOLO VM", "Start")
+    }
+
+    fun startCounterCalories() {
+        val intent = Intent(context, CaloriesTrackingService::class.java).apply {
+            action = "START_CALORIES"
+            putExtra("account", googleSignInAccount)
+        }
+        context.startService(intent)
+    }
+
+    fun stopCounterCalories() {
+        val intent = Intent(context, CaloriesTrackingService::class.java).apply {
+            action = "STOP_CALORIES"
+        }
+        context.startService(intent)
+    }
+
+    private fun resetCalories() {
+        val intent = Intent(context, CaloriesTrackingService::class.java).apply {
+            action = "RESET_CALORIES"
         }
         context.startService(intent)
     }
@@ -153,15 +187,27 @@ internal class GameViewModel @Inject constructor(
         timerBroadcastReceiver.onTimerTick = { seconds ->
             viewModelScope.launch {
                 _formattedSeconds.value = formatSeconds(seconds)
-                getCalories(seconds / 60)
+                //getCalories(seconds / 60)
             }
         }
         val intentFilter = IntentFilter("TIMER_TICK")
-            context.registerReceiver(
+        context.registerReceiver(
                 timerBroadcastReceiver,
                 intentFilter,
                 Context.RECEIVER_NOT_EXPORTED
             )
+
+        caloriesBroadcastReceiver.onCaloriesTick = { calories ->
+            viewModelScope.launch {
+                _calories.value = calories.toString()
+            }
+        }
+        val caloriesFilter = IntentFilter("CALORIES_TICK")
+        context.registerReceiver(
+            caloriesBroadcastReceiver,
+            caloriesFilter,
+            Context.RECEIVER_NOT_EXPORTED
+        )
     }
 
     fun startHeartRateListener() {
@@ -249,7 +295,9 @@ internal class GameViewModel @Inject constructor(
         _setTeam1.intValue = 0
         _setTeam2.intValue = 0
         _actionCloseGame.value = false
+        _calories.value = "0"
         resetTimer()
+        resetCalories()
         stopHeartRateListener()
         _hearthRate.floatValue = 0f
         viewModelScope.launch {
