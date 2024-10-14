@@ -17,14 +17,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.items
-import androidx.wear.compose.material.SwipeToDismissBox
-import androidx.wear.compose.material.rememberSwipeToDismissBoxState
 import com.scoresaver.app.R
 import com.scoresaver.app.util.Orange
 import com.scoresaver.app.util.White
@@ -32,7 +29,6 @@ import com.scoresaver.app.wear.components.MyScaffold
 import com.scoresaver.app.wear.components.typography.CustomText
 import com.scoresaver.app.wear.features.game.presentation.GameViewModel
 import com.scoresaver.app.wear.features.game.presentation.ui.components.ResultComposable
-import com.scoresaver.app.wear.navigation.Screen
 
 @Composable
 internal fun ListGameScreen(

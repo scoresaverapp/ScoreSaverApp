@@ -35,12 +35,6 @@ internal class GameInteractorImpl @Inject constructor(
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
     private var isSingleGame: Boolean = false
 
-    init {
-        coroutineScope.launch {
-            isSingleGame = gameRepository.getGameSettings()?.gameType == GAME_TYPE.SINGLE
-        }
-
-    }
 
     override fun startHeartRateListener(onHeartRateChangeCallback: (Float) -> Unit) =
         health.startHeartRateListener(onHeartRateChangeCallback)
@@ -250,31 +244,30 @@ internal class GameInteractorImpl @Inject constructor(
         val setA = calculateSetScore(Team.TEAM_1)
         val setB = calculateSetScore(Team.TEAM_2)
 
-        val resultData = ResultData(
-            listGameTeam1 = if (listSet.isNotEmpty()) {
-                previousListGameA.add(gameA.toInt())
-                previousListGameA
-            } else {
-                mutableListOf(gameA.toInt())
-            },
-            listGameTeam2 = if (listSet.isNotEmpty()) {
-                previousListGameB.add(gameB.toInt())
-                previousListGameB
-            } else {
-                mutableListOf(gameB.toInt())
-            },
-            winner = if (listSet.isEmpty()) {
-                if (gameA.toInt() > gameB.toInt()) 1 else if (gameA.toInt() == gameB
-                        .toInt()
-                ) 3 else 2
-            } else {
-                if (setA > setB) 1 else if (setA == setB) 3 else 2
-            },
-            data = getCurrentDate(),
-            single = isSingleGame
-        )
-
         coroutineScope.launch {
+            val resultData = ResultData(
+                listGameTeam1 = if (listSet.isNotEmpty()) {
+                    previousListGameA.add(gameA.toInt())
+                    previousListGameA
+                } else {
+                    mutableListOf(gameA.toInt())
+                },
+                listGameTeam2 = if (listSet.isNotEmpty()) {
+                    previousListGameB.add(gameB.toInt())
+                    previousListGameB
+                } else {
+                    mutableListOf(gameB.toInt())
+                },
+                winner = if (listSet.isEmpty()) {
+                    if (gameA.toInt() > gameB.toInt()) 1 else if (gameA.toInt() == gameB
+                            .toInt()
+                    ) 3 else 2
+                } else {
+                    if (setA > setB) 1 else if (setA == setB) 3 else 2
+                },
+                data = getCurrentDate(),
+                single = gameRepository.getGameSettings()?.gameType == GAME_TYPE.SINGLE
+            )
             gameRepository.insetResultMatch(resultData)
             previousListGameA.clear()
             previousListGameB.clear()
