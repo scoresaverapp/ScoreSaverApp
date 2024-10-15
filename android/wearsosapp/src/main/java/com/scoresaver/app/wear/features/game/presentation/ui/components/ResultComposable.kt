@@ -128,7 +128,7 @@ fun ResultComposable(match: ResultData) {
                 if (match.winner == 1) {
                     CustomImageVectorIcon(
                         modifier = Modifier
-                            .padding(start = 3.dp, top = 10.dp)
+                            .padding(start = 3.dp, top = 7.5.dp)
                             .size(10.dp),
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_winner),
                         contentDescription = "",
@@ -138,7 +138,7 @@ fun ResultComposable(match: ResultData) {
                 if (match.winner == 2) {
                     CustomImageVectorIcon(
                         modifier = Modifier
-                            .padding(start = 3.dp, top = 43.dp)
+                            .padding(start = 3.dp, top = 35.5.dp)
                             .size(10.dp),
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_winner),
                         contentDescription = "",
