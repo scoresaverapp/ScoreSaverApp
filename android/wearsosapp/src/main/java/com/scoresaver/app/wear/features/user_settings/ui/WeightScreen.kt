@@ -75,6 +75,7 @@ internal fun WeightScreen(
                         fontSize = 16.sp,
                         fontWeight = FontWeight(400),
                         color = White,
+                        textAlign = TextAlign.Center
                     )
                 )
             }

@@ -1,5 +1,6 @@
 package com.scoresaver.app.wear.features.game.presentation.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,23 +35,25 @@ import com.scoresaver.app.wear.features.game.presentation.ui.components.ResultCo
 internal fun ListGameScreen(
     viewModel: GameViewModel
 ) {
+    val listMatches by viewModel.historyMatches.collectAsState(initial = emptyList())
+    viewModel.loadHistoryMatches()
     val scalingLazyState = remember {
         ScalingLazyListState(
-            initialCenterItemIndex = 2,
-            initialCenterItemScrollOffset = 40
+            initialCenterItemIndex = if (listMatches.isEmpty()) 0 else 1,
+            initialCenterItemScrollOffset = if (listMatches.isEmpty()) 0 else 0
         )
     }
-    viewModel.loadHistoryMatches()
-
-    val listMatches by viewModel.historyMatches.collectAsState(initial = emptyList())
-
 
     MyScaffold(scalingLazyState = scalingLazyState) {
         ScalingLazyColumn(
             modifier = Modifier.fillMaxSize(),
-            autoCentering = AutoCenteringParams(itemIndex = 2),
+            autoCentering = AutoCenteringParams(itemIndex = 1, itemOffset = 0),
             state = scalingLazyState,
-            anchorType = ScalingLazyListAnchorType.ItemStart
+            anchorType = if (listMatches.isEmpty()) {
+                ScalingLazyListAnchorType.ItemStart
+            } else {
+                ScalingLazyListAnchorType.ItemCenter
+            }
         ) {
             item {
                 CustomText(
@@ -66,24 +69,32 @@ internal fun ListGameScreen(
                         .wrapContentWidth(Alignment.CenterHorizontally)
                 )
             }
+
             if (listMatches.isEmpty()) {
                 item {
-                    CustomText(
-                        modifier = Modifier.padding(horizontal = 8.dp),
-                        text = stringResource(id = R.string.empty_history),
-                        textStyle = TextStyle(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight(400),
-                            color = White,
-                            textAlign = TextAlign.Center
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        CustomText(
+                            modifier = Modifier.padding(horizontal = 8.dp),
+                            text = stringResource(id = R.string.empty_history),
+                            textStyle = TextStyle(
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight(400),
+                                color = White,
+                                textAlign = TextAlign.Center
+                            )
                         )
-                    )
+                    }
                 }
             } else {
                 items(listMatches.asReversed().take(5)) { match ->
                     ResultComposable(match)
                 }
             }
+
             item {
                 Column {
                     Modifier.weight(1f)
@@ -92,3 +103,4 @@ internal fun ListGameScreen(
         }
     }
 }
+
