@@ -44,22 +44,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-@Composable
-fun SplashScreen() {
-    LaunchedEffect(key1 = true) {
-        delay(3000)
-    }
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(LightBlack),
-        contentAlignment = Alignment.Center
-    ) {
-        CustomImageVectorIcon(
-            imageVector = ImageVector.vectorResource(id =R.drawable.ic_logo),
-            contentDescription = "",
-            color = Orange
-        )
-    }
-}

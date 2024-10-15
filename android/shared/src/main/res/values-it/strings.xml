@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">ScoreSaver</string>
+    <string name="new_game">Nuova partita</string>
+    <string name="game_save">Partita salvata</string>
+    <string name="history_game">Storico</string>
+    <string name="empty_history">Nessuna partita salvata</string>
+    <string name="type_game">Tipo di gioco</string>
+    <string name="rules_game">Regole del game</string>
+    <string name="order_service">Ordine di servizio</string>
+    <string name="order">Ordine</string>
+    <string name="advantages">Vantaggi</string>
+    <string name="next">Avanti</string>
+    <string name="start_game">Avvia</string>
+    <string name="title">Scoresaver</string>
+    <string name="team_1">Team A</string>
+    <string name="team_2">Team B</string>
+    <string name="single_game">Singolo</string>
+    <string name="double_game">Doppio</string>
+    <string name="killer_text">Killer Point</string>
+    <string name="description_killer_point">Puoi attivare o disattivare il killer point durante la partita premendo sull\'icona con il teschio</string>
+    <string name="height_title">Altezza</string>
+    <string name="age_title">Età</string>
+    <string name="weight_title">Peso</string>
+    <string name="gender_title">Sesso</string>
+    <string name="next_step">Continua</string>
+    <string name="male">Maschio</string>
+    <string name="female">Femmina</string>
+    <string name="height_question">Quanto sei alto?</string>
+    <string name="age_question">Quanto anni hai?</string>
+    <string name="weight_question">Quanto pesi?</string>
+    <string name="cm">CM</string>
+    <string name="kg">KG</string>
+    <string name="time">Tempo</string>
+    <string name="hearth">Battito</string>
+    <string name="kcal">Kcal</string>
+    <string name="killer_point_deactive">Killer point disattivato</string>
+    <string name="killer_point_active">Killer point attivato</string>
+    <string name="complete_game_title">Concludere partita</string>
+    <string name="complete_game_description">Sei sicuro di voler concludere la partita?</string>
+    <string name="padel">Padel</string>
+    <string name="tennis">Tennis</string>
+    <string name="finish_match_descritpion">Partita conclusa, il vincitore è il team %s</string>
+</resources>
