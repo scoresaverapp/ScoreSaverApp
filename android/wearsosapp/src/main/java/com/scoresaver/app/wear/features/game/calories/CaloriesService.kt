@@ -116,8 +116,7 @@ class CaloriesTrackingService : Service() {
                             }
                         }
                     }
-                    val formattedCalories = String.format("%.2f", totalCalories)
-                    calories = formattedCalories.toFloat()
+                    calories += totalCalories
                     val intent = Intent("CALORIES_TICK")
                     intent.putExtra("calories", calories)
                     Log.d("LOLO", "Caloreis read $calories")

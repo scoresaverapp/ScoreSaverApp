@@ -58,9 +58,6 @@ fun HomeScreen(navController: NavController) {
                 CustomSpacer(size = 8.dp)
             }
             item {
-                val brush = Brush.horizontalGradient(
-                    colors = listOf(Orange, White)
-                )
                 FullWidthRoundButton(
                     text = stringResource(id = R.string.new_game),
                     onPress = { navController.navigate(Screen.SportScreen.route) },
@@ -73,18 +70,20 @@ fun HomeScreen(navController: NavController) {
                     iconColor = White
                 )
             }
-            item {
-                FullWidthRoundButton(
-                    text = stringResource(id = R.string.game_save),
-                    onPress = { },
-                    backgroundColor = Black,
-                    borderColor = Orange,
-                    textColor = Orange,
-                    rightIcon = R.drawable.ic_clock,
-                    iconSize = 17.dp,
-                    textSize = 16,
-                    iconColor = Orange
-                )
+            if(false) {
+                item {
+                    FullWidthRoundButton(
+                        text = stringResource(id = R.string.game_save),
+                        onPress = { },
+                        backgroundColor = Black,
+                        borderColor = Orange,
+                        textColor = Orange,
+                        rightIcon = R.drawable.ic_clock,
+                        iconSize = 17.dp,
+                        textSize = 16,
+                        iconColor = Orange
+                    )
+                }
             }
             item {
                 FullWidthRoundButton(
