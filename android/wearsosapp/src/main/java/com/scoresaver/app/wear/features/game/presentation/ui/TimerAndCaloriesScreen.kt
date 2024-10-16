@@ -140,7 +140,7 @@ internal fun TimeAndCaloriesScreen(
             item {
                 StatsValue(
                     text = stringResource(id = R.string.hearth),
-                    value = viewModel.hearthRate.toString(),
+                    value = viewModel.hearthRate.toString().split(".")[0],
                     valueColor = Orange
                 )
             }
