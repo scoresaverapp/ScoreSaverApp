@@ -18,8 +18,8 @@ android {
         applicationId = "com.scoresaver.app"
         minSdk = 28
         targetSdk = 33
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 9
+        versionName = "1.5"
         vectorDrawables {
             useSupportLibrary = true
         }
