@@ -24,6 +24,9 @@ appcompat = "1.7.0"
 material = "1.12.0"
 uiGraphicsAndroid = "1.7.3"
 gson = "2.10.1"
+firebaseCrashlytics = "19.2.0"
+googleGmsGoogleServices = "4.4.2"
+googleFirebaseCrashlytics = "3.0.2"
 
 [libraries]
 androidx-compose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "composeNavigation" }
@@ -59,6 +62,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-ui-graphics-android = { group = "androidx.compose.ui", name = "ui-graphics-android", version.ref = "uiGraphicsAndroid" }
 gson = {group = "com.google.code.gson", name = "gson", version.ref = "gson"}
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -67,4 +71,6 @@ kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 parcelize = {id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize"}
 hiltDagger = { id  = "com.google.dagger.hilt.android", version.ref = "daggerHilt"}
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
+googleGmsGoogleServices = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
+googleFirebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlytics" }
 

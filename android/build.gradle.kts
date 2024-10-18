@@ -6,4 +6,6 @@ plugins {
     alias(libs.plugins.parcelize) apply false
     alias(libs.plugins.hiltDagger) apply false
     alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.googleGmsGoogleServices) apply false
+    alias(libs.plugins.googleFirebaseCrashlytics) apply false
 }
