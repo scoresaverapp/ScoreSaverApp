@@ -141,7 +141,7 @@ internal class GameViewModel @Inject constructor(
         context.startService(intent)
     }
 
-    fun resetTimer() {
+    private fun resetTimer() {
         _isTimerRunning.value = false
         val intent = Intent(context, TimerService::class.java).apply {
             action = "RESET_TIMER"
@@ -153,7 +153,7 @@ internal class GameViewModel @Inject constructor(
         timerBroadcastReceiver.onTimerTick = { seconds ->
             viewModelScope.launch {
                 _formattedSeconds.value = formatSeconds(seconds)
-                getCalories(seconds / 60)
+                //getCalories(seconds / 60)
             }
         }
         val intentFilter = IntentFilter("TIMER_TICK")

@@ -144,13 +144,13 @@ internal fun TimeAndCaloriesScreen(
                     valueColor = Orange
                 )
             }
-            item {
-                StatsValue(
-                    text = stringResource(id = R.string.kcal),
-                    value = viewModel.calories,
-                    valueColor = Orange
-                )
-            }
+//            item {
+//                StatsValue(
+//                    text = stringResource(id = R.string.kcal),
+//                    value = viewModel.calories,
+//                    valueColor = Orange
+//                )
+//            }
             item {
                 Row {
                     RoundButton(
