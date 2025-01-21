@@ -41,4 +41,5 @@
     <string name="padel">Padel</string>
     <string name="tennis">Tennis</string>
     <string name="finish_match_descritpion">Game over, the winner is the team %s</string>
+    <string name="app_description">Use your Android Smartwatch to use the App during your games</string>
 </resources>
