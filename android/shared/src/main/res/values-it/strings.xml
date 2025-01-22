@@ -42,5 +42,5 @@
     <string name="padel">Padel</string>
     <string name="tennis">Tennis</string>
     <string name="finish_match_descritpion">Partita conclusa, il vincitore è il team %s</string>
-    <string name="app_description">Usa il tuo Smartwatch Android per utilizzare l’App duarnte le tue partite</string>
+    <string name="app_description">Usa il tuo Smartwatch Android per utilizzare l’App durante le tue partite</string>
 </resources>

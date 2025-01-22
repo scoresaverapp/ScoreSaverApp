@@ -11,7 +11,7 @@ android {
         applicationId = "com.scoresaver.app"
         minSdk = 28
         targetSdk = 34
-        versionCode = 12
+        versionCode = 15
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -68,5 +68,6 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.play.services.wearable.v1900)
     implementation(project(":shared"))
 }

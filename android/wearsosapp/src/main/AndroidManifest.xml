@@ -9,6 +9,7 @@
     <uses-feature android:name="android.hardware.sensor.heartrate" />
 
 
+
     <application
         android:name=".wear.ScoreSaverApplication"
         android:allowBackup="true"
@@ -40,6 +41,11 @@
             </intent-filter>
         </activity>
         <service android:name=".wear.features.game.timer.TimerService"/>
+
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
+
     </application>
 
 </manifest>

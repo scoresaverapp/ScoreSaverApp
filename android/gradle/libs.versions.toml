@@ -15,6 +15,7 @@ playServicesWearable = "18.2.0"
 composeMaterial = "1.4.0"
 composeFoundation = "1.4.0"
 coreSplashscreen = "1.0.1"
+playServicesWearableVersion = "19.0.0"
 room_version = "2.6.1"
 daggerHilt = "2.52"
 parcelize = "1.8.0"
@@ -33,6 +34,7 @@ androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-com
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "daggerHilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "daggerHilt" }
+play-services-wearable-v1900 = { module = "com.google.android.gms:play-services-wearable", version.ref = "playServicesWearableVersion" }
 room = {group = "androidx.room", name = "room-runtime", version.ref = "room_version"}
 room-compiler = {group = "androidx.room", name = "room-compiler", version.ref = "room_version"}
 room-kapt = {group = "androidx.room", name = "room-compiler", version.ref = "room_version"}
