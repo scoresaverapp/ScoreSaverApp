@@ -75,7 +75,7 @@ internal fun GameRuleScreen(
                     onClick = viewModel::setKillerPointSwitchValue
                 )
             }
-            item {
+/*            item {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     CustomImageVectorIcon(
                         modifier = Modifier
@@ -96,7 +96,7 @@ internal fun GameRuleScreen(
                     )
                 }
 
-            }
+            }*/
         }
     }
 }
